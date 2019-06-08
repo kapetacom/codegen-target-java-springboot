@@ -1,0 +1,4 @@
+#FILENAME:src/main/resources/application.yml
+spring:
+  application:
+    name: {{lowercase data.metadata.name}}
