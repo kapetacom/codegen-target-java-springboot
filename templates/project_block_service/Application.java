@@ -1,7 +1,7 @@
 //#FILENAME:src/main/java/{{packagePath options.basePackage}}/{{type data.metadata.name}}Application.java
 package {{options.basePackage}};
 
-import com.blockware.spring.Blockware;
+import com.blockware.spring.BlockwareApplication;
 import com.blockware.spring.annotation.*;
 
 @BlockwareApplication
@@ -44,7 +44,7 @@ import com.blockware.spring.annotation.*;
 public class {{type data.metadata.name}}Application {
 
     public static void main(String[] args) {
-        Blockware.run({{type data.metadata.name}}Application.class, args);
+        BlockwareApplication.run({{type data.metadata.name}}Application.class, args);
     }
 
 }
