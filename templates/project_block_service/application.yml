@@ -1,4 +1,4 @@
-#FILENAME:src/main/resources/application.yml
+#FILENAME:src/main/resources/application.yml:merge
 spring:
   application:
     name: {{lowercase data.metadata.name}}

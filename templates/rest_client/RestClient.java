@@ -1,4 +1,4 @@
-//#FILENAME:src/main/java/{{packagePath options.basePackage}}/gen/clients/{{type data.metadata.name}}Client.java
+//#FILENAME:src/main/java/{{packagePath options.basePackage}}/gen/clients/{{type data.metadata.name}}Client.java:write-always
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
@@ -7,7 +7,7 @@ package {{options.basePackage}}.gen.clients;
 import retrofit2.Call;
 import retrofit2.http.*;
 import com.blockware.spring.annotation.*;
-import {{options.basePackage}}.gen.dto.*;
+import {{options.basePackage}}.dto.*;
 import java.util.*;
 
 @BlockwareRestClient("{{string data.metadata.name}}")
@@ -29,7 +29,7 @@ public interface {{type data.metadata.name}}Client {
                 {{#case 'header'}} @Header("{{string headerName}}"){{/case}}
                 {{#case 'body'}} @Body {{/case}}
             {{/switch}}
-            {{type type}} {{variable argumentName}}
+            {{class type}} {{variable argumentName}}
 
         {{/arguments}}
     );

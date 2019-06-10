@@ -1,13 +1,13 @@
-//#FILENAME:src/main/java/{{packagePath options.basePackage}}/gen/service/{{type data.metadata.name}}Service.java
+//#FILENAME:src/main/java/{{packagePath options.basePackage}}/gen/service/I{{type data.metadata.name}}Service.java:write-always
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
 package {{options.basePackage}}.gen.service;
 
-import {{options.basePackage}}.gen.dto.*;
+import {{options.basePackage}}.dto.*;
 import java.util.*;
 
-public interface {{type data.metadata.name}}Service {
+public interface I{{type data.metadata.name}}Service {
 
 {{#methods data.spec.methods}}
 
@@ -16,7 +16,7 @@ public interface {{type data.metadata.name}}Service {
      */
     {{returnType responseType}} {{method methodName}}(
             {{#arguments arguments}}
-                {{type type}} {{variable argumentName}}
+                {{class type}} {{variable argumentName}}
             {{/arguments}}
         ) throws Exception;
 

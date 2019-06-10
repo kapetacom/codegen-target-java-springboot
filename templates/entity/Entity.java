@@ -1,17 +1,12 @@
-//#FILENAME:src/main/java/{{packagePath options.basePackage}}/gen/dto/{{type data.name}}.java
-/**
- * GENERATED SOURCE - DO NOT EDIT
- */
-package {{options.basePackage}}.gen.dto;
+//#FILENAME:src/main/java/{{packagePath options.basePackage}}/dto/{{type data.name}}.java:create-only
+package {{options.basePackage}}.dto;
 
 import lombok.*;
 import java.util.*;
 
-@Data
-public class {{type data.name}} {
+import {{options.basePackage}}.gen.dto.{{type data.name}}Base
 
-{{#eachProperty data.properties}}
-    private {{type ./type}} {{variable propertyId}};
-{{/eachProperty}}
+@Data
+public class {{class data.name}} extends {{type data.name}}Base {
 
 }

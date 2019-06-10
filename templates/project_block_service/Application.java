@@ -1,4 +1,4 @@
-//#FILENAME:src/main/java/{{packagePath options.basePackage}}/{{type data.metadata.name}}Application.java
+//#FILENAME:src/main/java/{{packagePath options.basePackage}}/{{type data.metadata.name}}Application.java:write-always
 package {{options.basePackage}};
 
 import com.blockware.spring.BlockwareApplication;

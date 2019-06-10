@@ -1,4 +1,4 @@
-//#FILENAME:src/main/java/{{packagePath options.basePackage}}/gen/rest/{{type data.metadata.name}}Controller.java
+//#FILENAME:src/main/java/{{packagePath options.basePackage}}/gen/rest/{{type data.metadata.name}}Controller.java:write-always
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
@@ -8,17 +8,17 @@ import {{options.basePackage}}.gen.service.{{type data.metadata.name}}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.blockware.spring.annotation.*;
-import {{options.basePackage}}.gen.dto.*;
+import {{options.basePackage}}.dto.*;
 import java.util.*;
 
 @RestController
 @BlockwareController("{{namespace data.metadata.name}}")
 public class {{type data.metadata.name}}Controller {
 
-    private final {{type data.metadata.name}}Service service;
+    private final I{{type data.metadata.name}}Service service;
 
     @Autowired
-    public {{type data.metadata.name}}Controller( {{type data.metadata.name}}Service service ) {
+    public {{type data.metadata.name}}Controller( I{{type data.metadata.name}}Service service ) {
         this.service = service;
     }
 
@@ -37,7 +37,7 @@ public class {{type data.metadata.name}}Controller {
                     {{#case 'header'}} @RequestHeader("{{string headerName}}") {{/case}}
                     {{#case 'body'}} @RequestBody {{/case}}
                 {{/switch}}
-                {{type type}} {{variable argumentName}}
+                {{class type}} {{variable argumentName}}
             {{/arguments}}
         )  throws Exception {
 

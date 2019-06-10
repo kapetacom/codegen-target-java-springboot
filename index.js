@@ -1,6 +1,10 @@
 const {Target, Template} = require('@blockware/codegen-target');
 const prettier = require("prettier");
 
+function ucfirst(text) {
+    return text.substr(0,1).toUpperCase() + text.substr(1);
+}
+
 class Java8SpringBoot2Target extends Target {
 
     constructor(options) {
@@ -9,6 +13,49 @@ class Java8SpringBoot2Target extends Target {
 
     _createTemplateEngine(data) {
         const engine = super._createTemplateEngine(data);
+
+        function isEntity(type) {
+            return !!_.find(data.spec.entities, {name: type});
+        }
+
+        function isPrimitive(type) {
+            switch (type.toLowerCase()) {
+                case 'boolean':
+                case 'int':
+                case 'float':
+                case 'double':
+                case 'long':
+                case 'byte':
+                case 'short':
+                case 'char':
+                case 'void':
+                    return true;
+            }
+
+            return false;
+        }
+
+        function classHelper(typeName) {
+            if (isEntity(typeName)) {
+                return ucfirst(typeName) + 'DTO';
+            }
+
+            if (isPrimitive(typeName)) {
+                return typeName.toLowerCase();
+            }
+
+            return Template.SafeString(ucfirst(typeName));
+        }
+
+        engine.registerHelper('class', classHelper);
+
+        engine.registerHelper('returnType', (type) => {
+            if (!type) {
+                return 'void';
+            }
+
+            return classHelper(type);
+        });
 
         engine.registerHelper('packagePath', (packageName) => {
             return Template.SafeString(packageName.replace(/\./g, '/'));
