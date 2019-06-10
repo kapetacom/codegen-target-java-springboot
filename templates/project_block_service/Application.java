@@ -4,7 +4,7 @@ package {{options.basePackage}};
 import com.blockware.spring.BlockwareApplication;
 import com.blockware.spring.annotation.*;
 
-@BlockwareApplication
+@BlockwareSpringApplication
 {{#consumes 'rest.blockware.com/v1/Client'}}
 @BlockwareEnableRestClient
 {{/consumes}}
