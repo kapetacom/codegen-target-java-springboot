@@ -19,9 +19,7 @@ public interface {{type data.metadata.name}}Client {
      * {{comment description}}
      */
     @{{type method}}("{{relativePath path}}")
-    Call<{{returnType responseType}}> {{method methodName}} (
-
-        {{#arguments arguments}}
+    Call<{{returnType responseType}}> {{method methodName}} ( {{#arguments arguments}}
 
             {{#switch transport}}
                 {{#case 'path'}} @Path("{{string argumentName}}") {{/case}}
@@ -31,8 +29,7 @@ public interface {{type data.metadata.name}}Client {
             {{/switch}}
             {{class type}} {{variable argumentName}}
 
-        {{/arguments}}
-    );
+        {{/arguments}} );
 
 {{/methods}}
 

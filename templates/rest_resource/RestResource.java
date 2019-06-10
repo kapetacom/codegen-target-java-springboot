@@ -4,11 +4,12 @@
  */
 package {{options.basePackage}}.gen.rest;
 
-import {{options.basePackage}}.gen.service.{{type data.metadata.name}}Service;
+import {{options.basePackage}}.gen.service.I{{type data.metadata.name}}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.blockware.spring.annotation.*;
 import {{options.basePackage}}.dto.*;
+
 import java.util.*;
 
 @RestController
@@ -29,8 +30,7 @@ public class {{type data.metadata.name}}Controller {
      */
     {{#if responseType}}@ResponseBody{{/if}}
     @RequestMapping(value = "{{string path}}", method = RequestMethod.{{constant method}})
-    public {{returnType responseType}} {{method methodName}} (
-            {{#arguments arguments}}
+    public {{returnType responseType}} {{method methodName}} ( {{#arguments arguments}}
                 {{#switch transport}}
                     {{#case 'path'}} @PathVariable("{{string argumentName}}") {{/case}}
                     {{#case 'query'}} @RequestParam("{{string argumentName}}") {{/case}}
@@ -38,8 +38,7 @@ public class {{type data.metadata.name}}Controller {
                     {{#case 'body'}} @RequestBody {{/case}}
                 {{/switch}}
                 {{class type}} {{variable argumentName}}
-            {{/arguments}}
-        )  throws Exception {
+            {{/arguments}} ) throws Exception {
 
         {{#if responseType}}return {{/if}}service.{{method methodName}} (
             {{#arguments arguments}}

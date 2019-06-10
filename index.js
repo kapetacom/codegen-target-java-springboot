@@ -1,5 +1,6 @@
 const {Target, Template} = require('@blockware/codegen-target');
 const prettier = require("prettier");
+const _ = require('lodash');
 
 function ucfirst(text) {
     return text.substr(0,1).toUpperCase() + text.substr(1);
@@ -11,14 +12,27 @@ class Java8SpringBoot2Target extends Target {
         super(options, __dirname);
     }
 
-    _createTemplateEngine(data) {
-        const engine = super._createTemplateEngine(data);
+    _createTemplateEngine(data, context) {
+        const engine = super._createTemplateEngine(data, context);
 
         function isEntity(type) {
-            return !!_.find(data.spec.entities, {name: type});
+            if (!type || 
+                !context.spec ||
+                !context.spec.entities) {
+                return false;
+            }
+
+            type = type.toLowerCase();
+            return !!_.find(context.spec.entities, (entity) => {
+                return (entity && entity.name && entity.name.toLowerCase() === type);
+            });
         }
 
         function isPrimitive(type) {
+            if (!type) {
+                return false;
+            }
+
             switch (type.toLowerCase()) {
                 case 'boolean':
                 case 'int':

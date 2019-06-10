@@ -2,3 +2,10 @@
 spring:
   application:
     name: {{lowercase data.metadata.name}}
+{{#consumes 'sqldb.blockware.com/v1/postgresql'}}
+  jpa:
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+{{/consumes}}
