@@ -1,6 +1,6 @@
 {
   "name": "@blockware/codegen-target-java8-springboot2",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "main": "index.js",
   "description": "Provides code generation support for Java8+ using Spring Boot 2",
   "repository": {
@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/blockwarecom/codegen-target-java8-springboot2#readme",
   "dependencies": {
-    "@blockware/codegen-target": "0.0.3",
+    "@blockware/codegen-target": "0.0.4",
     "lodash": "4.17.11",
     "prettier": "1.17.1",
     "prettier-plugin-java": "0.0.10"

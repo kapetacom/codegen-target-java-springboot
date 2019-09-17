@@ -3,6 +3,10 @@ const prettier = require("prettier");
 const _ = require('lodash');
 
 function ucfirst(text) {
+    if (text.$ref) {
+        text = text.$ref;
+    }
+
     return text.substr(0,1).toUpperCase() + text.substr(1);
 }
 
@@ -20,6 +24,10 @@ class Java8SpringBoot2Target extends Target {
                 !context.spec ||
                 !context.spec.entities) {
                 return false;
+            }
+
+            if (type.$ref) {
+                type = type.$ref;
             }
 
             type = type.toLowerCase();
