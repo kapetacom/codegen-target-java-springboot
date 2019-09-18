@@ -7,7 +7,7 @@
 
     <groupId>{{options.groupId}}</groupId>
     <artifactId>{{options.artifactId}}</artifactId>
-    <version>{{options.version}}</version>
+    <version>{{data.metadata.version}}</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
