@@ -39,13 +39,13 @@
         <dependency>
             <groupId>com.blockware.spring-boot</groupId>
             <artifactId>spring-boot</artifactId>
-            <version>0.0.4</version>
+            <version>0.0.5</version>
         </dependency>
         {{#consumes 'rest.blockware.com/v1/Client'}}
         <dependency>
             <groupId>com.blockware.spring-boot</groupId>
             <artifactId>rest-client</artifactId>
-            <version>0.0.4</version>
+            <version>0.0.5</version>
         </dependency>
         {{/consumes}}
         {{#provides 'rest.blockware.com/v1/Resource'}}
@@ -74,7 +74,7 @@
         <dependency>
             <groupId>com.blockware.spring-boot</groupId>
             <artifactId>nosql-mongodb</artifactId>
-            <version>0.0.2</version>
+            <version>0.0.3</version>
         </dependency>
         {{/consumes}}
         {{#consumes 'nosql.blockware.com/v1/couchbase'}}
@@ -103,7 +103,7 @@
         <dependency>
             <groupId>com.blockware.spring-boot</groupId>
             <artifactId>sqldb-postgresql</artifactId>
-            <version>0.0.2</version>
+            <version>0.0.3</version>
         </dependency>
         {{/consumes}}
         {{#consumes 'sqldb.blockware.com/v1/mysql'}}
