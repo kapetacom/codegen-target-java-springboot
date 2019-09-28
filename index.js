@@ -122,4 +122,11 @@ class Java8SpringBoot2Target extends Target {
 
 }
 
+Target.TYPES['POSTGRES_CLIENT'] = 'postgres_client';
+Target.TYPES['MONGODB_CLIENT'] = 'mongodb_client';
+
+Target.TEMPLATES['sqldb.blockware.com/v1/postgresql'] = Target.TYPES.POSTGRES_CLIENT;
+Target.TEMPLATES['nosql.blockware.com/v1/mongodb'] = Target.TYPES.MONGODB_CLIENT;
+
+
 module.exports = Java8SpringBoot2Target;
