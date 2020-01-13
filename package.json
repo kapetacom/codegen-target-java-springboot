@@ -1,25 +1,48 @@
 {
-  "name": "@blockware/codegen-target-java8-springboot2",
-  "version": "0.0.16",
-  "main": "index.js",
-  "description": "Provides code generation support for Java8+ using Spring Boot 2",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/blockwarecom/codegen-target-java8-springboot2.git"
-  },
-  "keywords": [
-    "blockware"
-  ],
-  "author": "Henrik Hofmeister <hh@blockware.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/blockwarecom/codegen-target-java8-springboot2/issues"
-  },
-  "homepage": "https://github.com/blockwarecom/codegen-target-java8-springboot2#readme",
-  "dependencies": {
-    "@blockware/codegen-target": "0.0.6",
-    "lodash": "4.17.11",
-    "prettier": "1.17.1",
-    "prettier-plugin-java": "0.0.10"
-  }
+    "name": "@blockware/codegen-target-java8-springboot2",
+    "version": "0.0.16",
+    "main": "index.js",
+    "description": "Provides code generation support for Java8+ using Spring Boot 2",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/blockwarecom/codegen-target-java8-springboot2.git"
+    },
+    "keywords": [
+        "blockware"
+    ],
+    "author": "Henrik Hofmeister <hh@blockware.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/blockwarecom/codegen-target-java8-springboot2/issues"
+    },
+    "homepage": "https://github.com/blockwarecom/codegen-target-java8-springboot2#readme",
+    "dependencies": {
+        "@blockware/codegen-target": "0.0.6",
+        "lodash": "4.17.11",
+        "prettier": "1.17.1",
+        "prettier-plugin-java": "0.0.10"
+    },
+    "devDependencies": {
+        "@types/lodash": "^4.14.149",
+        "@types/react": "^16.9.17",
+        "@blockware/ui-web-components": "^0.0.8",
+        "@blockware/ui-web-types": "^0.0.9",
+        "@babel/cli": "^7.7.7",
+        "@babel/core": "^7.7.7",
+        "@babel/plugin-proposal-class-properties": "^7.5.0",
+        "@babel/plugin-proposal-decorators": "^7.4.4",
+        "@babel/preset-env": "^7.5.0",
+        "@babel/preset-react": "^7.7.4",
+        "@babel/preset-typescript": "^7.3.3",
+        "babel-loader": "^8.0.6",
+        "json-loader": "^0.5.7",
+        "webpack": "^4.41.5",
+        "webpack-cli": "^3.3.10",
+        "yaml-loader": "^0.5.0",
+        "typescript": "^3.4.5"
+    },
+    "scripts": {
+        "prepublishOnly": "npm run build",
+        "build": "webpack"
+    }
 }
