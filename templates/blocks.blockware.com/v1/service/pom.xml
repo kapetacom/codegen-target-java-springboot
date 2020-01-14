@@ -48,7 +48,7 @@
             <version>0.0.6</version>
         </dependency>
         {{/consumes}}
-        {{#provides 'rest.blockware.com/v1/Resource'}}
+        {{#provides 'rest.blockware.com/v1/API'}}
         <dependency>
             <groupId>com.blockware.spring-boot</groupId>
             <artifactId>rest-resource</artifactId>
@@ -62,7 +62,7 @@
             <version>0.0.1</version>
         </dependency>
         {{/consumes}}
-        {{#provides 'grpc.blockware.com/v1/Resource'}}
+        {{#provides 'grpc.blockware.com/v1/API'}}
         <dependency>
             <groupId>com.blockware.spring-boot</groupId>
             <artifactId>grpc-resource</artifactId>
@@ -70,28 +70,28 @@
         </dependency>
         {{/provides}}
 
-        {{#consumes 'nosql.blockware.com/v1/mongodb'}}
+        {{#consumes 'nosqldb.blockware.com/v1/mongodb'}}
         <dependency>
             <groupId>com.blockware.spring-boot</groupId>
             <artifactId>nosql-mongodb</artifactId>
             <version>0.0.4</version>
         </dependency>
         {{/consumes}}
-        {{#consumes 'nosql.blockware.com/v1/couchbase'}}
+        {{#consumes 'nosqldb.blockware.com/v1/couchbase'}}
         <dependency>
             <groupId>com.blockware.spring-boot</groupId>
             <artifactId>nosql-couchbase</artifactId>
             <version>0.0.1</version>
         </dependency>
         {{/consumes}}
-        {{#consumes 'nosql.blockware.com/v1/cassandra'}}
+        {{#consumes 'nosqldb.blockware.com/v1/cassandra'}}
         <dependency>
             <groupId>com.blockware.spring-boot</groupId>
             <artifactId>nosql-cassandra</artifactId>
             <version>0.0.1</version>
         </dependency>
         {{/consumes}}
-        {{#consumes 'nosql.blockware.com/v1/redis'}}
+        {{#consumes 'nosqldb.blockware.com/v1/redis'}}
         <dependency>
             <groupId>com.blockware.spring-boot</groupId>
             <artifactId>nosql-redis</artifactId>

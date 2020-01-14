@@ -8,25 +8,25 @@ import com.blockware.spring.annotation.*;
 {{#consumes 'rest.blockware.com/v1/Client'}}
 @BlockwareEnableRestClient
 {{/consumes}}
-{{#provides 'rest.blockware.com/v1/Resource'}}
+{{#provides 'rest.blockware.com/v1/API'}}
 @BlockwareEnableRestResource
 {{/provides}}
 {{#consumes 'grpc.blockware.com/v1/Client'}}
 @BlockwareEnableGRPCClient
 {{/consumes}}
-{{#provides 'grpc.blockware.com/v1/Resource'}}
+{{#provides 'grpc.blockware.com/v1/API'}}
 @BlockwareEnableGRPCResource
 {{/provides}}
-{{#consumes 'nosql.blockware.com/v1/mongodb'}}
+{{#consumes 'nosqldb.blockware.com/v1/mongodb'}}
 @BlockwareEnableMongoDB
 {{/consumes}}
-{{#consumes 'nosql.blockware.com/v1/couchdb'}}
+{{#consumes 'nosqldb.blockware.com/v1/couchdb'}}
 @BlockwareEnableCouchDB
 {{/consumes}}
-{{#consumes 'nosql.blockware.com/v1/cassandra'}}
+{{#consumes 'nosqldb.blockware.com/v1/cassandra'}}
 @BlockwareEnableCassandra
 {{/consumes}}
-{{#consumes 'nosql.blockware.com/v1/redis'}}
+{{#consumes 'nosqldb.blockware.com/v1/redis'}}
 @BlockwareEnableRedis
 {{/consumes}}
 {{#consumes 'sqldb.blockware.com/v1/postgresql'}}
