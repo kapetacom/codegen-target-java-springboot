@@ -1,6 +1,6 @@
 {
     "name": "@blockware/codegen-target-java8-springboot2",
-    "version": "0.0.18",
+    "version": "0.0.19",
     "main": "index.js",
     "description": "Provides code generation support for Java8+ using Spring Boot 2",
     "repository": {
