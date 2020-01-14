@@ -1,6 +1,6 @@
 {
     "name": "@blockware/codegen-target-java8-springboot2",
-    "version": "0.0.17",
+    "version": "0.0.18",
     "main": "index.js",
     "description": "Provides code generation support for Java8+ using Spring Boot 2",
     "repository": {
@@ -26,11 +26,15 @@
         "prettier": "1.17.1",
         "prettier-plugin-java": "0.0.10"
     },
+    "peerDependencies": {
+        "@blockware/ui-web-components": "^0.0.8",
+        "@blockware/ui-web-types": "^0.0.10"
+    },
     "devDependencies": {
         "@types/lodash": "^4.14.149",
         "@types/react": "^16.9.17",
         "@blockware/ui-web-components": "^0.0.8",
-        "@blockware/ui-web-types": "^0.0.9",
+        "@blockware/ui-web-types": "^0.0.10",
         "@babel/cli": "^7.7.7",
         "@babel/core": "^7.7.7",
         "@babel/plugin-proposal-class-properties": "^7.5.0",

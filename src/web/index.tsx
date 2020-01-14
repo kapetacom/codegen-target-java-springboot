@@ -6,6 +6,12 @@ import {TargetConfig, TargetConfigProps} from "@blockware/ui-web-types";
 
 const blockwareDefinition = require('../../blockware.yml');
 
+interface JavaTargetConfigOptions {
+    basePackage:string
+    groupId:string
+    artifactId:string
+}
+
 function validatePackageName(fieldName:string, value:string) {
     if (!/^[a-z][a-z0-9_-]*(\.[a-z][a-z0-9_-]*)+[0-9a-z_]$/.test(value)) {
         throw new Error('Not a valid Java package name');
@@ -25,7 +31,7 @@ function validateGroupId(fieldName:string, value:string) {
 }
 
 
-class JavaTargetConfig extends Component<TargetConfigProps, any> {
+class JavaTargetConfig extends Component<TargetConfigProps<JavaTargetConfigOptions>, JavaTargetConfigOptions> {
 
     constructor(props:any){
         super(props);
@@ -81,7 +87,7 @@ class JavaTargetConfig extends Component<TargetConfigProps, any> {
     }
 }
 
-const targetConfig : TargetConfig =  {
+const targetConfig : TargetConfig<JavaTargetConfigOptions> =  {
     kind: blockwareDefinition.metadata.id,
     name: blockwareDefinition.metadata.name,
     blockKinds:[
