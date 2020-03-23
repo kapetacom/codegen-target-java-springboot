@@ -41,6 +41,10 @@ class Java8SpringBoot2Target extends Target {
                 return false;
             }
 
+            if (typeof type !== 'string') {
+                throw new Error('Type must be a string but was: ' + typeof type + '. Value: ' + JSON.stringify(type));
+            }
+
             switch (type.toLowerCase()) {
                 case 'boolean':
                 case 'int':
@@ -58,6 +62,26 @@ class Java8SpringBoot2Target extends Target {
         }
 
         function classHelper(typeName) {
+
+            if (!typeName) {
+                return typeName;
+            }
+
+            if (typeName.$ref) {
+                typeName = typeName.$ref;
+            }
+
+            const list = isList(typeName);
+
+            if (list) {
+                typeName = typeName.substr(0, typeName.length - 2);
+                return Template.SafeString(`List<${classHelperName(typeName)}>`);
+            }
+
+            return classHelperName(typeName);
+        }
+
+        function classHelperName(typeName) {
             if (isEntity(typeName)) {
                 return ucfirst(typeName) + 'DTO';
             }
@@ -67,6 +91,10 @@ class Java8SpringBoot2Target extends Target {
             }
 
             return Template.SafeString(ucfirst(typeName));
+        }
+
+        function isList(typeName) {
+            return typeName.endsWith('[]');
         }
 
         engine.registerHelper('class', classHelper);
