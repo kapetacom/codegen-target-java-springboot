@@ -1,7 +1,7 @@
-import React, {ChangeEvent, Component} from "react";
+import React, { Component} from "react";
 import _ from 'lodash';
 
-import {FormRow} from "@blockware/ui-web-components";
+import { SingleLineInput} from "@blockware/ui-web-components";
 import {TargetConfig, TargetConfigProps} from "@blockware/ui-web-types";
 
 const blockwareDefinition = require('../../blockware.yml');
@@ -42,8 +42,8 @@ class JavaTargetConfig extends Component<TargetConfigProps<JavaTargetConfigOptio
         };
     }
 
-    valueChanged(evt:ChangeEvent<HTMLInputElement>) {
-        this.setState({[evt.target.name]: evt.target.value.trim().toLowerCase()}, () => {
+    valueChanged(name:string, input: string) {
+        this.setState({[name]: input.trim().toLowerCase()}, () => {
             this.props.onOptionsChanged(this.state);
         });
     }
@@ -52,36 +52,35 @@ class JavaTargetConfig extends Component<TargetConfigProps<JavaTargetConfigOptio
 
         return (
             <>
-                <FormRow label="Package name"
-                         help="Must be a valid java package name."
-                         validation={['required', validatePackageName]}>
 
-                    <input type="text" name="basePackage"
-                           placeholder="E.g. org.my-company"
-                           value={this.state.basePackage}
-                           onChange={(evt)=> this.valueChanged(evt)} />
-                </FormRow>
+                <SingleLineInput
+                    name={"basePackage"}
+                    value={this.state.basePackage}
+                    label={"Package name"}
+                    validation={['required', validatePackageName]}
+                    help={"Must be a valid java package name. E.g. org.my-company"}
+                    onChange={(name:string,input:string)=>this.valueChanged(name,input)}
+                />
 
-                <FormRow label="Group ID"
-                         help="A valid Maven Group ID"
-                         validation={['required', validateGroupId]}>
+                <SingleLineInput
+                    name={"groupId"}
+                    value={this.state.groupId}
+                    label={"Group ID"}
+                    validation={['required', validateGroupId]}
+                    help={"A valid Maven Group ID. E.g. org.my-company"}
+                    onChange={(name:string,input:string)=>this.valueChanged(name,input)}
+                />
 
-                    <input type="text" name="groupId"
-                           placeholder="E.g. org.my-company"
-                           value={this.state.groupId}
-                           onChange={(evt)=> this.valueChanged(evt)} />
-                </FormRow>
 
-                <FormRow label="Artifact ID"
-                         help="A valid Maven Artifact ID"
-                         validation={['required', validateArtifactId]}>
+                <SingleLineInput
+                    name={"artifactId"}
+                    value={this.state.artifactId}
+                    label={"Artifact ID"}
+                    validation={['required', validateArtifactId]}
+                    help={"A valid Maven Artifact ID. E.g. my-block-id"}
+                    onChange={(name:string,input:string)=>this.valueChanged(name,input)}
+                />
 
-                    <input type="text" name="artifactId"
-                           placeholder="E.g. my-block-id"
-                           value={this.state.artifactId}
-                           onChange={(evt)=> this.valueChanged(evt)} />
-
-                </FormRow>
             </>
         )
     }
