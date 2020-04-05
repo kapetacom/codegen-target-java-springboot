@@ -1,10 +1,9 @@
-//#FILENAME:Dockerfile:write-always
-/**
- * GENERATED SOURCE - DO NOT EDIT
- */
+##FILENAME:Dockerfile:merge
 FROM openjdk:8
 
-ADD target/{{jarName}}.jar block.jar
-CMD [ "java", "-jar", "/block.jar" ]
+ADD block.yml /application/block.yml
+ADD target/{{options.artifactId}}.jar /application/{{options.artifactId}}.jar
 
-EXPOSE {{port}}
+WORKDIR /application
+
+CMD [ "java", "-jar", "/application/{{options.artifactId}}.jar" ]
