@@ -20,7 +20,7 @@ class Java8SpringBoot2Target extends Target {
         const engine = super._createTemplateEngine(data, context);
 
         function isEntity(type) {
-            if (!type || 
+            if (!type || 
                 !context.spec ||
                 !context.spec.entities) {
                 return false;
