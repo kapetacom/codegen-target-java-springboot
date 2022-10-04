@@ -1,0 +1,285 @@
+kind: blocks.blockware.com/v1/Service
+metadata:
+  name: Todo
+  version: 4.1.14
+spec:
+  target:
+    kind: targets.blockware.com/v1/Java8-SpringBoot2
+    options:
+      basePackage: org.mycompany.services.todo
+      groupId: org.mycompany.services
+      artifactId: todo
+  entities:
+    types:
+      - type: enum
+        name: TaskType
+        description: null
+        values:
+          - DEV
+          - DESIGN
+      - type: dto
+        name: Task
+        description: null
+        properties:
+          id:
+            description: null
+            type: string
+            properties: null
+          listId:
+            description: null
+            type: string
+            properties: null
+          userId:
+            description: null
+            type: string
+            properties: null
+          title:
+            description: null
+            type: string
+            properties: null
+          description:
+            description: null
+            type: string
+            properties: null
+          done:
+            description: null
+            type: boolean
+            properties: null
+          type:
+            description: null
+            type:
+              $ref: TaskType
+            properties: null
+      - type: dto
+        name: User
+        description: null
+        properties:
+          id:
+            description: null
+            type: string
+            properties: null
+          name:
+            description: null
+            type: string
+            properties: null
+          email:
+            description: null
+            type: string
+            properties: null
+          tasks:
+            type: array
+            description: null
+            items:
+              type:
+                $ref: Task
+              properties: null
+      - type: dto
+        name: TaskList
+        description: null
+        properties:
+          id:
+            description: null
+            type: string
+            properties: null
+          title:
+            description: null
+            type: string
+            properties: null
+          createdBy:
+            description: null
+            type: string
+            properties: null
+          created:
+            description: null
+            type: long
+            properties: null
+      - type: dto
+        name: UserAuth
+        description: null
+        properties:
+          username:
+            description: null
+            type: string
+            properties: null
+          password:
+            description: null
+            type: string
+            properties: null
+    source:
+      type: blockware-dsl
+      value: |-
+        enum TaskType {
+        	DEV,
+        	DESIGN2
+        }
+
+        Task {
+        	id: string
+        	listId: string
+        	userId: string
+        	title: string
+        	description: string
+        	done: boolean
+        	type: TaskType
+        }
+
+
+        User {
+        	id: string
+        	name: string
+        	email: string
+        	tasks:Task[]
+        }
+
+
+        TaskList {
+        	id: string
+        	title: string
+        	createdBy: string
+        	created: long
+        }
+
+        UserAuth {
+        	username: string
+        	password: string
+        }
+  consumers:
+    - kind: nosqldb.blockware.com/v1/mongodb
+      metadata:
+        name: tododb
+    - kind: rest.blockware.com/v1/Client
+      metadata:
+        name: users
+      spec:
+        methods:
+          deleteUser:
+            method: DELETE
+            path: /users/{other}
+            arguments:
+              other:
+                type: string
+                transport: path
+                id: other
+          getUser:
+            method: GET
+            path: /users/{other}/test
+            arguments:
+              other:
+                type: string
+                transport: path
+                id: other
+            responseType:
+              $ref: User
+  providers:
+    - kind: rest.blockware.com/v1/API
+      metadata:
+        name: tasks
+      spec:
+        methods:
+          addTask:
+            description: Add task to list
+            method: POST
+            path: /tasks/{listId}/new
+            arguments:
+              listId:
+                type: string
+                transport: PATH
+                id: listId
+              task:
+                id: task
+                type:
+                  $ref: Task
+                transport: BODY
+          removeTask:
+            description: Remove task from list
+            method: DELETE
+            path: /tasks/{listId}/{taskId}
+            arguments:
+              listId:
+                id: listId
+                type: string
+                transport: PATH
+              taskId:
+                id: taskId
+                type: string
+                transport: PATH
+            responseType: ""
+          getTasks:
+            description: Get tasks for list
+            method: GET
+            path: /tasks/{listId}
+            arguments:
+              listId:
+                id: listId
+                type: string
+                transport: PATH
+            responseType:
+              $ref: Task[]
+          updateTask:
+            description: Update task
+            method: PUT
+            path: /tasks/{listId}/{taskId}
+            arguments:
+              listId:
+                id: listId
+                type: string
+                transport: PATH
+              taskId:
+                id: taskId
+                type: string
+                transport: PATH
+              task:
+                id: task
+                type:
+                  $ref: Task
+                transport: BODY
+            responseType:
+              $ref: Task
+    - kind: rest.blockware.com/v1/API
+      metadata:
+        name: lists
+      spec:
+        methods:
+          getLists:
+            description: Gets all task lists
+            method: GET
+            path: /lists
+            arguments: {}
+            responseType:
+              $ref: TaskList[]
+          addList:
+            description: Create new list
+            method: POST
+            path: /lists/new
+            arguments:
+              list:
+                id: list
+                type:
+                  $ref: TaskList
+                transport: BODY
+            responseType: ""
+          updateList:
+            description: Updates a list
+            method: PUT
+            path: /lists/{listId}
+            arguments:
+              listId:
+                id: listId
+                type: string
+                transport: PATH
+              list:
+                id: list
+                type:
+                  $ref: TaskList
+                transport: BODY
+            responseType: ""
+          removeList:
+            description: Deletes a list and all tasks in it
+            method: DELETE
+            path: /lists/{listId}
+            arguments:
+              listId:
+                id: listId
+                type: string
+                transport: PATH
+            responseType: ""

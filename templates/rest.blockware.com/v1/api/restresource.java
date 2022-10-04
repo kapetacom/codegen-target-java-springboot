@@ -1,10 +1,10 @@
-//#FILENAME:src/main/java/{{packagePath options.basePackage}}/gen/rest/{{type data.metadata.name}}Controller.java:write-always
+//#FILENAME:src/main/java/{{packagePath options.basePackage}}/gen/rest/{{class data.metadata.name}}Controller.java:write-always
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
 package {{options.basePackage}}.gen.rest;
 
-import {{options.basePackage}}.gen.service.I{{type data.metadata.name}}Service;
+import {{options.basePackage}}.gen.service.I{{class data.metadata.name}}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.blockware.spring.annotation.*;
@@ -14,12 +14,12 @@ import java.util.*;
 
 @RestController
 @BlockwareController("{{namespace data.metadata.name}}")
-public class {{type data.metadata.name}}Controller {
+public class {{class data.metadata.name}}Controller {
 
-    private final I{{type data.metadata.name}}Service service;
+    private final I{{class data.metadata.name}}Service service;
 
     @Autowired
-    public {{type data.metadata.name}}Controller( I{{type data.metadata.name}}Service service ) {
+    public {{class data.metadata.name}}Controller( I{{class data.metadata.name}}Service service ) {
         this.service = service;
     }
 

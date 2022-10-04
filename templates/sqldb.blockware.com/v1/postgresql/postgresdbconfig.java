@@ -1,4 +1,4 @@
-//#FILENAME:src/main/java/{{packagePath options.basePackage}}/repositories/{{data.metadata.name}}/{{type data.metadata.name}}Config.java:write-always
+//#FILENAME:src/main/java/{{packagePath options.basePackage}}/repositories/{{data.metadata.name}}/{{class data.metadata.name}}Config.java:write-always
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
@@ -14,9 +14,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
             "{{string options.basePackage}}.repositories.{{string data.metadata.name}}"
     }
 )
-public class {{type data.metadata.name}}Config extends AbstractPostgresConfig {
+public class {{class data.metadata.name}}Config extends AbstractPostgresConfig {
 
-    public {{type data.metadata.name}}Config() {
+    public {{class data.metadata.name}}Config() {
         super("{{string data.metadata.name}}");
     }
 

@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: users
+  jpa:
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false

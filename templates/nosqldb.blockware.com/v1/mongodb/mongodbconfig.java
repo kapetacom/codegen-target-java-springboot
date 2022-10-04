@@ -1,4 +1,4 @@
-//#FILENAME:src/main/java/{{packagePath options.basePackage}}/repositories/{{data.metadata.name}}/{{type data.metadata.name}}Config.java:write-always
+//#FILENAME:src/main/java/{{packagePath options.basePackage}}/repositories/{{data.metadata.name}}/{{class data.metadata.name}}Config.java:write-always
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
@@ -14,9 +14,9 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
     repositoryBaseClass = BaseMongoRepositoryImpl.class,
     basePackages = { "{{string options.basePackage}}.repositories.{{string data.metadata.name}}" }
 )
-public class {{type data.metadata.name}}Config extends AbstractMongoDBConfig {
+public class {{class data.metadata.name}}Config extends AbstractMongoDBConfig {
 
-    public {{type data.metadata.name}}Config() {
+    public {{class data.metadata.name}}Config() {
         super("{{string data.metadata.name}}");
     }
 

@@ -1,4 +1,4 @@
-//#FILENAME:src/main/java/{{packagePath options.basePackage}}/gen/clients/{{type data.metadata.name}}Client.java:write-always
+//#FILENAME:src/main/java/{{packagePath options.basePackage}}/gen/clients/{{class data.metadata.name}}Client.java:write-always
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
@@ -11,7 +11,7 @@ import {{options.basePackage}}.dto.*;
 import java.util.*;
 
 @BlockwareRestClient("{{string data.metadata.name}}")
-public interface {{type data.metadata.name}}Client {
+public interface {{class data.metadata.name}}Client {
 
 {{#methods data.spec.methods}}
 
@@ -19,7 +19,7 @@ public interface {{type data.metadata.name}}Client {
      * {{comment description}}
      */
     @{{type method}}("{{relativePath path}}")
-    Call<{{returnType responseType}}> {{method methodName}} ( {{#arguments arguments}}
+    Call<{{returnType responseType ucfirst=true}}> {{method methodName}} ( {{#arguments arguments}}
 
             {{#switch transport}}
                 {{#case 'path'}} @Path("{{string argumentName}}") {{/case}}

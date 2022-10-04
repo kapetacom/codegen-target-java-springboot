@@ -22,7 +22,8 @@ class Java8SpringBoot2Target extends Target {
         function isEntity(type) {
             if (!type || 
                 !context.spec ||
-                !context.spec.entities) {
+                !context.spec.entities ||
+                !context.spec.entities.types) {
                 return false;
             }
 
@@ -31,8 +32,8 @@ class Java8SpringBoot2Target extends Target {
             }
 
             type = type.toLowerCase();
-            return !!_.find(context.spec.entities, (entity) => {
-                return (entity && entity.name && entity.name.toLowerCase() === type);
+            return !!_.find(context.spec.entities.types, (entity) => {
+                return (entity && entity.name && entity.name.toLowerCase() === type && entity.type === 'dto');
             });
         }
 
@@ -61,7 +62,7 @@ class Java8SpringBoot2Target extends Target {
             return false;
         }
 
-        function classHelper(typeName) {
+        function classHelper(typeName, options) {
 
             if (!typeName) {
                 return typeName;
@@ -75,19 +76,20 @@ class Java8SpringBoot2Target extends Target {
 
             if (list) {
                 typeName = typeName.substr(0, typeName.length - 2);
-                return Template.SafeString(`List<${classHelperName(typeName)}>`);
+                return Template.SafeString(`List<${classHelperName(typeName, options)}>`);
             }
 
-            return classHelperName(typeName);
+            return classHelperName(typeName, options);
         }
 
-        function classHelperName(typeName) {
+        function classHelperName(typeName, options) {
+            const asType = !!(options && options.hash['type']);
             if (isEntity(typeName)) {
-                return ucfirst(typeName) + 'DTO';
+                return Template.SafeString(ucfirst(typeName) + (asType ? '' : 'DTO'));
             }
 
             if (isPrimitive(typeName)) {
-                return typeName.toLowerCase();
+                return Template.SafeString(typeName.toLowerCase());
             }
 
             return Template.SafeString(ucfirst(typeName));
@@ -99,12 +101,34 @@ class Java8SpringBoot2Target extends Target {
 
         engine.registerHelper('class', classHelper);
 
-        engine.registerHelper('returnType', (type) => {
-            if (!type) {
-                return 'void';
+        const classFrom = (property, options) => {
+            switch(property.type) {
+                case 'array':
+                    return Template.SafeString(`List<${classFrom(property.items, options)}>`);
+                case 'object':
+                    //TODO: Create inner class
+                    break;
             }
 
-            return classHelper(type);
+            return classHelper(property.type, options);
+        }
+
+        engine.registerHelper('classFrom', classFrom);
+
+
+        engine.registerHelper('returnType', (type, options) => {
+            const isUCFirst = options.hash && options.hash.ucfirst;
+            if (!type) {
+                return isUCFirst ? 'Void' :'void' ;
+            }
+
+            const out = classHelper(type);
+
+            if (isUCFirst) {
+                return Template.SafeString(ucfirst(out.toString()));
+            }
+
+            return out;
         });
 
         engine.registerHelper('packagePath', (packageName) => {
@@ -113,6 +137,19 @@ class Java8SpringBoot2Target extends Target {
 
         engine.registerHelper('relativePath', (path) => {
             return Template.SafeString(path.trim().replace(/^\/+/g, ''));
+        });
+
+        engine.registerHelper('enumValues', (values) => {
+            return Template.SafeString('\t' + values.join(',\n\t'));
+        });
+
+        engine.registerHelper('when', (type, options) => {
+            const inner = options.fn();
+            const [whenTrue, whenFalse] = inner.split(/\|\|/);
+            if (options.hash && options.hash.type === type) {
+                return Template.SafeString(whenTrue);
+            }
+            return Template.SafeString(whenFalse || '');
         });
 
         return engine;

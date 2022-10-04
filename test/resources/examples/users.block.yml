@@ -1,0 +1,94 @@
+kind: blocks.blockware.com/v1/Service
+metadata:
+  name: Users
+  version: 1.0.0
+spec:
+  target:
+    kind: targets.blockware.com/v1/java8-springboot2
+    options:
+      groupId: org.mycompany.services
+      artifactId: users
+      basePackage: org.mycompany.services.users
+  entities:
+    types:
+      - name: User
+        type: dto
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+          email:
+            type: string
+      - name: UserAuth
+        type: dto
+        properties:
+          username:
+            type: string
+          password:
+            type: string
+  consumers:
+    - kind: sqldb.blockware.com/v1/postgresql
+      metadata:
+        name: usersdb
+  providers:
+    - kind: rest.blockware.com/v1/API
+      metadata:
+        name: users
+      spec:
+        methods:
+          createUser:
+            description: Create user
+            method: POST
+            path: /users/{id}
+            arguments:
+              id:
+                type: string
+                transport: path
+                id: id
+              user:
+                type:
+                  $ref: User
+                transport: body
+                id: user
+            responseType:
+              $ref: User
+          getUser:
+            description: Get user by id
+            method: GET
+            path: /users/{id}
+            arguments:
+              id:
+                type: string
+                transport: path
+                id: id
+            responseType:
+              $ref: User
+          deleteUser:
+            description: Delete user by id
+            method: DELETE
+            path: /users/{id}
+            arguments:
+              id:
+                type: string
+                transport: path
+                id: id
+          authenticate:
+            description: Authenticate user
+            method: POST
+            path: /users/authenticate
+            arguments:
+              user:
+                id: user
+                type:
+                  $ref: UserAuth
+                transport: BODY
+            responseType:
+              $ref: User
+          listUsers:
+            description: Get all users
+            method: GET
+            path: /users
+            arguments: { }
+            responseType:
+              $ref: User[]
