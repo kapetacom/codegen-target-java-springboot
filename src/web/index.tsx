@@ -90,7 +90,7 @@ class JavaTargetConfig extends Component<TargetConfigProps<JavaTargetConfigOptio
 
 const targetConfig : TargetConfig<JavaTargetConfigOptions> =  {
     kind: blockwareDefinition.metadata.name,
-    name: blockwareDefinition.metadata.title,
+    title: blockwareDefinition.metadata.title,
     blockKinds:[
         'blockware/block-type-service'
     ],
