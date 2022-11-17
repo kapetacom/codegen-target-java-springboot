@@ -1,8 +1,9 @@
 import React, { Component} from "react";
 import _ from 'lodash';
 
-import { SingleLineInput} from "@blockware/ui-web-components";
+
 import {TargetConfig, TargetConfigProps} from "@blockware/ui-web-types";
+import { FormInput } from "@blockware/ui-web-components";
 
 const blockwareDefinition = require('../../blockware.yml');
 
@@ -43,6 +44,7 @@ class JavaTargetConfig extends Component<TargetConfigProps<JavaTargetConfigOptio
     }
 
     valueChanged(name:string, input: string) {
+        // @ts-ignore
         this.setState({[name]: input.trim().toLowerCase()}, () => {
             this.props.onOptionsChanged(this.state);
         });
@@ -53,7 +55,7 @@ class JavaTargetConfig extends Component<TargetConfigProps<JavaTargetConfigOptio
         return (
             <>
 
-                <SingleLineInput
+                <FormInput
                     name={"basePackage"}
                     value={this.state.basePackage}
                     label={"Package name"}
@@ -62,7 +64,7 @@ class JavaTargetConfig extends Component<TargetConfigProps<JavaTargetConfigOptio
                     onChange={(name:string,input:string)=>this.valueChanged(name,input)}
                 />
 
-                <SingleLineInput
+                <FormInput
                     name={"groupId"}
                     value={this.state.groupId}
                     label={"Group ID"}
@@ -72,7 +74,7 @@ class JavaTargetConfig extends Component<TargetConfigProps<JavaTargetConfigOptio
                 />
 
 
-                <SingleLineInput
+                <FormInput
                     name={"artifactId"}
                     value={this.state.artifactId}
                     label={"Artifact ID"}
