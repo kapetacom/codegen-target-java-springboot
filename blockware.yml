@@ -1,5 +1,5 @@
 kind: core/language-target
 metadata:
-  id: blockware/language-target-java-spring-boot
-  name: Java / Spring Boot
+  name: blockware/language-target-java-spring-boot
+  title: Java / Spring Boot
   description: Generate block service code in Java with Spring Boot
