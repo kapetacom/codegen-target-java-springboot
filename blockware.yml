@@ -1,5 +1,5 @@
-kind: core.blockware.com/v1/LanguageTarget
+kind: core/language-target
 metadata:
-  id: targets.blockware.com/v1/Java8-SpringBoot2
-  name: Java 8+ / Spring Boot 2
-  description: Generate block service code in Java 8 with Spring Boot 2
+  id: blockware/language-target-java-spring-boot
+  name: Java / Spring Boot
+  description: Generate block service code in Java with Spring Boot

@@ -87,10 +87,10 @@ class JavaTargetConfig extends Component<TargetConfigProps<JavaTargetConfigOptio
 }
 
 const targetConfig : TargetConfig<JavaTargetConfigOptions> =  {
-    kind: blockwareDefinition.metadata.id,
-    name: blockwareDefinition.metadata.name,
+    kind: blockwareDefinition.metadata.name,
+    name: blockwareDefinition.metadata.title,
     blockKinds:[
-        'blocks.blockware.com/v1/Service'
+        'blockware/block-type-service'
     ],
     componentType: JavaTargetConfig,
     validate: (options:any) => {

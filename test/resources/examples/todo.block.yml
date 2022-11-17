@@ -1,10 +1,10 @@
-kind: blocks.blockware.com/v1/Service
+kind: blockware/block-type-service
 metadata:
   name: Todo
   version: 4.1.14
 spec:
   target:
-    kind: targets.blockware.com/v1/Java8-SpringBoot2
+    kind: blockware/language-target-java-spring-boot
     options:
       basePackage: org.mycompany.services.todo
       groupId: org.mycompany.services
@@ -144,10 +144,10 @@ spec:
         	password: string
         }
   consumers:
-    - kind: nosqldb.blockware.com/v1/mongodb
+    - kind: blockware/resource-type-mongodb
       metadata:
         name: tododb
-    - kind: rest.blockware.com/v1/Client
+    - kind: blockware/resource-type-rest-client
       metadata:
         name: users
       spec:
@@ -171,7 +171,7 @@ spec:
             responseType:
               $ref: User
   providers:
-    - kind: rest.blockware.com/v1/API
+    - kind: blockware/resource-type-rest-api
       metadata:
         name: tasks
       spec:
@@ -235,7 +235,7 @@ spec:
                 transport: BODY
             responseType:
               $ref: Task
-    - kind: rest.blockware.com/v1/API
+    - kind: blockware/resource-type-rest-api
       metadata:
         name: lists
       spec:

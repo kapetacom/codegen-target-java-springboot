@@ -5,10 +5,10 @@ import com.blockware.spring.BlockwareApplication;
 import com.blockware.spring.annotation.*;
 
 @BlockwareSpringApplication
-{{#consumes 'rest.blockware.com/v1/Client'}}
+{{#consumes 'blockware/resource-type-rest-client'}}
 @BlockwareEnableRestClient
 {{/consumes}}
-{{#provides 'rest.blockware.com/v1/API'}}
+{{#provides 'blockware/resource-type-rest-api'}}
 @BlockwareEnableRestResource
 {{/provides}}
 {{#consumes 'grpc.blockware.com/v1/Client'}}
@@ -17,7 +17,7 @@ import com.blockware.spring.annotation.*;
 {{#provides 'grpc.blockware.com/v1/API'}}
 @BlockwareEnableGRPCResource
 {{/provides}}
-{{#consumes 'nosqldb.blockware.com/v1/mongodb'}}
+{{#consumes 'blockware/resource-type-mongodb'}}
 @BlockwareEnableMongoDB
 {{/consumes}}
 {{#consumes 'nosqldb.blockware.com/v1/couchdb'}}
@@ -29,7 +29,7 @@ import com.blockware.spring.annotation.*;
 {{#consumes 'nosqldb.blockware.com/v1/redis'}}
 @BlockwareEnableRedis
 {{/consumes}}
-{{#consumes 'sqldb.blockware.com/v1/postgresql'}}
+{{#consumes 'blockware/resource-type-postgresql'}}
 @BlockwareEnablePostgres
 {{/consumes}}
 {{#consumes 'sqldb.blockware.com/v1/mysql'}}

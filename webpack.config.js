@@ -3,7 +3,7 @@ const Path = require('path');
 module.exports = {
     mode: 'development',
     entry: {
-        'targets.blockware.com/v1/Java8-SpringBoot2': Path.resolve(__dirname, "./src/web")
+        'blockware/language-target-java-spring-boot': Path.resolve(__dirname, "./src/web")
     },
     output: {
         path: Path.join(process.cwd(), 'web'),

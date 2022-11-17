@@ -2,7 +2,7 @@
 spring:
   application:
     name: {{lowercase data.metadata.name}}
-{{#consumes 'sqldb.blockware.com/v1/postgresql'}}
+{{#consumes 'blockware/resource-type-postgresql'}}
   jpa:
     properties:
       hibernate:
