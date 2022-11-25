@@ -125,14 +125,14 @@
             <version>0.0.2</version>
         </dependency>
         {{/provides}}
-        {{#consumes 'grpc.blockware.com/v1/Client'}}
+        {{#consumes 'blockware/resource-type-grpc-client'}}
         <dependency>
             <groupId>com.blockware.spring-boot</groupId>
             <artifactId>grpc-client</artifactId>
             <version>0.0.1</version>
         </dependency>
         {{/consumes}}
-        {{#provides 'grpc.blockware.com/v1/API'}}
+        {{#provides 'blockware/resource-type-grpc-api'}}
         <dependency>
             <groupId>com.blockware.spring-boot</groupId>
             <artifactId>grpc-resource</artifactId>
@@ -147,21 +147,21 @@
             <version>0.0.4</version>
         </dependency>
         {{/consumes}}
-        {{#consumes 'nosqldb.blockware.com/v1/couchbase'}}
+        {{#consumes 'blockware/resource-type-couchbase'}}
         <dependency>
             <groupId>com.blockware.spring-boot</groupId>
             <artifactId>nosql-couchbase</artifactId>
             <version>0.0.1</version>
         </dependency>
         {{/consumes}}
-        {{#consumes 'nosqldb.blockware.com/v1/cassandra'}}
+        {{#consumes 'blockware/resource-type-cassandra'}}
         <dependency>
             <groupId>com.blockware.spring-boot</groupId>
             <artifactId>nosql-cassandra</artifactId>
             <version>0.0.1</version>
         </dependency>
         {{/consumes}}
-        {{#consumes 'nosqldb.blockware.com/v1/redis'}}
+        {{#consumes 'blockware/resource-type-redis'}}
         <dependency>
             <groupId>com.blockware.spring-boot</groupId>
             <artifactId>nosql-redis</artifactId>
@@ -176,21 +176,21 @@
             <version>0.0.4</version>
         </dependency>
         {{/consumes}}
-        {{#consumes 'sqldb.blockware.com/v1/mysql'}}
+        {{#consumes 'blockware/resource-type-mysql'}}
         <dependency>
             <groupId>com.blockware.spring-boot</groupId>
             <artifactId>sqldb-mysql</artifactId>
             <version>0.0.1</version>
         </dependency>
         {{/consumes}}
-        {{#consumes 'sqldb.blockware.com/v1/mssql'}}
+        {{#consumes 'blockware/resource-type-mssql'}}
         <dependency>
             <groupId>com.blockware.spring-boot</groupId>
             <artifactId>sqldb-mssql</artifactId>
             <version>0.0.1</version>
         </dependency>
         {{/consumes}}
-        {{#consumes 'sqldb.blockware.com/v1/oracle'}}
+        {{#consumes 'blockware/resource-type-oracle'}}
         <dependency>
             <groupId>com.blockware.spring-boot</groupId>
             <artifactId>sqldb-oracle</artifactId>

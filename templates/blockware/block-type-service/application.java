@@ -11,34 +11,34 @@ import com.blockware.spring.annotation.*;
 {{#provides 'blockware/resource-type-rest-api'}}
 @BlockwareEnableRestResource
 {{/provides}}
-{{#consumes 'grpc.blockware.com/v1/Client'}}
+{{#consumes 'blockware/resource-type-grpc-client'}}
 @BlockwareEnableGRPCClient
 {{/consumes}}
-{{#provides 'grpc.blockware.com/v1/API'}}
+{{#provides 'blockware/resource-type-grpc-api'}}
 @BlockwareEnableGRPCResource
 {{/provides}}
 {{#consumes 'blockware/resource-type-mongodb'}}
 @BlockwareEnableMongoDB
 {{/consumes}}
-{{#consumes 'nosqldb.blockware.com/v1/couchdb'}}
+{{#consumes 'blockware/resource-type-couchdb'}}
 @BlockwareEnableCouchDB
 {{/consumes}}
-{{#consumes 'nosqldb.blockware.com/v1/cassandra'}}
+{{#consumes 'blockware/resource-type-cassandra'}}
 @BlockwareEnableCassandra
 {{/consumes}}
-{{#consumes 'nosqldb.blockware.com/v1/redis'}}
+{{#consumes 'blockware/resource-type-redis'}}
 @BlockwareEnableRedis
 {{/consumes}}
 {{#consumes 'blockware/resource-type-postgresql'}}
 @BlockwareEnablePostgres
 {{/consumes}}
-{{#consumes 'sqldb.blockware.com/v1/mysql'}}
+{{#consumes 'blockware/resource-type-mysql'}}
 @BlockwareEnableMySQL
 {{/consumes}}
-{{#consumes 'sqldb.blockware.com/v1/mssql'}}
+{{#consumes 'blockware/resource-type-mssql'}}
 @BlockwareEnableMSSQL
 {{/consumes}}
-{{#consumes 'sqldb.blockware.com/v1/oracle'}}
+{{#consumes 'blockware/resource-type-oracle'}}
 @BlockwareEnableOracle
 {{/consumes}}
 public class {{type data.metadata.name}}Application {
