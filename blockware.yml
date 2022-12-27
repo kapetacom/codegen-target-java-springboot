@@ -3,3 +3,17 @@ metadata:
   name: blockware/language-target-java-spring-boot
   title: Java / Spring Boot
   description: Generate block service code in Java with Spring Boot
+spec:
+  schema:
+    type: object
+    properties:
+      basePackage:
+        type: string
+      groupId:
+        type: string
+      artifactId:
+        type: string
+    required:
+      - basePackage
+      - groupId
+      - artifactId
