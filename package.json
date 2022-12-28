@@ -1,8 +1,7 @@
 {
     "name": "@blockware/language-target-java-spring-boot",
-    "version": "0.0.35",
-    "main": "index.js",
-    "description": "Provides code generation support for Java8+ using Spring Boot 2",
+    "version": "local",
+    "description": "Provides code generation support for Java using Spring Boot",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/blockwarecom/codegen-target-java8-springboot2.git"
@@ -24,16 +23,14 @@
         "@blockware/codegen-target": "<2",
         "lodash": "4.17.21",
         "prettier": "2.7.1",
-        "prettier-plugin-java": "1.6.2"
+        "prettier-plugin-java": "1.6.2",
+        "yaml": "^2.2.0"
     },
     "peerDependencies": {
         "@blockware/ui-web-components": "<2",
         "@blockware/ui-web-types": "<2"
     },
     "devDependencies": {
-        "@blockware/codegen": "<2",
-        "@blockware/ui-web-components": "<2",
-        "@blockware/ui-web-types": "<2",
         "@babel/cli": "^7.7.7",
         "@babel/core": "^7.7.7",
         "@babel/plugin-proposal-class-properties": "^7.5.0",
@@ -41,6 +38,9 @@
         "@babel/preset-env": "^7.5.0",
         "@babel/preset-react": "^7.7.4",
         "@babel/preset-typescript": "^7.3.3",
+        "@blockware/codegen": "<2",
+        "@blockware/ui-web-components": "<2",
+        "@blockware/ui-web-types": "<2",
         "@jest/globals": "^29.1.2",
         "@types/lodash": "^4.14.184",
         "@types/react": "^16.9.17",
@@ -53,9 +53,10 @@
         "yaml-loader": "^0.5.0"
     },
     "scripts": {
-        "start": "nodemon -e js,jsx,less,ts,tsx,json --ignore dist/ --ignore web/ --ignore stories/ --ignore node_modules/ --exec 'npm run build'",
         "prepublishOnly": "npm run test && npm run build",
-        "build": "webpack",
+        "build": "webpack --mode production",
+        "start": "npm run watch",
+        "watch": "webpack --mode development --watch",
         "test": "jest"
     }
 }
