@@ -72,10 +72,14 @@ class Java8SpringBoot2Target extends Target {
                 typeName = typeName.$ref;
             }
 
+            if (typeName.indexOf('/') > -1) {
+                typeName = typeName.split(/\//)[1];
+            }
+
             const list = isList(typeName);
 
             if (list) {
-                typeName = typeName.substr(0, typeName.length - 2);
+                typeName = typeName.substring(0, typeName.length - 2);
                 return Template.SafeString(`List<${classHelperName(typeName, options)}>`);
             }
 

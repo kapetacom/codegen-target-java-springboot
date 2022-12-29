@@ -6,6 +6,7 @@ import {TargetConfig, TargetConfigProps} from "@blockware/ui-web-types";
 import { FormInput } from "@blockware/ui-web-components";
 
 const blockwareDefinition = require('../../blockware.yml');
+const packageJson = require('../../package.json');
 
 interface JavaTargetConfigOptions {
     basePackage:string
@@ -90,6 +91,7 @@ class JavaTargetConfig extends Component<TargetConfigProps<JavaTargetConfigOptio
 
 const targetConfig : TargetConfig<JavaTargetConfigOptions> =  {
     kind: blockwareDefinition.metadata.name,
+    version: packageJson.version,
     title: blockwareDefinition.metadata.title,
     blockKinds:[
         'blockware/block-type-service'

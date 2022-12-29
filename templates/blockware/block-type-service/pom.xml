@@ -7,7 +7,7 @@
 
     <groupId>{{options.groupId}}</groupId>
     <artifactId>{{options.artifactId}}</artifactId>
-    <version>{{data.metadata.version}}</version>
+    <version>local</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -42,7 +42,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>{{options.basePackage}}.{{type data.metadata.name}}Application</mainClass>
+                            <mainClass>{{options.basePackage}}.{{class data.metadata.name}}Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

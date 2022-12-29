@@ -1,10 +1,9 @@
-kind: blockware/block-type-service
+kind: blockware/block-type-service:0.0.2
 metadata:
-  name: Users
-  version: 1.0.0
+  name: blockware/users
 spec:
   target:
-    kind: blockware/language-target-java-spring-boot
+    kind: blockware/language-target-java-spring-boot:local
     options:
       groupId: org.mycompany.services
       artifactId: users
@@ -28,11 +27,11 @@ spec:
           password:
             type: string
   consumers:
-    - kind: blockware/resource-type-postgresql
+    - kind: blockware/resource-type-postgresql:0.0.2
       metadata:
         name: usersdb
   providers:
-    - kind: blockware/resource-type-rest-api
+    - kind: blockware/resource-type-rest-api:0.0.4
       metadata:
         name: users
       spec:
