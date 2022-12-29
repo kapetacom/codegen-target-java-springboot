@@ -1,5 +1,5 @@
 ##FILENAME:Dockerfile:merge
-FROM openjdk:8
+FROM openjdk:19
 
 ADD block.yml /application/block.yml
 ADD target/{{options.artifactId}}.jar /application/{{options.artifactId}}.jar
