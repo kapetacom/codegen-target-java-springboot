@@ -107,34 +107,34 @@
             <artifactId>spring-boot</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.blockware.spring-boot</groupId>
+            <groupId>blockware</groupId>
             <artifactId>spring-boot</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{#consumes 'blockware/resource-type-rest-client'}}
         <dependency>
-            <groupId>com.blockware.spring-boot</groupId>
+            <groupId>blockware</groupId>
             <artifactId>rest-client</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/consumes}}
         {{#provides 'blockware/resource-type-rest-api'}}
         <dependency>
-            <groupId>com.blockware.spring-boot</groupId>
+            <groupId>blockware</groupId>
             <artifactId>rest-resource</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/provides}}
         {{#consumes 'blockware/resource-type-grpc-client'}}
         <dependency>
-            <groupId>com.blockware.spring-boot</groupId>
+            <groupId>blockware</groupId>
             <artifactId>grpc-client</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/consumes}}
         {{#provides 'blockware/resource-type-grpc-api'}}
         <dependency>
-            <groupId>com.blockware.spring-boot</groupId>
+            <groupId>blockware</groupId>
             <artifactId>grpc-resource</artifactId>
             <version>(,2.0)</version>
         </dependency>
@@ -142,28 +142,28 @@
 
         {{#consumes 'blockware/resource-type-mongodb'}}
         <dependency>
-            <groupId>com.blockware.spring-boot</groupId>
+            <groupId>blockware</groupId>
             <artifactId>nosql-mongodb</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/consumes}}
         {{#consumes 'blockware/resource-type-couchbase'}}
         <dependency>
-            <groupId>com.blockware.spring-boot</groupId>
+            <groupId>blockware</groupId>
             <artifactId>nosql-couchbase</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/consumes}}
         {{#consumes 'blockware/resource-type-cassandra'}}
         <dependency>
-            <groupId>com.blockware.spring-boot</groupId>
+            <groupId>blockware</groupId>
             <artifactId>nosql-cassandra</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/consumes}}
         {{#consumes 'blockware/resource-type-redis'}}
         <dependency>
-            <groupId>com.blockware.spring-boot</groupId>
+            <groupId>blockware</groupId>
             <artifactId>nosql-redis</artifactId>
             <version>(,2.0)</version>
         </dependency>
@@ -171,28 +171,28 @@
 
         {{#consumes 'blockware/resource-type-postgresql'}}
         <dependency>
-            <groupId>com.blockware.spring-boot</groupId>
+            <groupId>blockware</groupId>
             <artifactId>sqldb-postgresql</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/consumes}}
         {{#consumes 'blockware/resource-type-mysql'}}
         <dependency>
-            <groupId>com.blockware.spring-boot</groupId>
+            <groupId>blockware</groupId>
             <artifactId>sqldb-mysql</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/consumes}}
         {{#consumes 'blockware/resource-type-mssql'}}
         <dependency>
-            <groupId>com.blockware.spring-boot</groupId>
+            <groupId>blockware</groupId>
             <artifactId>sqldb-mssql</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/consumes}}
         {{#consumes 'blockware/resource-type-oracle'}}
         <dependency>
-            <groupId>com.blockware.spring-boot</groupId>
+            <groupId>blockware</groupId>
             <artifactId>sqldb-oracle</artifactId>
             <version>(,2.0)</version>
         </dependency>
