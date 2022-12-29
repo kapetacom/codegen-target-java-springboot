@@ -76,6 +76,10 @@ class Java8SpringBoot2Target extends Target {
                 typeName = typeName.split(/\//)[1];
             }
 
+            if (typeName.indexOf('-') > -1) {
+                typeName = _.camelCase(typeName);
+            }
+
             const list = isList(typeName);
 
             if (list) {
