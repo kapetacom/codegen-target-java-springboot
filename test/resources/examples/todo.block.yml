@@ -1,10 +1,9 @@
-kind: blockware/block-type-service
+kind: blockware/block-type-service:0.0.2
 metadata:
-  name: Todo
-  version: 4.1.14
+  name: blockware/todo
 spec:
   target:
-    kind: blockware/language-target-java-spring-boot
+    kind: blockware/language-target-java-spring-boot:local
     options:
       basePackage: org.mycompany.services.todo
       groupId: org.mycompany.services
@@ -144,10 +143,10 @@ spec:
         	password: string
         }
   consumers:
-    - kind: blockware/resource-type-mongodb
+    - kind: blockware/resource-type-mongodb:0.0.2
       metadata:
         name: tododb
-    - kind: blockware/resource-type-rest-client
+    - kind: blockware/resource-type-rest-client:0.0.2
       metadata:
         name: users
       spec:
@@ -171,7 +170,7 @@ spec:
             responseType:
               $ref: User
   providers:
-    - kind: blockware/resource-type-rest-api
+    - kind: blockware/resource-type-rest-api:0.0.2
       metadata:
         name: tasks
       spec:
@@ -235,7 +234,7 @@ spec:
                 transport: BODY
             responseType:
               $ref: Task
-    - kind: blockware/resource-type-rest-api
+    - kind: blockware/resource-type-rest-api:0.0.2
       metadata:
         name: lists
       spec:

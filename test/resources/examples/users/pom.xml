@@ -6,7 +6,7 @@
 
     <groupId>org.mycompany.services</groupId>
     <artifactId>todo</artifactId>
-    <version>1.0.0</version>
+    <version>local</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

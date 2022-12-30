@@ -1,4 +1,4 @@
-//#FILENAME:src/main/java/{{packagePath options.basePackage}}/{{type data.metadata.name}}Application.java:write-always
+//#FILENAME:src/main/java/{{packagePath options.basePackage}}/{{class data.metadata.name}}Application.java:write-always
 package {{options.basePackage}};
 
 import com.blockware.spring.BlockwareApplication;
@@ -41,10 +41,10 @@ import com.blockware.spring.annotation.*;
 {{#consumes 'blockware/resource-type-oracle'}}
 @BlockwareEnableOracle
 {{/consumes}}
-public class {{type data.metadata.name}}Application {
+public class {{class data.metadata.name}}Application {
 
     public static void main(String[] args) {
-        BlockwareApplication.run({{type data.metadata.name}}Application.class, args);
+        BlockwareApplication.run({{class data.metadata.name}}Application.class, args);
     }
 
 }
