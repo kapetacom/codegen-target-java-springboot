@@ -11,20 +11,26 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.6.RELEASE</version>
+        <version>2.7.5</version>
     </parent>
 
     <repositories>
         <repository>
-            <id>blockware</id>
-            <url>https://dl.bintray.com/blockware/maven</url>
+            <id>blockware-public</id>
+            <url>https://europe-maven.pkg.dev/blockware-cloud/blockware-maven-public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
+        <java.version>19</java.version>
         <resource.delimiter>@</resource.delimiter>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -33,19 +39,6 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>org.mycompany.services.todo.UsersApplication</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -57,43 +50,25 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.2</version>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.mycompany.services.todo.UsersApplication</mainClass>
+                        </manifest>
+                    </archive>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
                 <executions>
                     <execution>
-                        <phase>package</phase>
+                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
+                        <phase>package</phase> <!-- bind to the packaging phase -->
                         <goals>
-                            <goal>shade</goal>
+                            <goal>single</goal>
                         </goals>
-                        <configuration>
-                            <filters>
-                                <filter>
-                                    <!--
-                                    From: https://stackoverflow.com/questions/8302022/maven-shade-jar-throw-exception
-                                    Exclude files that sign a jar (one or multiple of the dependencies).
-                                    One may not repack a signed jar without this, or you will get a
-                                    SecurityException at program start.
-                                    -->
-                                    <artifact>*:*</artifact>
-                                    <excludes>
-                                        <exclude>META-INF/*.SF</exclude>
-                                        <exclude>META-INF/*.RSA</exclude>
-                                        <exclude>META-INF/*.INF</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
-                            <artifactSet>
-                                <excludes>
-                                    <exclude>classworlds:classworlds</exclude>
-                                    <exclude>junit:junit</exclude>
-                                    <exclude>jmock:*</exclude>
-                                    <exclude>*:xml-apis</exclude>
-                                    <exclude>org.apache.maven:lib:tests</exclude>
-                                </excludes>
-                            </artifactSet>
-                        </configuration>
-
                     </execution>
                 </executions>
             </plugin>
@@ -106,21 +81,21 @@
             <artifactId>spring-boot</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.blockware.spring-boot</groupId>
+            <groupId>blockware</groupId>
             <artifactId>spring-boot</artifactId>
-            <version>0.0.6</version>
+            <version>(,2.0)</version>
         </dependency>
         <dependency>
-            <groupId>com.blockware.spring-boot</groupId>
+            <groupId>blockware</groupId>
             <artifactId>rest-resource</artifactId>
-            <version>0.0.2</version>
+            <version>(,2.0)</version>
         </dependency>
 
 
         <dependency>
-            <groupId>com.blockware.spring-boot</groupId>
+            <groupId>blockware</groupId>
             <artifactId>sqldb-postgresql</artifactId>
-            <version>0.0.4</version>
+            <version>(,2.0)</version>
         </dependency>
 
     </dependencies>

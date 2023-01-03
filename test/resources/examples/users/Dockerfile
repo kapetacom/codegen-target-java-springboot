@@ -1,6 +1,6 @@
-FROM openjdk:8
+FROM openjdk:19
 
-ADD block.yml /application/block.yml
+ADD blockware.yml /application/blockware.yml
 ADD target/todo.jar /application/todo.jar
 
 WORKDIR /application
