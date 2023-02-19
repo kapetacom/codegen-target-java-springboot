@@ -1,9 +1,8 @@
-import React, { Component} from "react";
-import _ from 'lodash';
+import React from "react";
 
 
-import {TargetConfig, TargetConfigProps} from "@blockware/ui-web-types";
-import { FormInput } from "@blockware/ui-web-components";
+import {TargetConfig} from "@blockware/ui-web-types";
+import {FormField} from "@blockware/ui-web-components";
 
 const blockwareDefinition = require('../../blockware.yml');
 const packageJson = require('../../package.json');
@@ -15,7 +14,7 @@ interface JavaTargetConfigOptions {
 }
 
 function validatePackageName(fieldName:string, value:string) {
-    if (!/^[a-z][a-z0-9_-]*(\.[a-z][a-z0-9_-]*)+[0-9a-z_]$/.test(value)) {
+    if (!/^[a-z][a-z0-9_-]*(\.[a-z][a-z0-9_-]*)*[0-9a-z_]$/.test(value)) {
         throw new Error('Not a valid Java package name');
     }
 }
@@ -27,66 +26,40 @@ function validateArtifactId(fieldName:string, value:string) {
 }
 
 function validateGroupId(fieldName:string, value:string) {
-    if (!/^[a-z][a-z0-9_-]*(\.[a-z][a-z0-9_-]*)+[0-9a-z_]$/.test(value)) {
+    if (!/^[a-z][a-z0-9_-]*(\.[a-z][a-z0-9_-]*)*[0-9a-z_]$/.test(value)) {
         throw new Error('Not a valid Maven group ID');
     }
 }
 
 
-class JavaTargetConfig extends Component<TargetConfigProps<JavaTargetConfigOptions>, JavaTargetConfigOptions> {
+const JavaTargetConfig = () => {
+    return (
+        <>
 
-    constructor(props:any){
-        super(props);
-        this.state = this.props.value ? _.cloneDeep(this.props.value) : {
-            basePackage: '',
-            groupId: '',
-            artifactId: ''
-        };
-    }
+            <FormField
+                name={"spec.target.options.basePackage"}
+                label={"Package name"}
+                validation={['required', validatePackageName]}
+                help={"Must be a valid java package name. E.g. org.my-company"}
+            />
 
-    valueChanged(name:string, input: string) {
-        // @ts-ignore
-        this.setState({[name]: input.trim().toLowerCase()}, () => {
-            this.props.onOptionsChanged(this.state);
-        });
-    }
-
-    render() {
-
-        return (
-            <>
-
-                <FormInput
-                    name={"basePackage"}
-                    value={this.state.basePackage}
-                    label={"Package name"}
-                    validation={['required', validatePackageName]}
-                    help={"Must be a valid java package name. E.g. org.my-company"}
-                    onChange={(name:string,input:string)=>this.valueChanged(name,input)}
-                />
-
-                <FormInput
-                    name={"groupId"}
-                    value={this.state.groupId}
-                    label={"Group ID"}
-                    validation={['required', validateGroupId]}
-                    help={"A valid Maven Group ID. E.g. org.my-company"}
-                    onChange={(name:string,input:string)=>this.valueChanged(name,input)}
-                />
+            <FormField
+                name={"spec.target.options.groupId"}
+                label={"Group ID"}
+                validation={['required', validateGroupId]}
+                help={"A valid Maven Group ID. E.g. org.my-company"}
+            />
 
 
-                <FormInput
-                    name={"artifactId"}
-                    value={this.state.artifactId}
-                    label={"Artifact ID"}
-                    validation={['required', validateArtifactId]}
-                    help={"A valid Maven Artifact ID. E.g. my-block-id"}
-                    onChange={(name:string,input:string)=>this.valueChanged(name,input)}
-                />
+            <FormField
+                name={"spec.target.options.artifactId"}
+                label={"Artifact ID"}
+                validation={['required', validateArtifactId]}
+                help={"A valid Maven Artifact ID. E.g. my-block-id"}
+            />
 
-            </>
-        )
-    }
+        </>
+    )
 }
 
 const targetConfig : TargetConfig<JavaTargetConfigOptions> =  {
