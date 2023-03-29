@@ -3,7 +3,6 @@
  */
 package org.mycompany.services.todo.gen.rest;
 
-import com.blockware.spring.annotation.*;
 import java.util.*;
 import org.mycompany.services.todo.dto.*;
 import org.mycompany.services.todo.gen.service.ITasksService;

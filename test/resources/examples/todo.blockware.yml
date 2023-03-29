@@ -1,9 +1,9 @@
-kind: blockware/block-type-service:0.0.2
+kind: kapeta/block-type-service:0.0.2
 metadata:
-  name: blockware/todo
+  name: kapeta/todo
 spec:
   target:
-    kind: blockware/language-target-java-spring-boot:local
+    kind: kapeta/language-target-java-spring-boot:local
     options:
       basePackage: org.mycompany.services.todo
       groupId: org.mycompany.services
@@ -105,7 +105,7 @@ spec:
             type: string
             properties: null
     source:
-      type: blockware-dsl
+      type: kapeta-dsl
       value: |-
         enum TaskType {
         	DEV,

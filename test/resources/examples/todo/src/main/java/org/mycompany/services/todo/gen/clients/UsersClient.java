@@ -3,13 +3,11 @@
  */
 package org.mycompany.services.todo.gen.clients;
 
-import com.blockware.spring.annotation.*;
-import java.util.*;
 import org.mycompany.services.todo.dto.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
-@BlockwareRestClient("users")
+@KapetaRestClient("users")
 public interface UsersClient {
     /**
      * undefined

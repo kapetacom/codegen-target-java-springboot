@@ -3,8 +3,8 @@
  */
 package org.mycompany.services.todo.repositories.tododb;
 
-import com.blockware.spring.mongo.AbstractMongoDBConfig;
-import com.blockware.spring.mongo.repository.BaseMongoRepositoryImpl;
+import com.kapeta.spring.mongo.AbstractMongoDBConfig;
+import com.kapeta.spring.mongo.repository.BaseMongoRepositoryImpl;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 

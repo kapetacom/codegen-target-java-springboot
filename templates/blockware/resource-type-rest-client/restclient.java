@@ -6,11 +6,9 @@ package {{options.basePackage}}.gen.clients;
 
 import retrofit2.Call;
 import retrofit2.http.*;
-import com.blockware.spring.annotation.*;
 import {{options.basePackage}}.dto.*;
-import java.util.*;
 
-@BlockwareRestClient("{{string data.metadata.name}}")
+@KapetaRestClient("{{string data.metadata.name}}")
 public interface {{class data.metadata.name}}Client {
 
 {{#methods data.spec.methods}}

@@ -1,6 +1,6 @@
 FROM openjdk:19
 
-ADD blockware.yml /application/blockware.yml
+ADD kapeta.yml /application/kapeta.yml
 ADD target/todo.jar /application/todo.jar
 
 WORKDIR /application

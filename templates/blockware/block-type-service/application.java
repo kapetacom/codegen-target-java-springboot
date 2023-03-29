@@ -1,33 +1,32 @@
 //#FILENAME:src/main/java/{{packagePath options.basePackage}}/{{class data.metadata.name}}Application.java:write-always
 package {{options.basePackage}};
 
-import com.blockware.spring.BlockwareApplication;
-import com.blockware.spring.annotation.*;
+import com.kapeta.spring.KapetaApplication;
 
-@BlockwareSpringApplication
-{{#consumes 'blockware/resource-type-rest-client'}}
-@BlockwareEnableRestClient
+@KapetaSpringApplication
+{{#consumes 'kapeta/resource-type-rest-client'}}
+@KapetaEnableRestClient
 {{/consumes}}
-{{#provides 'blockware/resource-type-rest-api'}}
-@BlockwareEnableRestResource
+{{#provides 'kapeta/resource-type-rest-api'}}
+@KapetaEnableRestResource
 {{/provides}}
-{{#consumes 'blockware/resource-type-grpc-client'}}
-@BlockwareEnableGRPCClient
+{{#consumes 'kapeta/resource-type-grpc-client'}}
+@KapetaEnableGRPCClient
 {{/consumes}}
-{{#provides 'blockware/resource-type-grpc-api'}}
-@BlockwareEnableGRPCResource
+{{#provides 'kapeta/resource-type-grpc-api'}}
+@KapetaEnableGRPCResource
 {{/provides}}
-{{#consumes 'blockware/resource-type-mongodb'}}
-@BlockwareEnableMongoDB
+{{#consumes 'kapeta/resource-type-mongodb'}}
+@KapetaEnableMongoDB
 {{/consumes}}
-{{#consumes 'blockware/resource-type-couchdb'}}
-@BlockwareEnableCouchDB
+{{#consumes 'kapeta/resource-type-couchdb'}}
+@KapetaEnableCouchDB
 {{/consumes}}
-{{#consumes 'blockware/resource-type-cassandra'}}
-@BlockwareEnableCassandra
+{{#consumes 'kapeta/resource-type-cassandra'}}
+@KapetaEnableCassandra
 {{/consumes}}
-{{#consumes 'blockware/resource-type-redis'}}
-@BlockwareEnableRedis
+{{#consumes 'kapeta/resource-type-redis'}}
+@KapetaEnableRedis
 {{/consumes}}
 {{#consumes 'blockware/resource-type-postgresql'}}
 @BlockwareEnablePostgres

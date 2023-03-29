@@ -3,7 +3,6 @@
  */
 package org.mycompany.services.todo.gen.rest;
 
-import com.blockware.spring.annotation.*;
 import java.util.*;
 import org.mycompany.services.todo.dto.*;
 import org.mycompany.services.todo.gen.service.IUsersService;
@@ -11,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@BlockwareController("users")
+@KapetaController("users")
 public class UsersController {
 
     private final IUsersService service;

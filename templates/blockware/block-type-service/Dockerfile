@@ -1,7 +1,7 @@
 ##FILENAME:Dockerfile:merge
 FROM openjdk:19
 
-ADD blockware.yml /application/blockware.yml
+ADD kapeta.yml /application/kapeta.yml
 ADD target/{{options.artifactId}}.jar /application/{{options.artifactId}}.jar
 
 WORKDIR /application

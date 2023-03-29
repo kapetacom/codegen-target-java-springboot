@@ -2,7 +2,7 @@
 spring:
   application:
     name: {{lowercase data.metadata.name}}
-{{#consumes 'blockware/resource-type-postgresql'}}
+{{#consumes 'kapeta/resource-type-postgresql'}}
   jpa:
     properties:
       hibernate:

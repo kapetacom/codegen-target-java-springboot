@@ -1,7 +1,7 @@
 const {describe, test, beforeEach} =  require("@jest/globals");
 
 const Target = require('../../index');
-const {CodegenHelpers, BlockCodeGenerator} = require('@blockware/codegen');
+const {CodegenHelpers, BlockCodeGenerator} = require('@kapeta/codegen');
 const Path = require("path");
 const data = require("../resources/examples/todo.blockware.yml");
 

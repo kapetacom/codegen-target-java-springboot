@@ -7,13 +7,13 @@ package {{options.basePackage}}.gen.rest;
 import {{options.basePackage}}.gen.service.I{{class data.metadata.name}}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.blockware.spring.annotation.*;
+import com.kapeta.spring.annotation.*;
 import {{options.basePackage}}.dto.*;
 
 import java.util.*;
 
 @RestController
-@BlockwareController("{{namespace data.metadata.name}}")
+@KapetaController("{{namespace data.metadata.name}}")
 public class {{class data.metadata.name}}Controller {
 
     private final I{{class data.metadata.name}}Service service;

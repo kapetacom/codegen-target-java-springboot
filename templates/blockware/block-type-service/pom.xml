@@ -17,8 +17,8 @@
 
     <repositories>
         <repository>
-            <id>blockware-public</id>
-            <url>https://europe-maven.pkg.dev/blockware-cloud/blockware-maven-public</url>
+            <id>kapeta-public</id>
+            <url>https://europe-north1-maven.pkg.dev/kapeta-production/kapeta-maven-public</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -82,92 +82,92 @@
             <artifactId>spring-boot</artifactId>
         </dependency>
         <dependency>
-            <groupId>blockware</groupId>
+            <groupId>com.kapeta</groupId>
             <artifactId>spring-boot</artifactId>
             <version>(,2.0)</version>
         </dependency>
-        {{#consumes 'blockware/resource-type-rest-client'}}
+        {{#consumes 'kapeta/resource-type-rest-client'}}
         <dependency>
-            <groupId>blockware</groupId>
+            <groupId>com.kapeta</groupId>
             <artifactId>rest-client</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/consumes}}
-        {{#provides 'blockware/resource-type-rest-api'}}
+        {{#provides 'kapeta/resource-type-rest-api'}}
         <dependency>
-            <groupId>blockware</groupId>
+            <groupId>com.kapeta</groupId>
             <artifactId>rest-resource</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/provides}}
-        {{#consumes 'blockware/resource-type-grpc-client'}}
+        {{#consumes 'kapeta/resource-type-grpc-client'}}
         <dependency>
-            <groupId>blockware</groupId>
+            <groupId>com.kapeta</groupId>
             <artifactId>grpc-client</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/consumes}}
-        {{#provides 'blockware/resource-type-grpc-api'}}
+        {{#provides 'kapeta/resource-type-grpc-api'}}
         <dependency>
-            <groupId>blockware</groupId>
+            <groupId>com.kapeta</groupId>
             <artifactId>grpc-resource</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/provides}}
 
-        {{#consumes 'blockware/resource-type-mongodb'}}
+        {{#consumes 'kapeta/resource-type-mongodb'}}
         <dependency>
-            <groupId>blockware</groupId>
+            <groupId>com.kapeta</groupId>
             <artifactId>nosql-mongodb</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/consumes}}
-        {{#consumes 'blockware/resource-type-couchbase'}}
+        {{#consumes 'kapeta/resource-type-couchbase'}}
         <dependency>
-            <groupId>blockware</groupId>
+            <groupId>com.kapeta</groupId>
             <artifactId>nosql-couchbase</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/consumes}}
-        {{#consumes 'blockware/resource-type-cassandra'}}
+        {{#consumes 'kapeta/resource-type-cassandra'}}
         <dependency>
-            <groupId>blockware</groupId>
+            <groupId>com.kapeta</groupId>
             <artifactId>nosql-cassandra</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/consumes}}
-        {{#consumes 'blockware/resource-type-redis'}}
+        {{#consumes 'kapeta/resource-type-redis'}}
         <dependency>
-            <groupId>blockware</groupId>
+            <groupId>com.kapeta</groupId>
             <artifactId>nosql-redis</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/consumes}}
 
-        {{#consumes 'blockware/resource-type-postgresql'}}
+        {{#consumes 'kapeta/resource-type-postgresql'}}
         <dependency>
-            <groupId>blockware</groupId>
+            <groupId>com.kapeta</groupId>
             <artifactId>sqldb-postgresql</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/consumes}}
-        {{#consumes 'blockware/resource-type-mysql'}}
+        {{#consumes 'kapeta/resource-type-mysql'}}
         <dependency>
-            <groupId>blockware</groupId>
+            <groupId>com.kapeta</groupId>
             <artifactId>sqldb-mysql</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/consumes}}
-        {{#consumes 'blockware/resource-type-mssql'}}
+        {{#consumes 'kapeta/resource-type-mssql'}}
         <dependency>
-            <groupId>blockware</groupId>
+            <groupId>com.kapeta</groupId>
             <artifactId>sqldb-mssql</artifactId>
             <version>(,2.0)</version>
         </dependency>
         {{/consumes}}
-        {{#consumes 'blockware/resource-type-oracle'}}
+        {{#consumes 'kapeta/resource-type-oracle'}}
         <dependency>
-            <groupId>blockware</groupId>
+            <groupId>com.kapeta</groupId>
             <artifactId>sqldb-oracle</artifactId>
             <version>(,2.0)</version>
         </dependency>

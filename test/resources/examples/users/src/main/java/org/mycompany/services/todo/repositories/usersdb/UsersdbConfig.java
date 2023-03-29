@@ -3,7 +3,7 @@
  */
 package org.mycompany.services.todo.repositories.usersdb;
 
-import com.blockware.spring.postgres.AbstractPostgresConfig;
+import com.kapeta.spring.postgres.AbstractPostgresConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 

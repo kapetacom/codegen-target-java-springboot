@@ -1,6 +1,6 @@
 spring:
   application:
-    name: blockware/users
+    name: kapeta/users
   jpa:
     properties:
       hibernate:

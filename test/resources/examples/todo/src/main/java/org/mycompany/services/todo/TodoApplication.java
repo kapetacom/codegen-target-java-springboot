@@ -1,15 +1,14 @@
 package org.mycompany.services.todo;
 
-import com.blockware.spring.BlockwareApplication;
-import com.blockware.spring.annotation.*;
+import com.kapeta.spring.KapetaApplication;
 
-@BlockwareSpringApplication
-@BlockwareEnableRestClient
-@BlockwareEnableRestResource
-@BlockwareEnableMongoDB
+@KapetaSpringApplication
+@KapetaEnableRestClient
+@KapetaEnableRestResource
+@KapetaEnableMongoDB
 public class TodoApplication {
 
     public static void main(String[] args) {
-        BlockwareApplication.run(TodoApplication.class, args);
+        KapetaApplication.run(TodoApplication.class, args);
     }
 }
