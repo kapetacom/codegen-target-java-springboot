@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@BlockwareController("tasks")
+@KapetaController("tasks")
 public class TasksController {
 
     private final ITasksService service;

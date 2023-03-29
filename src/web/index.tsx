@@ -1,10 +1,10 @@
 import React from "react";
 
 
-import {TargetConfig} from "@blockware/ui-web-types";
-import {FormField} from "@blockware/ui-web-components";
+import {TargetConfig} from "@kapeta/ui-web-types";
+import {FormField} from "@kapeta/ui-web-components";
 
-const blockwareDefinition = require('../../blockware.yml');
+const kapetaDefinition = require('../../kapeta.yml');
 const packageJson = require('../../package.json');
 
 interface JavaTargetConfigOptions {
@@ -63,11 +63,11 @@ const JavaTargetConfig = () => {
 }
 
 const targetConfig : TargetConfig<JavaTargetConfigOptions> =  {
-    kind: blockwareDefinition.metadata.name,
+    kind: kapetaDefinition.metadata.name,
     version: packageJson.version,
-    title: blockwareDefinition.metadata.title,
+    title: kapetaDefinition.metadata.title,
     blockKinds:[
-        'blockware/block-type-service'
+        'kapeta/block-type-service'
     ],
     componentType: JavaTargetConfig,
     validate: (options:any) => {

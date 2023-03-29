@@ -28,22 +28,22 @@ import com.kapeta.spring.KapetaApplication;
 {{#consumes 'kapeta/resource-type-redis'}}
 @KapetaEnableRedis
 {{/consumes}}
-{{#consumes 'blockware/resource-type-postgresql'}}
-@BlockwareEnablePostgres
+{{#consumes 'kapeta/resource-type-postgresql'}}
+@KapetaEnablePostgres
 {{/consumes}}
-{{#consumes 'blockware/resource-type-mysql'}}
-@BlockwareEnableMySQL
+{{#consumes 'kapeta/resource-type-mysql'}}
+@KapetaEnableMySQL
 {{/consumes}}
-{{#consumes 'blockware/resource-type-mssql'}}
-@BlockwareEnableMSSQL
+{{#consumes 'kapeta/resource-type-mssql'}}
+@KapetaEnableMSSQL
 {{/consumes}}
-{{#consumes 'blockware/resource-type-oracle'}}
-@BlockwareEnableOracle
+{{#consumes 'kapeta/resource-type-oracle'}}
+@KapetaEnableOracle
 {{/consumes}}
 public class {{class data.metadata.name}}Application {
 
     public static void main(String[] args) {
-        BlockwareApplication.run({{class data.metadata.name}}Application.class, args);
+        KapetaApplication.run({{class data.metadata.name}}Application.class, args);
     }
 
 }
