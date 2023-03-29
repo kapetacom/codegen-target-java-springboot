@@ -3,6 +3,7 @@
  */
 package org.mycompany.services.todo.gen.rest;
 
+import com.kapeta.spring.annotation.*;
 import java.util.*;
 import org.mycompany.services.todo.dto.*;
 import org.mycompany.services.todo.gen.service.IListsService;
