@@ -1,7 +1,7 @@
 import React from "react";
 
 
-import {TargetConfig} from "@kapeta/ui-web-types";
+import {ILanguageTargetProvider} from "@kapeta/ui-web-types";
 import {FormField} from "@kapeta/ui-web-components";
 
 const kapetaDefinition = require('../../kapeta.yml');
@@ -62,13 +62,14 @@ const JavaTargetConfig = () => {
     )
 }
 
-const targetConfig : TargetConfig<JavaTargetConfigOptions> =  {
+const targetConfig : ILanguageTargetProvider<JavaTargetConfigOptions> =  {
     kind: kapetaDefinition.metadata.name,
     version: packageJson.version,
     title: kapetaDefinition.metadata.title,
     blockKinds:[
         'kapeta/block-type-service'
     ],
+    definition: kapetaDefinition,
     componentType: JavaTargetConfig,
     validate: (options:any) => {
         const errors:string[] = [];
