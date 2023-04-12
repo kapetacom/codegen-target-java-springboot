@@ -46,8 +46,7 @@ spec:
                 transport: path
                 id: id
               user:
-                type:
-                  ref: User
+                ref: User
                 transport: body
                 id: user
             responseType:
@@ -79,8 +78,7 @@ spec:
             arguments:
               user:
                 id: user
-                type:
-                  ref: UserAuth
+                ref: UserAuth
                 transport: BODY
             responseType:
               ref: User

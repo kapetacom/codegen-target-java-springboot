@@ -16,7 +16,7 @@ public class {{class data.metadata.name}}Service implements I{{class data.metada
      */
     @Override
     public {{returnType responseType}} {{method methodName}}( {{#arguments arguments}}
-                {{class type}} {{variable argumentName}}
+                {{class this}} {{variable argumentName}}
             {{/arguments}} ) {
 
 

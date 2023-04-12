@@ -37,7 +37,7 @@ public class {{class data.metadata.name}}Controller {
                     {{#case 'header'}} @RequestHeader("{{string headerName}}") {{/case}}
                     {{#case 'body'}} @RequestBody {{/case}}
                 {{/switch}}
-                {{class type}} {{variable argumentName}}
+                {{class this}} {{variable argumentName}}
             {{/arguments}} ) throws Exception {
 
         {{#if responseType}}return {{/if}}service.{{method methodName}} (

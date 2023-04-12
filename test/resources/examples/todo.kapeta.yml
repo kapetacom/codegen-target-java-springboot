@@ -65,11 +65,7 @@ spec:
             type: string
             properties: null
           tasks:
-            type: array
-            description: null
-            items:
-              ref: Task
-              properties: null
+            ref: Task[]
       - type: dto
         name: TaskList
         description: null
@@ -154,8 +150,7 @@ spec:
             path: /users/{other}
             arguments:
               other:
-                type:
-                  type: string
+                type: string
                 transport: path
                 id: other
           getUser:
@@ -163,8 +158,7 @@ spec:
             path: /users/{other}/test
             arguments:
               other:
-                type:
-                  type: string
+                type: string
                 transport: path
                 id: other
             responseType:
@@ -181,14 +175,12 @@ spec:
             path: /tasks/{listId}/new
             arguments:
               listId:
-                type:
-                  type: string
+                type: string
                 transport: PATH
                 id: listId
               task:
                 id: task
-                type:
-                  ref: Task
+                ref: Task
                 transport: BODY
           removeTask:
             description: Remove task from list
@@ -197,13 +189,11 @@ spec:
             arguments:
               listId:
                 id: listId
-                type:
-                  type: string
+                type: string
                 transport: PATH
               taskId:
                 id: taskId
-                type:
-                  type: string
+                type: string
                 transport: PATH
             responseType: ""
           getTasks:
@@ -213,8 +203,7 @@ spec:
             arguments:
               listId:
                 id: listId
-                type:
-                  type: string
+                type: string
                 transport: PATH
             responseType:
               ref: Task[]
@@ -225,18 +214,15 @@ spec:
             arguments:
               listId:
                 id: listId
-                type:
-                  type: string
+                type: string
                 transport: PATH
               taskId:
                 id: taskId
-                type:
-                  type: string
+                type: string
                 transport: PATH
               task:
                 id: task
-                type:
-                  ref: Task
+                ref: Task
                 transport: BODY
             responseType:
               ref: Task
@@ -259,8 +245,7 @@ spec:
             arguments:
               list:
                 id: list
-                type:
-                  ref: TaskList
+                ref: TaskList
                 transport: BODY
             responseType: ""
           updateList:
@@ -274,8 +259,7 @@ spec:
                 transport: PATH
               list:
                 id: list
-                type:
-                  ref: TaskList
+                ref: TaskList
                 transport: BODY
             responseType: ""
           removeList:

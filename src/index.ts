@@ -1,12 +1,11 @@
-import {Target, Template} from '@kapeta/codegen-target';
+import {Target, Template, TypeLike, toTypeName} from '@kapeta/codegen-target';
 import prettier from "prettier";
 import _ from 'lodash';
 import Path from "path";
 
-function ucfirst(text:any) {
-    if (text.ref) {
-        text = text.ref;
-    }
+
+function ucfirst(typeLike:TypeLike) {
+    let text = toTypeName(typeLike);
 
     return text.substring(0,1).toUpperCase() + text.substring(1);
 }
@@ -20,7 +19,7 @@ export default class Java8SpringBoot2Target extends Target {
     protected _createTemplateEngine(data:any, context:any) {
         const engine = super._createTemplateEngine(data, context);
 
-        function isEntity(type:any) {
+        function isEntity(type:TypeLike) {
             if (!type || 
                 !context.spec ||
                 !context.spec.entities ||
@@ -28,28 +27,25 @@ export default class Java8SpringBoot2Target extends Target {
                 return false;
             }
 
-            if (type.ref) {
-                type = type.ref;
-            } else if (type.type) {
-                type = type.type;
-            }
+            const typeName = toTypeName(type).toLowerCase();
 
-            type = type.toLowerCase();
             return !!_.find(context.spec.entities.types, (entity) => {
-                return (entity && entity.name && entity.name.toLowerCase() === type && entity.type === 'dto');
+                return (entity && entity.name && entity.name.toLowerCase() === typeName && entity.type === 'dto');
             });
         }
 
-        function isPrimitive(type:any):boolean {
+        function isPrimitive(type:TypeLike):boolean {
             if (!type) {
                 return false;
             }
 
-            if (typeof type !== 'string') {
+            if (typeof type !== 'string' && typeof type.type !== 'string') {
                 throw new Error('Type must be a string but was: ' + typeof type + '. Value: ' + JSON.stringify(type));
             }
 
-            switch (type.toLowerCase()) {
+            const typeName = toTypeName(type).toLowerCase();
+
+            switch (typeName) {
                 case 'boolean':
                 case 'int':
                 case 'float':
@@ -65,37 +61,32 @@ export default class Java8SpringBoot2Target extends Target {
             return false;
         }
 
-        function classHelper(typeName:any, options:any = null):any {
-
+        function classHelper(typeName:TypeLike, options:any = null):any {
             if (!typeName) {
-                return Template.SafeString('' + typeName);
+                return typeName;
             }
 
-            if (typeName.ref) {
-                typeName = typeName.ref;
-            } else if (typeName.type) {
-                typeName = typeName.type;
+            let typeText = toTypeName(typeName);
+
+            if (typeText.indexOf('/') > -1) {
+                typeText = typeText.split(/\//)[1];
             }
 
-            if (typeName.indexOf('/') > -1) {
-                typeName = typeName.split(/\//)[1];
+            if (typeText.indexOf('-') > -1) {
+                typeText = _.camelCase(typeText);
             }
 
-            if (typeName.indexOf('-') > -1) {
-                typeName = _.camelCase(typeName);
-            }
-
-            const list = isList(typeName);
+            const list = isList(typeText);
 
             if (list) {
-                typeName = typeName.substring(0, typeName.length - 2);
-                return Template.SafeString(`List<${classHelperName(typeName, options)}>`);
+                typeText = typeText.substring(0, typeText.length - 2);
+                return Template.SafeString(`List<${classHelperName(typeText, options)}>`);
             }
 
-            return classHelperName(typeName, options);
+            return classHelperName(typeText, options);
         }
 
-        function classHelperName(typeName:any, options:any):any {
+        function classHelperName(typeName:string, options:any):any {
             const asType = !!(options && options.hash['type']);
             if (isEntity(typeName)) {
                 return Template.SafeString(ucfirst(typeName) + (asType ? '' : 'DTO'));
@@ -114,22 +105,20 @@ export default class Java8SpringBoot2Target extends Target {
 
         engine.registerHelper('class', classHelper);
 
-        const classFrom = (property:any, options:any):any => {
-            switch(property.type) {
-                case 'array':
-                    return Template.SafeString(`List<${classFrom(property.items, options)}>`);
-                case 'object':
-                    //TODO: Create inner class
-                    break;
+        const classFrom = (property:TypeLike, options:any):any => {
+
+            const typeName = toTypeName(property);
+            if (isList(typeName)) {
+                return Template.SafeString(`List<${classFrom(typeName.substring(0, typeName.length - 2), options)}>`);
             }
 
-            return classHelper(property.type, options);
+            return classHelper(property, options);
         }
 
         engine.registerHelper('classFrom', classFrom);
 
 
-        engine.registerHelper('returnType', (type:any, options:any) => {
+        engine.registerHelper('returnType', (type:TypeLike, options:any) => {
             const isUCFirst = options.hash && options.hash.ucfirst;
             if (!type) {
                 return isUCFirst ? 'Void' :'void' ;

@@ -15,7 +15,7 @@ public interface I{{class data.metadata.name}}Service {
      * {{comment description}}
      */
     {{returnType responseType}} {{method methodName}}( {{#arguments arguments}}
-                {{class type}} {{variable argumentName}}
+                {{class this}} {{variable argumentName}}
             {{/arguments}} ) throws Exception;
 
 {{/methods}}

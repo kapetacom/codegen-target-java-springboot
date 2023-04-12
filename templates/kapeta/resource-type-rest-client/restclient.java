@@ -25,7 +25,7 @@ public interface {{class data.metadata.name}}Client {
                 {{#case 'header'}} @Header("{{string headerName}}"){{/case}}
                 {{#case 'body'}} @Body {{/case}}
             {{/switch}}
-            {{class type}} {{variable argumentName}}
+            {{class this}} {{variable argumentName}}
 
         {{/arguments}} );
 
