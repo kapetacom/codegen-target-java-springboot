@@ -47,11 +47,11 @@ spec:
                 id: id
               user:
                 type:
-                  $ref: User
+                  ref: User
                 transport: body
                 id: user
             responseType:
-              $ref: User
+              ref: User
           getUser:
             description: Get user by id
             method: GET
@@ -62,7 +62,7 @@ spec:
                 transport: path
                 id: id
             responseType:
-              $ref: User
+              ref: User
           deleteUser:
             description: Delete user by id
             method: DELETE
@@ -80,14 +80,14 @@ spec:
               user:
                 id: user
                 type:
-                  $ref: UserAuth
+                  ref: UserAuth
                 transport: BODY
             responseType:
-              $ref: User
+              ref: User
           listUsers:
             description: Get all users
             method: GET
             path: /users
             arguments: { }
             responseType:
-              $ref: User[]
+              ref: User[]

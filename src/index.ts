@@ -1,25 +1,26 @@
-const {Target, Template} = require('@kapeta/codegen-target');
-const prettier = require("prettier");
-const _ = require('lodash');
+import {Target, Template} from '@kapeta/codegen-target';
+import prettier from "prettier";
+import _ from 'lodash';
+import Path from "path";
 
-function ucfirst(text) {
-    if (text.$ref) {
-        text = text.$ref;
+function ucfirst(text:any) {
+    if (text.ref) {
+        text = text.ref;
     }
 
-    return text.substr(0,1).toUpperCase() + text.substr(1);
+    return text.substring(0,1).toUpperCase() + text.substring(1);
 }
 
-class Java8SpringBoot2Target extends Target {
+export default class Java8SpringBoot2Target extends Target {
 
-    constructor(options) {
-        super(options, __dirname);
+    constructor(options:any) {
+        super(options, Path.resolve(__dirname,'../'));
     }
 
-    _createTemplateEngine(data, context) {
+    protected _createTemplateEngine(data:any, context:any) {
         const engine = super._createTemplateEngine(data, context);
 
-        function isEntity(type) {
+        function isEntity(type:any) {
             if (!type || 
                 !context.spec ||
                 !context.spec.entities ||
@@ -27,8 +28,10 @@ class Java8SpringBoot2Target extends Target {
                 return false;
             }
 
-            if (type.$ref) {
-                type = type.$ref;
+            if (type.ref) {
+                type = type.ref;
+            } else if (type.type) {
+                type = type.type;
             }
 
             type = type.toLowerCase();
@@ -37,7 +40,7 @@ class Java8SpringBoot2Target extends Target {
             });
         }
 
-        function isPrimitive(type) {
+        function isPrimitive(type:any):boolean {
             if (!type) {
                 return false;
             }
@@ -62,14 +65,16 @@ class Java8SpringBoot2Target extends Target {
             return false;
         }
 
-        function classHelper(typeName, options) {
+        function classHelper(typeName:any, options:any = null):any {
 
             if (!typeName) {
-                return typeName;
+                return Template.SafeString('' + typeName);
             }
 
-            if (typeName.$ref) {
-                typeName = typeName.$ref;
+            if (typeName.ref) {
+                typeName = typeName.ref;
+            } else if (typeName.type) {
+                typeName = typeName.type;
             }
 
             if (typeName.indexOf('/') > -1) {
@@ -90,7 +95,7 @@ class Java8SpringBoot2Target extends Target {
             return classHelperName(typeName, options);
         }
 
-        function classHelperName(typeName, options) {
+        function classHelperName(typeName:any, options:any):any {
             const asType = !!(options && options.hash['type']);
             if (isEntity(typeName)) {
                 return Template.SafeString(ucfirst(typeName) + (asType ? '' : 'DTO'));
@@ -103,13 +108,13 @@ class Java8SpringBoot2Target extends Target {
             return Template.SafeString(ucfirst(typeName));
         }
 
-        function isList(typeName) {
+        function isList(typeName:string) {
             return typeName.endsWith('[]');
         }
 
         engine.registerHelper('class', classHelper);
 
-        const classFrom = (property, options) => {
+        const classFrom = (property:any, options:any):any => {
             switch(property.type) {
                 case 'array':
                     return Template.SafeString(`List<${classFrom(property.items, options)}>`);
@@ -124,7 +129,7 @@ class Java8SpringBoot2Target extends Target {
         engine.registerHelper('classFrom', classFrom);
 
 
-        engine.registerHelper('returnType', (type, options) => {
+        engine.registerHelper('returnType', (type:any, options:any) => {
             const isUCFirst = options.hash && options.hash.ucfirst;
             if (!type) {
                 return isUCFirst ? 'Void' :'void' ;
@@ -163,7 +168,7 @@ class Java8SpringBoot2Target extends Target {
         return engine;
     }
 
-    _postProcessCode(filename, code) {
+    protected _postProcessCode(filename:string, code:string):string {
 
         let parser = null;
         let tabWidth = 4;
@@ -193,6 +198,3 @@ class Java8SpringBoot2Target extends Target {
         }
     }
 }
-
-
-module.exports = Java8SpringBoot2Target;

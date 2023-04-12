@@ -46,8 +46,7 @@ spec:
             properties: null
           type:
             description: null
-            type:
-              $ref: TaskType
+            ref: TaskType
             properties: null
       - type: dto
         name: User
@@ -69,8 +68,7 @@ spec:
             type: array
             description: null
             items:
-              type:
-                $ref: Task
+              ref: Task
               properties: null
       - type: dto
         name: TaskList
@@ -156,7 +154,8 @@ spec:
             path: /users/{other}
             arguments:
               other:
-                type: string
+                type:
+                  type: string
                 transport: path
                 id: other
           getUser:
@@ -164,11 +163,12 @@ spec:
             path: /users/{other}/test
             arguments:
               other:
-                type: string
+                type:
+                  type: string
                 transport: path
                 id: other
             responseType:
-              $ref: User
+              ref: User
   providers:
     - kind: kapeta/resource-type-rest-api:0.0.2
       metadata:
@@ -181,13 +181,14 @@ spec:
             path: /tasks/{listId}/new
             arguments:
               listId:
-                type: string
+                type:
+                  type: string
                 transport: PATH
                 id: listId
               task:
                 id: task
                 type:
-                  $ref: Task
+                  ref: Task
                 transport: BODY
           removeTask:
             description: Remove task from list
@@ -196,11 +197,13 @@ spec:
             arguments:
               listId:
                 id: listId
-                type: string
+                type:
+                  type: string
                 transport: PATH
               taskId:
                 id: taskId
-                type: string
+                type:
+                  type: string
                 transport: PATH
             responseType: ""
           getTasks:
@@ -210,10 +213,11 @@ spec:
             arguments:
               listId:
                 id: listId
-                type: string
+                type:
+                  type: string
                 transport: PATH
             responseType:
-              $ref: Task[]
+              ref: Task[]
           updateTask:
             description: Update task
             method: PUT
@@ -221,19 +225,21 @@ spec:
             arguments:
               listId:
                 id: listId
-                type: string
+                type:
+                  type: string
                 transport: PATH
               taskId:
                 id: taskId
-                type: string
+                type:
+                  type: string
                 transport: PATH
               task:
                 id: task
                 type:
-                  $ref: Task
+                  ref: Task
                 transport: BODY
             responseType:
-              $ref: Task
+              ref: Task
     - kind: kapeta/resource-type-rest-api:0.0.2
       metadata:
         name: lists
@@ -245,7 +251,7 @@ spec:
             path: /lists
             arguments: {}
             responseType:
-              $ref: TaskList[]
+              ref: TaskList[]
           addList:
             description: Create new list
             method: POST
@@ -254,7 +260,7 @@ spec:
               list:
                 id: list
                 type:
-                  $ref: TaskList
+                  ref: TaskList
                 transport: BODY
             responseType: ""
           updateList:
@@ -269,7 +275,7 @@ spec:
               list:
                 id: list
                 type:
-                  $ref: TaskList
+                  ref: TaskList
                 transport: BODY
             responseType: ""
           removeList:

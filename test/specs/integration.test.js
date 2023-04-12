@@ -1,6 +1,6 @@
 const {describe, test, beforeEach} =  require("@jest/globals");
 
-const Target = require('../../index');
+const Target = require('../../src');
 const {CodegenHelpers, BlockCodeGenerator} = require('@kapeta/codegen');
 const Path = require("path");
 const data = require("../resources/examples/todo.kapeta.yml");
