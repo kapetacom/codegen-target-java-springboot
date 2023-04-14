@@ -28,7 +28,7 @@ public class {{class data.metadata.name}}Controller {
     /**
      * {{comment description}}
      */
-    {{#if responseType}}@ResponseBody{{/if}}
+    {{#ifValueType responseType}}@ResponseBody{{/ifValueType}}
     @RequestMapping(value = "{{string path}}", method = RequestMethod.{{constant method}})
     public {{returnType responseType}} {{method methodName}} ( {{#arguments arguments}}
                 {{#switch transport}}
@@ -40,7 +40,7 @@ public class {{class data.metadata.name}}Controller {
                 {{class this}} {{variable argumentName}}
             {{/arguments}} ) throws Exception {
 
-        {{#if responseType}}return {{/if}}service.{{method methodName}} (
+        {{#ifValueType responseType}}return {{/ifValueType}}service.{{method methodName}} (
             {{#arguments arguments}}
                 {{variable argumentName}}
             {{/arguments}}

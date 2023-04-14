@@ -195,7 +195,8 @@ spec:
                 id: taskId
                 type: string
                 transport: PATH
-            responseType: ""
+            responseType:
+              type: void
           getTasks:
             description: Get tasks for list
             method: GET
@@ -247,7 +248,8 @@ spec:
                 id: list
                 ref: TaskList
                 transport: BODY
-            responseType: ""
+            responseType:
+              type: void
           updateList:
             description: Updates a list
             method: PUT
@@ -261,7 +263,8 @@ spec:
                 id: list
                 ref: TaskList
                 transport: BODY
-            responseType: ""
+            responseType:
+              type: void
           removeList:
             description: Deletes a list and all tasks in it
             method: DELETE
@@ -271,4 +274,5 @@ spec:
                 id: listId
                 type: string
                 transport: PATH
-            responseType: ""
+            responseType:
+              type: void

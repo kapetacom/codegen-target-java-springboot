@@ -22,7 +22,7 @@ public class {{class data.metadata.name}}Service implements I{{class data.metada
 
         //TODO: Implement me!
 
-        {{#if responseType}}return null;{{/if}}
+        {{#ifValueType responseType}}return null;{{/ifValueType}}
     }
 
 {{/methods}}

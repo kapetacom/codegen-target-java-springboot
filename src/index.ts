@@ -154,6 +154,13 @@ export default class Java8SpringBoot2Target extends Target {
             return Template.SafeString(whenFalse || '');
         });
 
+        engine.registerHelper('ifValueType', (type, options) => {
+            if ((type?.type || type?.ref) && type?.type?.toLowerCase() !== 'void') {
+                return Template.SafeString(options.fn());
+            }
+            return Template.SafeString('');
+        });
+
         return engine;
     }
 
