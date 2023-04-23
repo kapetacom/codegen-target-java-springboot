@@ -70,7 +70,7 @@ const targetConfig : ILanguageTargetProvider<JavaTargetConfigOptions> =  {
         'kapeta/block-type-service'
     ],
     definition: kapetaDefinition,
-    componentType: JavaTargetConfig,
+    editorComponent: JavaTargetConfig,
     validate: (options:any) => {
         const errors:string[] = [];
 
