@@ -2,6 +2,10 @@
 package {{options.basePackage}};
 
 import com.kapeta.spring.KapetaApplication;
+import com.kapeta.spring.annotation.KapetaSpringApplication;
+{{#provides 'kapeta/resource-type-rest-api'}}
+import com.kapeta.spring.annotation.KapetaEnableRestResource;
+{{/provides}}
 
 @KapetaSpringApplication
 {{#consumes 'kapeta/resource-type-rest-client'}}
