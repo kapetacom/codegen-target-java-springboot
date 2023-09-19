@@ -10,13 +10,13 @@ import retrofit2.http.*;
 @KapetaRestClient("users")
 public interface UsersClient {
     /**
-     * undefined
+     *
      */
     @DELETE("users/{other}")
     Call<Void> deleteUser(@Path("other") String other);
 
     /**
-     * undefined
+     *
      */
     @GET("users/{other}/test")
     Call<UserDTO> getUser(@Path("other") String other);
