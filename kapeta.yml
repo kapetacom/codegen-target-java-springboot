@@ -3,6 +3,7 @@ metadata:
   name: kapeta/language-target-java-spring-boot
   title: Java / Spring Boot
   description: Generate block service code in Java with Spring Boot
+  visibility: public
 spec:
   icon:
     type: url
