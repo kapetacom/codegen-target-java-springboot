@@ -26,10 +26,7 @@ public class UsersController {
      */
     @ResponseBody
     @RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
-    public UserDTO createUser(
-        @PathVariable("id") String id,
-        @RequestBody UserDTO user
-    ) throws Exception {
+    public UserDTO createUser(String id, UserDTO user) throws Exception {
         return service.createUser(id, user);
     }
 
@@ -38,7 +35,7 @@ public class UsersController {
      */
     @ResponseBody
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    public UserDTO getUser(@PathVariable("id") String id) throws Exception {
+    public UserDTO getUser(String id) throws Exception {
         return service.getUser(id);
     }
 
@@ -47,7 +44,7 @@ public class UsersController {
      */
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
-    public void deleteUser(@PathVariable("id") String id) throws Exception {
+    public void deleteUser(String id) throws Exception {
         service.deleteUser(id);
     }
 

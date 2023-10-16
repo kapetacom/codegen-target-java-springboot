@@ -1,3 +1,11 @@
 spring:
   application:
     name: kapeta/todo
+  data:
+    mongodb:
+      auto-index-creation: true
+mongock:
+  transaction-strategy: change_unit
+  transaction-enabled: true
+  migration-scan-package:
+    - "org.mycompany.services.todo.repositories.tododb.migrations"

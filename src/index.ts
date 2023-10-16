@@ -1,5 +1,5 @@
 import {Target, Template, TypeLike, toTypeName} from '@kapeta/codegen-target';
-import prettier from "prettier";
+import prettier from "@prettier/sync";
 import _ from 'lodash';
 import Path from "path";
 
@@ -186,7 +186,8 @@ export default class Java8SpringBoot2Target extends Target {
         try {
             return prettier.format(code, {
                 tabWidth: tabWidth,
-                parser: parser
+                parser: parser,
+                plugins: ["prettier-plugin-java"],
             });
         } catch (e) {
             console.log('Failed to prettify source: ' + filename + '. ' + e);
