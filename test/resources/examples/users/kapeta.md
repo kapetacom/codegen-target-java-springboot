@@ -51,4 +51,18 @@ Migrations will be applied automatically when the service starts.
 
 
 
+## Emails
+
+A ```JavaMailSender``` bean is automatically configured in this service
+which is the standard way of sending e-mails in Spring.
+
+For details about usage see the Spring documentation for more information:
+https://docs.spring.io/spring-framework/docs/current/reference/html/integration.html#mail
+
+### Testing
+When sending e-mails locally it will use gosmtpd - which doesn't actually send any e-mails. 
+It has a web interface and API where you can see the e-mails that would have been sent.
+Read more here:
+https://gitlab.com/sorenmat/gosmtpd
+
 

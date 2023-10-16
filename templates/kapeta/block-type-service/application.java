@@ -15,6 +15,9 @@ import com.kapeta.spring.annotation.KapetaEnableMongoDB;
 {{#consumes 'kapeta/resource-type-postgresql'}}
 import com.kapeta.spring.annotation.KapetaEnablePostgres;
 {{/consumes}}
+{{#consumes 'kapeta/resource-type-smtp-client'}}
+import com.kapeta.spring.annotation.KapetaEnableEmailSender;
+{{/consumes}}
 
 @KapetaSpringApplication
 {{#consumes 'kapeta/resource-type-rest-client'}}
@@ -52,6 +55,9 @@ import com.kapeta.spring.annotation.KapetaEnablePostgres;
 {{/consumes}}
 {{#consumes 'kapeta/resource-type-oracle'}}
 @KapetaEnableOracle
+{{/consumes}}
+{{#consumes 'kapeta/resource-type-smtp-client'}}
+@KapetaEnableEmailSender
 {{/consumes}}
 public class {{class data.metadata.name}}Application {
 

@@ -88,36 +88,11 @@ When you have added migrations you simply (re)start the application to apply the
 {{#consumes 'kapeta/resource-type-smtp-client'}}
 ## Emails
 
-To send simple emails - use the following code:
-```tsx
-import { EmailClient } from '@kapeta/sdk-smtp-client';
-const emailClient = new EmailClient();
-await emailClient.send({
-    from: 'support@kapeta.com',
-    to: 'someone@somewhere.com',
-    subject: 'Hi!',
-    text: 'Hello World!',
-    html: '<h1>Hello World!</h1>',
-});
-```
-E-mails are send using nodemailer. Read more here:
-https://nodemailer.com/about/
+A ```JavaMailSender``` bean is automatically configured in this service
+which is the standard way of sending e-mails in Spring.
 
-To send emails rendered using React - use the following code: 
-```tsx
-import { EmailClient } from '@kapeta/sdk-smtp-client';
-const emailClient = new EmailClient();
-await emailClient.sendReact({
-    from: 'support@kapeta.com',
-    to: 'someone@somewhere.com',
-    subject: 'Hi!',
-    body: <MyEmail />,
-});
-```
-This uses react-email - read more here: https://react.email/
-
-### Email templates
-Email templates are simply React components which are rendered using [react-email](https://react.email/).
+For details about usage see the Spring documentation for more information:
+https://docs.spring.io/spring-framework/docs/current/reference/html/integration.html#mail
 
 ### Testing
 When sending e-mails locally it will use gosmtpd - which doesn't actually send any e-mails. 
