@@ -2,7 +2,6 @@
 package {{options.basePackage}}.dto;
 
 import lombok.*;
-import java.util.*;
 
 import {{options.basePackage}}.gen.dto.{{type data.name}}Base;
 

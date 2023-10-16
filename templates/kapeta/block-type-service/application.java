@@ -6,6 +6,15 @@ import com.kapeta.spring.annotation.KapetaSpringApplication;
 {{#provides 'kapeta/resource-type-rest-api'}}
 import com.kapeta.spring.annotation.KapetaEnableRestResource;
 {{/provides}}
+{{#consumes 'kapeta/resource-type-rest-client'}}
+import com.kapeta.spring.annotation.KapetaEnableRestClient;
+{{/consumes}}
+{{#consumes 'kapeta/resource-type-mongodb'}}
+import com.kapeta.spring.annotation.KapetaEnableMongoDB;
+{{/consumes}}
+{{#consumes 'kapeta/resource-type-postgresql'}}
+import com.kapeta.spring.annotation.KapetaEnablePostgres;
+{{/consumes}}
 
 @KapetaSpringApplication
 {{#consumes 'kapeta/resource-type-rest-client'}}

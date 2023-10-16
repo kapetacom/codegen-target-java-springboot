@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
     repositoryBaseClass = BaseMongoRepositoryImpl.class,
     basePackages = { "{{string options.basePackage}}.repositories.{{string data.metadata.name}}" }
 )
+
 public class {{class data.metadata.name}}Config extends AbstractMongoDBConfig {
 
     public {{class data.metadata.name}}Config() {

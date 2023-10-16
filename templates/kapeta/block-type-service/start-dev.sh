@@ -1,4 +1,4 @@
-//#FILENAME:scripts/start.sh:write-always:755
+//#FILENAME:scripts/start-dev.sh:write-always:755
 #!/usr/bin/env bash
 
 trap "exit" INT TERM ERR

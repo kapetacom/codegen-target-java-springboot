@@ -4,6 +4,7 @@
  */
 package {{options.basePackage}}.gen.clients;
 
+import com.kapeta.spring.annotation.KapetaRestClient;
 import retrofit2.Call;
 import retrofit2.http.*;
 import {{options.basePackage}}.dto.*;
@@ -19,11 +20,11 @@ public interface {{class data.metadata.name}}Client {
     @{{type method}}("{{relativePath path}}")
     Call<{{returnType responseType ucfirst=true}}> {{method methodName}} ( {{#arguments arguments}}
 
-            {{#switch transport}}
-                {{#case 'path'}} @Path("{{string argumentName}}") {{/case}}
-                {{#case 'query'}} @Query("{{string argumentName}}"){{/case}}
-                {{#case 'header'}} @Header("{{string headerName}}"){{/case}}
-                {{#case 'body'}} @Body {{/case}}
+            {{#switch (uppercase transport)}}
+                {{#case 'PATH'}} @Path("{{string argumentName}}") {{/case}}
+                {{#case 'QUERY'}} @Query("{{string argumentName}}"){{/case}}
+                {{#case 'HEADER'}} @Header("{{string headerName}}"){{/case}}
+                {{#case 'BODY'}} @Body {{/case}}
             {{/switch}}
             {{class this}} {{variable argumentName}}
 
