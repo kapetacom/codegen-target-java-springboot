@@ -22,7 +22,7 @@ spec:
       - groupId
       - artifactId
   local:
-    image: eclipse-temurin:21-jdk
+    image: maven:3.9.4-eclipse-temurin-21-alpine
     workingDir: /workspace
     healthcheck: curl --fail http://localhost:80/__kapeta/health || exit 1
     handlers:
