@@ -31,11 +31,11 @@ public class {{class data.metadata.name}}Controller {
     {{#ifValueType responseType}}@ResponseBody{{/ifValueType}}
     @RequestMapping(value = "{{string path}}", method = RequestMethod.{{constant method}})
     public {{returnType responseType}} {{method methodName}} ( {{#arguments arguments}}
-                {{#switch transport}}
-                    {{#case 'path'}} @PathVariable("{{string argumentName}}") {{/case}}
-                    {{#case 'query'}} @RequestParam("{{string argumentName}}") {{/case}}
-                    {{#case 'header'}} @RequestHeader("{{string headerName}}") {{/case}}
-                    {{#case 'body'}} @RequestBody {{/case}}
+                {{#switch (uppercase transport)}}
+                    {{#case 'PATH'}} @PathVariable("{{string argumentName}}") {{/case}}
+                    {{#case 'QUERY'}} @RequestParam("{{string argumentName}}") {{/case}}
+                    {{#case 'HEADER'}} @RequestHeader("{{string headerName}}") {{/case}}
+                    {{#case 'BODY'}} @RequestBody {{/case}}
                 {{/switch}}
                 {{class this}} {{variable argumentName}}
             {{/arguments}} ) throws Exception {

@@ -30,6 +30,9 @@ spec:
     - kind: kapeta/resource-type-postgresql:0.0.2
       metadata:
         name: usersdb
+    - kind: kapeta/resource-type-smtp-client:0.0.6
+      metadata:
+        name: smtpclient
   providers:
     - kind: kapeta/resource-type-rest-api:0.0.4
       metadata:

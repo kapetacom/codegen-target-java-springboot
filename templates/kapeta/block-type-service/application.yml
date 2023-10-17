@@ -2,10 +2,25 @@
 spring:
   application:
     name: {{lowercase data.metadata.name}}
+{{#consumes 'kapeta/resource-type-mongodb'}}
+  data:
+    mongodb:
+      auto-index-creation: true
+{{/consumes}}
 {{#consumes 'kapeta/resource-type-postgresql'}}
   jpa:
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
         temp:
           use_jdbc_metadata_defaults: false
+{{/consumes}}
+{{#consumes 'kapeta/resource-type-mongodb'}}
+mongock:
+  transaction-strategy: change_unit
+  transaction-enabled: true
+  migration-scan-package:
+    {{#consumers-of-type 'kapeta/resource-type-mongodb'}}
+    - "{{string ../options.basePackage}}.repositories.{{string metadata.name}}.migrations"
+    {{/consumers-of-type}}
 {{/consumes}}
