@@ -187,7 +187,9 @@ export default class Java8SpringBoot2Target extends Target {
             return prettier.format(code, {
                 tabWidth: tabWidth,
                 parser: parser,
-                plugins: ["prettier-plugin-java"],
+                plugins: [
+                    require.resolve('prettier-plugin-java')
+                ],
             });
         } catch (e) {
             console.log('Failed to prettify source: ' + filename + '. ' + e);
