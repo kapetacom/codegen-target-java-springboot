@@ -26,7 +26,10 @@ public class TasksController {
      */
 
     @RequestMapping(value = "/tasks/{listId}/new", method = RequestMethod.POST)
-    public void addTask(String listId, TaskDTO task) throws Exception {
+    public void addTask(
+        @PathVariable("listId") String listId,
+        @RequestBody TaskDTO task
+    ) throws Exception {
         service.addTask(listId, task);
     }
 
@@ -38,7 +41,10 @@ public class TasksController {
         value = "/tasks/{listId}/{taskId}",
         method = RequestMethod.DELETE
     )
-    public void removeTask(String listId, String taskId) throws Exception {
+    public void removeTask(
+        @PathVariable("listId") String listId,
+        @PathVariable("taskId") String taskId
+    ) throws Exception {
         service.removeTask(listId, taskId);
     }
 
@@ -47,7 +53,8 @@ public class TasksController {
      */
     @ResponseBody
     @RequestMapping(value = "/tasks/{listId}", method = RequestMethod.GET)
-    public List<TaskDTO> getTasks(String listId) throws Exception {
+    public List<TaskDTO> getTasks(@PathVariable("listId") String listId)
+        throws Exception {
         return service.getTasks(listId);
     }
 
@@ -59,8 +66,11 @@ public class TasksController {
         value = "/tasks/{listId}/{taskId}",
         method = RequestMethod.PUT
     )
-    public TaskDTO updateTask(String listId, String taskId, TaskDTO task)
-        throws Exception {
+    public TaskDTO updateTask(
+        @PathVariable("listId") String listId,
+        @PathVariable("taskId") String taskId,
+        @RequestBody TaskDTO task
+    ) throws Exception {
         return service.updateTask(listId, taskId, task);
     }
 }

@@ -14,11 +14,11 @@ public interface UsersClient {
      *
      */
     @DELETE("users/{other}")
-    Call<Void> deleteUser(String other);
+    Call<Void> deleteUser(@Path("other") String other);
 
     /**
      *
      */
     @GET("users/{other}/test")
-    Call<UserDTO> getUser(String other);
+    Call<UserDTO> getUser(@Path("other") String other);
 }
