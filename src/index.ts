@@ -2,6 +2,8 @@ import {Target, Template, TypeLike, toTypeName} from '@kapeta/codegen-target';
 import prettier from "@prettier/sync";
 import _ from 'lodash';
 import Path from "path";
+import {GeneratedFile, SourceFile} from "@kapeta/codegen";
+import cheerio from "cheerio";
 
 
 function ucfirst(typeLike:TypeLike) {
@@ -9,11 +11,117 @@ function ucfirst(typeLike:TypeLike) {
 
     return text.substring(0,1).toUpperCase() + text.substring(1);
 }
+type MapUnknown = { [key: string]: any };
+function decodeEntities(encodedString:string) {
+    const translate_re = /&(nbsp|amp|quot|lt|gt);/g;
+    const translate:any = {
+        "nbsp":" ",
+        "amp" : "&",
+        "quot": "\"",
+        "lt"  : "<",
+        "gt"  : ">"
+    };
+    return encodedString.replace(translate_re, function(match, entity) {
+        return translate[entity];
+    }).replace(/&#(\d+);/gi, function(match, numStr) {
+        const num = parseInt(numStr, 10);
+        return String.fromCharCode(num);
+    }).replace(/&#x(\d+);/gi, function(match, numStr) {
+        const num = parseInt(numStr, 16);
+        return String.fromCharCode(num);
+    });
+}
+
+const KAPETA_GROUP_ID = 'com.kapeta';
 
 export default class Java8SpringBoot2Target extends Target {
 
     constructor(options:any) {
         super(options, Path.resolve(__dirname,'../'));
+    }
+
+    mergeFile(sourceFile: SourceFile, newFile: GeneratedFile): GeneratedFile {
+        if (sourceFile.filename === "pom.xml") {
+            // We can merge the dependencies into existing pom.xml without overwriting
+            // the existing user adjusted content
+
+            const targetDoc = cheerio.load(sourceFile.content, {
+                xmlMode: true
+            });
+
+            const newDoc = cheerio.load(newFile.content, {
+                xmlMode: true
+            });
+
+            const targetDependencies = targetDoc('dependencies > dependency');
+            const newDependencies = newDoc('dependencies > dependency');
+
+            const targetDependenciesList = targetDependencies.toArray();
+            const newDependenciesList = newDependencies.toArray();
+            if (newDependenciesList && targetDependenciesList) {
+                newDependenciesList.forEach((newDependency) => {
+                    const newGroupId = newDoc('groupId', newDependency).text();
+                    const newArtifactId = newDoc('artifactId', newDependency).text();
+                    const newVersion = newDoc('version', newDependency).text();
+                    if (KAPETA_GROUP_ID !== newGroupId) {
+                        return;
+                    }
+
+                    const existing = targetDependenciesList.find((targetChild) => {
+                        if (KAPETA_GROUP_ID !== targetDoc('groupId', targetChild).text()) {
+                            return false;
+                        }
+
+                        return newArtifactId === targetDoc('artifactId', targetChild).text();
+                    });
+
+                    if (existing) {
+                        const targetVersion = targetDoc('version', existing);
+                        const existingVersion = targetVersion.text();
+                        if (existingVersion !== newVersion) {
+                            targetVersion.text(newVersion);
+                        }
+                    } else {
+                        // @ts-ignore
+                        const $newDependency = newDoc(newDependency).clone();
+                        targetDependencies.last().after(`\n        <dependency>${$newDependency.html()}</dependency>`);
+                    }
+                });
+            }
+
+            return {
+                ...newFile,
+                content: decodeEntities(targetDoc.xml()),
+            };
+        }
+
+        if (sourceFile.filename === ".devcontainer/devcontainer.json") {
+            // We can merge the environment variables prefixed with KAPETA_ into the containerEnv
+            const target = JSON.parse(sourceFile.content);
+            const newContent = JSON.parse(newFile.content);
+            if (!target.containerEnv) {
+                target.containerEnv = {};
+            }
+
+            const containerEnv: MapUnknown = {
+                ...(newContent.containerEnv ?? {}),
+            };
+            Object.entries(target.containerEnv).forEach(([key, value]) => {
+                if (key.toLowerCase().startsWith("kapeta_")) {
+                    return;
+                }
+                containerEnv[key] = value;
+            });
+
+            target.containerEnv = containerEnv;
+
+            return {
+                ...newFile,
+                content: JSON.stringify(target, null, 4),
+            };
+        }
+
+        return super.mergeFile(sourceFile, newFile);
     }
 
     protected _createTemplateEngine(data:any, context:any) {
