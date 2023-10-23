@@ -33,7 +33,7 @@ public class TasksService implements ITasksService {
     public List<TaskDTO> getTasks(String listId) {
         //TODO: Implement me!
 
-        return null;
+        throw new RuntimeException("Not implemented");
     }
 
     /**
@@ -43,6 +43,6 @@ public class TasksService implements ITasksService {
     public TaskDTO updateTask(String listId, String taskId, TaskDTO task) {
         //TODO: Implement me!
 
-        return null;
+        throw new RuntimeException("Not implemented");
     }
 }

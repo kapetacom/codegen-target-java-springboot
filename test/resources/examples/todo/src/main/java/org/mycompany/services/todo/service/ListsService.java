@@ -15,7 +15,7 @@ public class ListsService implements IListsService {
     public List<TaskListDTO> getLists() {
         //TODO: Implement me!
 
-        return null;
+        throw new RuntimeException("Not implemented");
     }
 
     /**

@@ -22,7 +22,7 @@ public class {{class data.metadata.name}}Service implements I{{class data.metada
 
         //TODO: Implement me!
 
-        {{#ifValueType responseType}}return null;{{/ifValueType}}
+        {{#ifValueType responseType}}throw new RuntimeException("Not implemented");{{/ifValueType}}
     }
 
 {{/methods}}

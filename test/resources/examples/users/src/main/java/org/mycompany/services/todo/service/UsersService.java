@@ -15,7 +15,7 @@ public class UsersService implements IUsersService {
     public UserDTO createUser(String id, UserDTO user) {
         //TODO: Implement me!
 
-        return null;
+        throw new RuntimeException("Not implemented");
     }
 
     /**
@@ -25,7 +25,7 @@ public class UsersService implements IUsersService {
     public UserDTO getUser(String id) {
         //TODO: Implement me!
 
-        return null;
+        throw new RuntimeException("Not implemented");
     }
 
     /**
@@ -44,7 +44,7 @@ public class UsersService implements IUsersService {
     public UserDTO authenticate(UserAuthDTO user) {
         //TODO: Implement me!
 
-        return null;
+        throw new RuntimeException("Not implemented");
     }
 
     /**
@@ -54,6 +54,6 @@ public class UsersService implements IUsersService {
     public List<UserDTO> listUsers() {
         //TODO: Implement me!
 
-        return null;
+        throw new RuntimeException("Not implemented");
     }
 }
