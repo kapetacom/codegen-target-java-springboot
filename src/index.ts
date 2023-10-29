@@ -1,3 +1,8 @@
+/**
+ * Copyright 2023 Kapeta Inc.
+ * SPDX-License-Identifier: MIT
+ */
+
 import {Target, Template, TypeLike, toTypeName} from '@kapeta/codegen-target';
 import prettier from "@prettier/sync";
 import _ from 'lodash';
