@@ -29,7 +29,7 @@ public class {{class data.metadata.name}}Controller {
      */
     {{#ifValueType responseType}}@ResponseBody{{/ifValueType}}
     @RequestMapping(value = "{{string path}}", method = RequestMethod.{{constant method}})
-    public {{returnType responseType}} {{method methodName}} ( {{#arguments arguments}}
+    public {{returnType responseType}} {{method methodName}}( {{#arguments arguments}}
                 {{#switch (uppercase transport)}}
                     {{#case 'PATH'}} @PathVariable("{{string argumentName}}") {{/case}}
                     {{#case 'QUERY'}} @RequestParam("{{string argumentName}}") {{/case}}

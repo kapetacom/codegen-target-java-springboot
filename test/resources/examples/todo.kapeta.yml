@@ -182,6 +182,11 @@ spec:
                 id: task
                 ref: Task
                 transport: BODY
+              overwrite:
+                id: overwrite
+                type: string
+                transport: HEADER
+                argument: Kapeta-Overwrite
           removeTask:
             description: Remove task from list
             method: DELETE
