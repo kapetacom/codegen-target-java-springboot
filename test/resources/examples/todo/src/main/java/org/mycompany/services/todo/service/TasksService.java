@@ -12,7 +12,7 @@ public class TasksService implements ITasksService {
      * Add task to list
      */
     @Override
-    public void addTask(String listId, TaskDTO task) {
+    public void addTask(String listId, TaskDTO task, String overwrite) {
         //TODO: Implement me!
 
     }

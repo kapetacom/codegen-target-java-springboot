@@ -10,7 +10,8 @@ public interface ITasksService {
     /**
      * Add task to list
      */
-    void addTask(String listId, TaskDTO task) throws Exception;
+    void addTask(String listId, TaskDTO task, String overwrite)
+        throws Exception;
 
     /**
      * Remove task from list
