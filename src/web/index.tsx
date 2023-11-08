@@ -19,7 +19,7 @@ interface JavaTargetConfigOptions {
 }
 
 function validatePackageName(fieldName:string, value:string) {
-    if (!/^[a-z][a-z0-9_-]*(\.[a-z][a-z0-9_-]*)*[0-9a-z_]$/.test(value)) {
+    if (!/^[a-z_][a-z0-9_]*(\.[a-z_][a-z0-9_]*)+$/.test(value)) {
         throw new Error('Not a valid Java package name');
     }
 }
@@ -31,7 +31,7 @@ function validateArtifactId(fieldName:string, value:string) {
 }
 
 function validateGroupId(fieldName:string, value:string) {
-    if (!/^[a-z][a-z0-9_-]*(\.[a-z][a-z0-9_-]*)*[0-9a-z_]$/.test(value)) {
+    if (!/^[a-z_][a-z0-9_]*(\.[a-z_][a-z0-9_]*)+$/.test(value)) {
         throw new Error('Not a valid Maven group ID');
     }
 }
@@ -45,14 +45,14 @@ const JavaTargetConfig = () => {
                 name={"spec.target.options.basePackage"}
                 label={"Package name"}
                 validation={['required', validatePackageName]}
-                help={"Must be a valid java package name. E.g. org.my-company"}
+                help={"Must be a valid java package name. E.g. org.my_company"}
             />
 
             <FormField
                 name={"spec.target.options.groupId"}
                 label={"Group ID"}
                 validation={['required', validateGroupId]}
-                help={"A valid Maven Group ID. E.g. org.my-company"}
+                help={"A valid Maven Group ID. E.g. org.my_company"}
             />
 
 
