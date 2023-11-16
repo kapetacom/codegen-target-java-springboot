@@ -8,6 +8,7 @@ import com.kapeta.spring.annotation.KapetaRestClient;
 import retrofit2.Call;
 import retrofit2.http.*;
 import {{options.basePackage}}.dto.*;
+import java.util.*;
 
 @KapetaRestClient("{{string data.metadata.name}}")
 public interface {{class data.metadata.name}}Client {

@@ -4,6 +4,7 @@
 package org.mycompany.services.todo.gen.clients;
 
 import com.kapeta.spring.annotation.KapetaRestClient;
+import java.util.*;
 import org.mycompany.services.todo.dto.*;
 import retrofit2.Call;
 import retrofit2.http.*;
