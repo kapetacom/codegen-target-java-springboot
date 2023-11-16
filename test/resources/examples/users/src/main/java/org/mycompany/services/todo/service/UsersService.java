@@ -12,7 +12,11 @@ public class UsersService implements IUsersService {
      * Create user
      */
     @Override
-    public UserDTO createUser(String id, UserDTO user) {
+    public UserDTO createUser(
+        String id,
+        UserDTO user,
+        Map<String, String> metadata
+    ) {
         //TODO: Implement me!
 
         throw new RuntimeException("Not implemented");

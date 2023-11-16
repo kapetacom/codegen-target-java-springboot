@@ -14,11 +14,17 @@ public interface UsersClient {
      *
      */
     @DELETE("users/{other}")
-    Call<Void> deleteUser(@Path("other") String other);
+    Call<Void> deleteUser(
+        @Path("other") String other,
+        @Header("Kapeta-Overwrite") String overwrite
+    );
 
     /**
      *
      */
     @GET("users/{other}/test")
-    Call<UserDTO> getUser(@Path("other") String other);
+    Call<UserDTO> getUser(
+        @Path("other") String other,
+        @HeaderMap Map<String, String> metadata
+    );
 }

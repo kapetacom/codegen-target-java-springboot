@@ -10,7 +10,8 @@ public interface IUsersService {
     /**
      * Create user
      */
-    UserDTO createUser(String id, UserDTO user) throws Exception;
+    UserDTO createUser(String id, UserDTO user, Map<String, String> metadata)
+        throws Exception;
 
     /**
      * Get user by id

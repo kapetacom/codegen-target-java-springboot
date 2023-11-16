@@ -9,6 +9,7 @@ import _ from 'lodash';
 import Path from "path";
 import {GeneratedFile, SourceFile} from "@kapeta/codegen";
 import cheerio from "cheerio";
+import Handlebars from "handlebars";
 
 
 function ucfirst(typeLike:TypeLike) {
@@ -153,7 +154,7 @@ export default class Java8SpringBoot2Target extends Target {
             }
 
             if (typeof type !== 'string' && typeof type.type !== 'string') {
-                throw new Error('Type must be a string but was: ' + typeof type + '. Value: ' + JSON.stringify(type));
+                return false;
             }
 
             const typeName = toTypeName(type).toLowerCase();
@@ -161,6 +162,7 @@ export default class Java8SpringBoot2Target extends Target {
             switch (typeName) {
                 case 'boolean':
                 case 'int':
+                case 'integer':
                 case 'float':
                 case 'double':
                 case 'long':
@@ -174,9 +176,9 @@ export default class Java8SpringBoot2Target extends Target {
             return false;
         }
 
-        function classHelper(typeName:TypeLike, options:any = null):any {
+        function classHelper(typeName:TypeLike, options:any = null):Handlebars.SafeString {
             if (!typeName) {
-                return typeName;
+                return Template.SafeString('void');
             }
 
             let typeText = toTypeName(typeName);
@@ -199,10 +201,25 @@ export default class Java8SpringBoot2Target extends Target {
             return classHelperName(typeText, options);
         }
 
-        function classHelperName(typeName:string, options:any):any {
+        function classHelperName(typeName:string, options:any):Handlebars.SafeString {
             const asType = !!(options && options.hash['type']);
+
+            if (typeName.includes('<')) {
+                // Has generics
+                const [baseType, genericText] = typeName.split('<');
+                const genericTypes = genericText.substring(0, genericText.length - 1).split(/\s*,\s*/);
+                const genericTypeNames = genericTypes.map((genericType) => {
+                    return classHelper(genericType);
+                });
+                typeName = baseType + '<' + genericTypeNames.join(',') + '>';
+            }
+
             if (isEntity(typeName)) {
                 return Template.SafeString(ucfirst(typeName) + (asType ? '' : 'DTO'));
+            }
+
+            if (['any','unknown'].includes(typeName.toLowerCase())) {
+                return Template.SafeString('Object');
             }
 
             if (isPrimitive(typeName)) {
@@ -230,6 +247,13 @@ export default class Java8SpringBoot2Target extends Target {
 
         engine.registerHelper('classFrom', classFrom);
 
+        engine.registerHelper('ifPrimitive', (type:TypeLike, options:any) => {
+            const typeName = toTypeName(type).toLowerCase();
+            if (isPrimitive(type) || typeName === 'string') {
+                return Template.SafeString(options.fn(this));
+            }
+            return Template.SafeString(options.inverse(this));
+        })
 
         engine.registerHelper('returnType', (type:TypeLike, options:any) => {
             const isUCFirst = options.hash && options.hash.ucfirst;
@@ -269,9 +293,9 @@ export default class Java8SpringBoot2Target extends Target {
 
         engine.registerHelper('ifValueType', (type, options) => {
             if ((type?.type || type?.ref) && type?.type?.toLowerCase() !== 'void') {
-                return Template.SafeString(options.fn());
+                return Template.SafeString(options.fn(this));
             }
-            return Template.SafeString('');
+            return Template.SafeString(options.inverse(this));
         });
 
         return engine;
