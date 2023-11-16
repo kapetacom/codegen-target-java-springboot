@@ -48,6 +48,10 @@ spec:
             description: null
             ref: TaskType
             properties: null
+          metadata:
+            ref: any
+          tags:
+            ref: Set<string>
       - type: dto
         name: User
         description: null
@@ -153,6 +157,11 @@ spec:
                 type: string
                 transport: path
                 id: other
+              overwrite:
+                id: overwrite
+                type: string
+                transport: HEADER
+                argument: Kapeta-Overwrite
           getUser:
             method: GET
             path: /users/{other}/test
@@ -161,6 +170,10 @@ spec:
                 type: string
                 transport: path
                 id: other
+              metadata:
+                id: metadata
+                ref: Map<string, User>
+                transport: HEADER
             responseType:
               ref: User
   providers:

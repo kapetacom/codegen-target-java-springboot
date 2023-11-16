@@ -32,8 +32,8 @@ public class {{class data.metadata.name}}Controller {
     public {{returnType responseType}} {{method methodName}}( {{#arguments arguments}}
                 {{#switch (uppercase transport)}}
                     {{#case 'PATH'}} @PathVariable("{{string argumentName}}") {{/case}}
-                    {{#case 'QUERY'}} @RequestParam("{{string argumentName}}") {{/case}}
-                    {{#case 'HEADER'}} @RequestHeader("{{string argument}}") {{/case}}
+                    {{#case 'QUERY'}} @RequestParam {{/case}}
+                    {{#case 'HEADER'}} @RequestHeader{{#if argument}}("{{string argument}}"){{/if}} {{/case}}
                     {{#case 'BODY'}} @RequestBody {{/case}}
                 {{/switch}}
                 {{class this}} {{variable argumentName}}

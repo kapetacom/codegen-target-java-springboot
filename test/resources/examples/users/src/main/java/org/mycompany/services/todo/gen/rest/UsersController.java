@@ -28,9 +28,10 @@ public class UsersController {
     @RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
     public UserDTO createUser(
         @PathVariable("id") String id,
-        @RequestBody UserDTO user
+        @RequestBody UserDTO user,
+        @RequestHeader Map<String, String> metadata
     ) throws Exception {
-        return service.createUser(id, user);
+        return service.createUser(id, user, metadata);
     }
 
     /**

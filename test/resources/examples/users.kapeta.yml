@@ -52,6 +52,9 @@ spec:
                 ref: User
                 transport: body
                 id: user
+              metadata:
+                ref: Map<string, string>
+                transport: HEADER
             responseType:
               ref: User
           getUser:
