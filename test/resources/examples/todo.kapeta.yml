@@ -172,7 +172,7 @@ spec:
                 id: other
               metadata:
                 id: metadata
-                ref: Map<string, string>
+                ref: Map<string, User>
                 transport: HEADER
             responseType:
               ref: User

@@ -26,6 +26,6 @@ public interface UsersClient {
     @GET("users/{other}/test")
     Call<UserDTO> getUser(
         @Path("other") String other,
-        @HeaderMap Map<String, String> metadata
+        @HeaderMap Map<String, UserDTO> metadata
     );
 }
