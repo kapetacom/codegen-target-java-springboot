@@ -3,91 +3,84 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React from "react";
+import React from 'react';
 
-
-import {ILanguageTargetProvider} from "@kapeta/ui-web-types";
-import {FormField} from "@kapeta/ui-web-components";
+import { ILanguageTargetProvider } from '@kapeta/ui-web-types';
+import { FormField } from '@kapeta/ui-web-components';
 
 const kapetaDefinition = require('../../kapeta.yml');
 const packageJson = require('../../package.json');
 
 interface JavaTargetConfigOptions {
-    basePackage:string
-    groupId:string
-    artifactId:string
+    basePackage: string;
+    groupId: string;
+    artifactId: string;
 }
 
-function validatePackageName(fieldName:string, value:string) {
+function validatePackageName(fieldName: string, value: string) {
     if (!/^[a-z_][a-z0-9_]*(\.[a-z_][a-z0-9_]*)+$/.test(value)) {
         throw new Error('Not a valid Java package name');
     }
 }
 
-function validateArtifactId(fieldName:string, value:string) {
+function validateArtifactId(fieldName: string, value: string) {
     if (!/^[a-z][a-z0-9_-]+$/.test(value)) {
         throw new Error('Not a valid Maven artifact ID');
     }
 }
 
-function validateGroupId(fieldName:string, value:string) {
+function validateGroupId(fieldName: string, value: string) {
     if (!/^[a-z_][a-z0-9_]*(\.[a-z_][a-z0-9_]*)+$/.test(value)) {
         throw new Error('Not a valid Maven group ID');
     }
 }
 
-
 const JavaTargetConfig = () => {
     return (
         <>
-
             <FormField
-                name={"spec.target.options.basePackage"}
-                label={"Package name"}
+                name={'spec.target.options.basePackage'}
+                label={'Package name'}
                 validation={['required', validatePackageName]}
-                help={"Must be a valid java package name. E.g. org.my_company"}
+                help={'Must be a valid java package name. E.g. org.my_company'}
             />
 
             <FormField
-                name={"spec.target.options.groupId"}
-                label={"Group ID"}
+                name={'spec.target.options.groupId'}
+                label={'Group ID'}
                 validation={['required', validateGroupId]}
-                help={"A valid Maven Group ID. E.g. org.my_company"}
+                help={'A valid Maven Group ID. E.g. org.my_company'}
             />
-
 
             <FormField
-                name={"spec.target.options.artifactId"}
-                label={"Artifact ID"}
+                name={'spec.target.options.artifactId'}
+                label={'Artifact ID'}
                 validation={['required', validateArtifactId]}
-                help={"A valid Maven Artifact ID. E.g. my-block-id"}
+                help={'A valid Maven Artifact ID. E.g. my-block-id'}
             />
-
         </>
-    )
-}
+    );
+};
 
-const targetConfig : ILanguageTargetProvider<JavaTargetConfigOptions> =  {
+const targetConfig: ILanguageTargetProvider<JavaTargetConfigOptions> = {
     kind: kapetaDefinition.metadata.name,
     version: packageJson.version,
     title: kapetaDefinition.metadata.title,
-    blockKinds:[
-        'kapeta/block-type-service'
-    ],
+    blockKinds: ['kapeta/block-type-service'],
     definition: kapetaDefinition,
     editorComponent: JavaTargetConfig,
-    validate: (options:any) => {
-        const errors:string[] = [];
+    validate: (options: any) => {
+        const errors: string[] = [];
 
         if (!options) {
-            errors.push('Missing target configuration')
+            errors.push('Missing target configuration');
         } else {
             if (!options.basePackage) {
                 errors.push('Missing base package');
             } else {
                 try {
                     validatePackageName('basePackage', options.basePackage);
-                } catch(e) {
+                } catch (e) {
                     errors.push('Base package is invalid');
                 }
             }
@@ -97,7 +90,7 @@ const targetConfig : ILanguageTargetProvider<JavaTargetConfigOptions> =  {
             } else {
                 try {
                     validateGroupId('groupId', options.groupId);
-                } catch(e) {
+                } catch (e) {
                     errors.push('Group id is invalid');
                 }
             }
@@ -107,14 +100,14 @@ const targetConfig : ILanguageTargetProvider<JavaTargetConfigOptions> =  {
             } else {
                 try {
                     validateArtifactId('artifactId', options.artifactId);
-                } catch(e) {
+                } catch (e) {
                     errors.push('Artifact id is invalid');
                 }
             }
         }
 
         return errors;
-    }
+    },
 };
 
 export default targetConfig;

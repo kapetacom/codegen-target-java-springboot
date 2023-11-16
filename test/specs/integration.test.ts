@@ -1,21 +1,20 @@
-import Path from "path";
-import {describe, test, beforeEach} from "@jest/globals";
-import {CodegenHelpers, BlockCodeGenerator} from '@kapeta/codegen';
+import Path from 'path';
+import { describe, test, beforeEach } from '@jest/globals';
+import { CodegenHelpers, BlockCodeGenerator } from '@kapeta/codegen';
 import Target from '../../src';
 
 describe('blocks', () => {
-    let target:Target;
+    let target: Target;
 
     beforeEach(() => {
         target = new Target({
             basePackage: 'org.mycompany.services.todo',
             groupId: 'org.mycompany.services',
-            artifactId: 'todo'
+            artifactId: 'todo',
         });
-    })
+    });
 
     test('todo', async () => {
-
         const basedir = Path.resolve(__dirname, '../resources/examples/todo');
         const data = require('../resources/examples/todo.kapeta.yml');
 
@@ -23,11 +22,9 @@ describe('blocks', () => {
     });
 
     test('users', async () => {
-
         const basedir = Path.resolve(__dirname, '../resources/examples/users');
         const data = require('../resources/examples/users.kapeta.yml');
 
         return CodegenHelpers.testCodeGenFor(target, new BlockCodeGenerator(data), basedir);
     });
-
-})
+});

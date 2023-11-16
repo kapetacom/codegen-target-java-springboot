@@ -3,60 +3,61 @@
  * SPDX-License-Identifier: MIT
  */
 
-import {Target, Template, TypeLike, toTypeName} from '@kapeta/codegen-target';
-import prettier from "@prettier/sync";
+import { Target, Template, TypeLike, toTypeName } from '@kapeta/codegen-target';
+import prettier from '@prettier/sync';
 import _ from 'lodash';
-import Path from "path";
-import {GeneratedFile, SourceFile} from "@kapeta/codegen";
-import cheerio from "cheerio";
-import Handlebars from "handlebars";
+import Path from 'path';
+import { GeneratedFile, SourceFile } from '@kapeta/codegen';
+import cheerio from 'cheerio';
+import Handlebars from 'handlebars';
 
-
-function ucfirst(typeLike:TypeLike) {
+function ucfirst(typeLike: TypeLike) {
     let text = toTypeName(typeLike);
 
-    return text.substring(0,1).toUpperCase() + text.substring(1);
+    return text.substring(0, 1).toUpperCase() + text.substring(1);
 }
 type MapUnknown = { [key: string]: any };
-function decodeEntities(encodedString:string) {
+function decodeEntities(encodedString: string) {
     const translate_re = /&(nbsp|amp|quot|lt|gt);/g;
-    const translate:any = {
-        "nbsp":" ",
-        "amp" : "&",
-        "quot": "\"",
-        "lt"  : "<",
-        "gt"  : ">"
+    const translate: any = {
+        nbsp: ' ',
+        amp: '&',
+        quot: '"',
+        lt: '<',
+        gt: '>',
     };
-    return encodedString.replace(translate_re, function(match, entity) {
-        return translate[entity];
-    }).replace(/&#(\d+);/gi, function(match, numStr) {
-        const num = parseInt(numStr, 10);
-        return String.fromCharCode(num);
-    }).replace(/&#x(\d+);/gi, function(match, numStr) {
-        const num = parseInt(numStr, 16);
-        return String.fromCharCode(num);
-    });
+    return encodedString
+        .replace(translate_re, function (match, entity) {
+            return translate[entity];
+        })
+        .replace(/&#(\d+);/gi, function (match, numStr) {
+            const num = parseInt(numStr, 10);
+            return String.fromCharCode(num);
+        })
+        .replace(/&#x(\d+);/gi, function (match, numStr) {
+            const num = parseInt(numStr, 16);
+            return String.fromCharCode(num);
+        });
 }
 
 const KAPETA_GROUP_ID = 'com.kapeta';
 
 export default class Java8SpringBoot2Target extends Target {
-
-    constructor(options:any) {
-        super(options, Path.resolve(__dirname,'../'));
+    constructor(options: any) {
+        super(options, Path.resolve(__dirname, '../'));
     }
 
     mergeFile(sourceFile: SourceFile, newFile: GeneratedFile): GeneratedFile {
-        if (sourceFile.filename === "pom.xml") {
+        if (sourceFile.filename === 'pom.xml') {
             // We can merge the dependencies into existing pom.xml without overwriting
             // the existing user adjusted content
 
             const targetDoc = cheerio.load(sourceFile.content, {
-                xmlMode: true
+                xmlMode: true,
             });
 
             const newDoc = cheerio.load(newFile.content, {
-                xmlMode: true
+                xmlMode: true,
             });
 
             const targetDependencies = targetDoc('dependencies > dependency');
@@ -101,7 +102,7 @@ export default class Java8SpringBoot2Target extends Target {
             };
         }
 
-        if (sourceFile.filename === ".devcontainer/devcontainer.json") {
+        if (sourceFile.filename === '.devcontainer/devcontainer.json') {
             // We can merge the environment variables prefixed with KAPETA_ into the containerEnv
             const target = JSON.parse(sourceFile.content);
             const newContent = JSON.parse(newFile.content);
@@ -113,7 +114,7 @@ export default class Java8SpringBoot2Target extends Target {
                 ...(newContent.containerEnv ?? {}),
             };
             Object.entries(target.containerEnv).forEach(([key, value]) => {
-                if (key.toLowerCase().startsWith("kapeta_")) {
+                if (key.toLowerCase().startsWith('kapeta_')) {
                     return;
                 }
                 containerEnv[key] = value;
@@ -130,25 +131,22 @@ export default class Java8SpringBoot2Target extends Target {
         return super.mergeFile(sourceFile, newFile);
     }
 
-    protected _createTemplateEngine(data:any, context:any) {
+    protected _createTemplateEngine(data: any, context: any) {
         const engine = super._createTemplateEngine(data, context);
 
-        function isEntity(type:TypeLike) {
-            if (!type || 
-                !context.spec ||
-                !context.spec.entities ||
-                !context.spec.entities.types) {
+        function isEntity(type: TypeLike) {
+            if (!type || !context.spec || !context.spec.entities || !context.spec.entities.types) {
                 return false;
             }
 
             const typeName = toTypeName(type).toLowerCase();
 
             return !!_.find(context.spec.entities.types, (entity) => {
-                return (entity && entity.name && entity.name.toLowerCase() === typeName && entity.type === 'dto');
+                return entity && entity.name && entity.name.toLowerCase() === typeName && entity.type === 'dto';
             });
         }
 
-        function isPrimitive(type:TypeLike):boolean {
+        function isPrimitive(type: TypeLike): boolean {
             if (!type) {
                 return false;
             }
@@ -176,7 +174,7 @@ export default class Java8SpringBoot2Target extends Target {
             return false;
         }
 
-        function classHelper(typeName:TypeLike, options:any = null):Handlebars.SafeString {
+        function classHelper(typeName: TypeLike, options: any = null): Handlebars.SafeString {
             if (!typeName) {
                 return Template.SafeString('void');
             }
@@ -201,7 +199,7 @@ export default class Java8SpringBoot2Target extends Target {
             return classHelperName(typeText, options);
         }
 
-        function classHelperName(typeName:string, options:any):Handlebars.SafeString {
+        function classHelperName(typeName: string, options: any): Handlebars.SafeString {
             const asType = !!(options && options.hash['type']);
 
             if (typeName.includes('<')) {
@@ -218,7 +216,7 @@ export default class Java8SpringBoot2Target extends Target {
                 return Template.SafeString(ucfirst(typeName) + (asType ? '' : 'DTO'));
             }
 
-            if (['any','unknown'].includes(typeName.toLowerCase())) {
+            if (['any', 'unknown'].includes(typeName.toLowerCase())) {
                 return Template.SafeString('Object');
             }
 
@@ -229,36 +227,35 @@ export default class Java8SpringBoot2Target extends Target {
             return Template.SafeString(ucfirst(typeName));
         }
 
-        function isList(typeName:string) {
+        function isList(typeName: string) {
             return typeName.endsWith('[]');
         }
 
         engine.registerHelper('class', classHelper);
 
-        const classFrom = (property:TypeLike, options:any):any => {
-
+        const classFrom = (property: TypeLike, options: any): any => {
             const typeName = toTypeName(property);
             if (isList(typeName)) {
                 return Template.SafeString(`List<${classFrom(typeName.substring(0, typeName.length - 2), options)}>`);
             }
 
             return classHelper(property, options);
-        }
+        };
 
         engine.registerHelper('classFrom', classFrom);
 
-        engine.registerHelper('ifPrimitive', (type:TypeLike, options:any) => {
+        engine.registerHelper('ifPrimitive', (type: TypeLike, options: any) => {
             const typeName = toTypeName(type).toLowerCase();
             if (isPrimitive(type) || typeName === 'string') {
                 return Template.SafeString(options.fn(this));
             }
             return Template.SafeString(options.inverse(this));
-        })
+        });
 
-        engine.registerHelper('returnType', (type:TypeLike, options:any) => {
+        engine.registerHelper('returnType', (type: TypeLike, options: any) => {
             const isUCFirst = options.hash && options.hash.ucfirst;
             if (!type) {
-                return isUCFirst ? 'Void' :'void' ;
+                return isUCFirst ? 'Void' : 'void';
             }
 
             const out = classHelper(type);
@@ -301,8 +298,7 @@ export default class Java8SpringBoot2Target extends Target {
         return engine;
     }
 
-    protected _postProcessCode(filename:string, code:string):string {
-
+    protected _postProcessCode(filename: string, code: string): string {
         let parser = null;
         let tabWidth = 4;
 
@@ -310,8 +306,7 @@ export default class Java8SpringBoot2Target extends Target {
             parser = 'java';
         }
 
-        if (filename.endsWith('.yaml') ||
-            filename.endsWith('.yml')) {
+        if (filename.endsWith('.yaml') || filename.endsWith('.yml')) {
             parser = 'yaml';
             tabWidth = 2;
         }
@@ -324,9 +319,7 @@ export default class Java8SpringBoot2Target extends Target {
             return prettier.format(code, {
                 tabWidth: tabWidth,
                 parser: parser,
-                plugins: [
-                    require.resolve('prettier-plugin-java')
-                ],
+                plugins: [require.resolve('prettier-plugin-java')],
             });
         } catch (e) {
             console.log('Failed to prettify source: ' + filename + '. ' + e);
