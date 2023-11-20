@@ -24,7 +24,7 @@
     "homepage": "https://github.com/kapetacom/codegen-target-java8-springboot2#readme",
     "dependencies": {
         "@kapeta/codegen-target": "<2",
-        "@kapeta/schemas": "^0.3.0",
+        "@kapeta/schemas": "<2",
         "@prettier/sync": "^0.3.0",
         "cheerio": "^1.0.0-rc.12",
         "lodash": "4.17.21",
