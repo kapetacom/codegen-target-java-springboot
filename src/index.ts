@@ -7,7 +7,7 @@ import { Target, Template, TypeLike, toTypeName } from '@kapeta/codegen-target';
 import prettier from '@prettier/sync';
 import _ from 'lodash';
 import Path from 'path';
-import { GeneratedFile, SourceFile } from '@kapeta/codegen';
+import type { GeneratedFile, SourceFile } from '@kapeta/codegen';
 import cheerio from 'cheerio';
 import Handlebars from 'handlebars';
 
