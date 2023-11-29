@@ -48,6 +48,10 @@ spec:
             description: null
             ref: TaskType
             properties: null
+          count:
+            description: null
+            type: integer
+            properties: null
           metadata:
             ref: any
           tags:
@@ -118,6 +122,7 @@ spec:
         	description: string
         	done: boolean
         	type: TaskType
+            count: integer
         }
 
 
