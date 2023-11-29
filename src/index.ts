@@ -174,6 +174,15 @@ export default class Java8SpringBoot2Target extends Target {
             return false;
         }
 
+        function translatePrimitive(typeName: string): string {
+            switch (typeName) {
+                case 'integer':
+                    return "int";
+                default:
+                    return typeName;
+            }
+        }
+
         function classHelper(typeName: TypeLike, options: any = null): Handlebars.SafeString {
             if (!typeName) {
                 return Template.SafeString('void');
@@ -221,7 +230,7 @@ export default class Java8SpringBoot2Target extends Target {
             }
 
             if (isPrimitive(typeName)) {
-                return Template.SafeString(typeName.toLowerCase());
+                return Template.SafeString(translatePrimitive(typeName.toLowerCase()));
             }
 
             return Template.SafeString(ucfirst(typeName));

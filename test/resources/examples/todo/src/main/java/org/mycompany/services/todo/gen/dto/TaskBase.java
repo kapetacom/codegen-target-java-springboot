@@ -16,6 +16,7 @@ public class TaskBase {
     private String description;
     private boolean done;
     private TaskType type;
+    private int count;
     private Object metadata;
     private Set<String> tags;
 }
