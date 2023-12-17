@@ -146,6 +146,9 @@ spec:
         	password: string
         }
   consumers:
+    - kind: kapeta/resource-type-redis:0.0.2
+      metadata:
+        name: cache
     - kind: kapeta/resource-type-mongodb:0.0.2
       metadata:
         name: tododb
