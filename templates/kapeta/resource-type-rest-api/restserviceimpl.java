@@ -2,9 +2,11 @@
 package {{options.basePackage}}.service;
 
 import {{options.basePackage}}.gen.service.I{{class data.metadata.name}}Service;
-import {{options.basePackage}}.dto.*;
 import java.util.*;
 import org.springframework.stereotype.Service;
+{{#anyEntities}}
+import {{options.basePackage}}.dto.*;
+{{/anyEntities}}
 
 @Service
 public class {{class data.metadata.name}}Service implements I{{class data.metadata.name}}Service {

@@ -17,7 +17,7 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 public class {{class data.metadata.name}}Config extends AbstractRedisConfig {
 
     public {{class data.metadata.name}}Config() {
-        return createRedis("{{string data.metadata.name}}");
+        super("{{string data.metadata.name}}");
     }
 
 }

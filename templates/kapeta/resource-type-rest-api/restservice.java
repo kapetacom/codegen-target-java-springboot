@@ -4,8 +4,10 @@
  */
 package {{options.basePackage}}.gen.service;
 
-import {{options.basePackage}}.dto.*;
 import java.util.*;
+{{#anyEntities}}
+import {{options.basePackage}}.dto.*;
+{{/anyEntities}}
 
 public interface I{{class data.metadata.name}}Service {
 

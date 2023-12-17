@@ -8,9 +8,10 @@ import {{options.basePackage}}.gen.service.I{{class data.metadata.name}}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.kapeta.spring.annotation.*;
-import {{options.basePackage}}.dto.*;
-
 import java.util.*;
+{{#anyEntities}}
+import {{options.basePackage}}.dto.*;
+{{/anyEntities}}
 
 @RestController
 @KapetaController("{{namespace data.metadata.name}}")
