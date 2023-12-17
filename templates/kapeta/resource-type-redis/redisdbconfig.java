@@ -6,13 +6,17 @@ package {{options.basePackage}}.repositories.{{data.metadata.name}};
 
 import com.kapeta.spring.redis.AbstractRedisConfig;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
 @Configuration
+@EnableRedisRepositories(
+        basePackages = {
+                "{{string options.basePackage}}.repositories.{{string data.metadata.name}}"
+        }
+)
 public class {{class data.metadata.name}}Config extends AbstractRedisConfig {
 
-    @Bean
-    public {{class data.metadata.name}}() {
+    public {{class data.metadata.name}}Config() {
         return createRedis("{{string data.metadata.name}}");
     }
 

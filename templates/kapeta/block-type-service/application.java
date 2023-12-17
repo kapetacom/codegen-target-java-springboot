@@ -41,9 +41,6 @@ import com.kapeta.spring.annotation.KapetaEnableEmailSender;
 {{#consumes 'kapeta/resource-type-cassandra'}}
 @KapetaEnableCassandra
 {{/consumes}}
-{{#consumes 'kapeta/resource-type-redis'}}
-@KapetaEnableRedis
-{{/consumes}}
 {{#consumes 'kapeta/resource-type-postgresql'}}
 @KapetaEnablePostgres
 {{/consumes}}
