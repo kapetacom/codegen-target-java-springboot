@@ -1,18 +1,21 @@
+/**
+ * GENERATED SOURCE - DO NOT EDIT
+ */
 package org.mycompany.services.todo;
 
 import com.kapeta.spring.KapetaApplication;
-import com.kapeta.spring.annotation.KapetaEnableEmailSender;
-import com.kapeta.spring.annotation.KapetaEnablePostgres;
+import com.kapeta.spring.annotation.KapetaEnableMongoDB;
+import com.kapeta.spring.annotation.KapetaEnableRestClient;
 import com.kapeta.spring.annotation.KapetaEnableRestResource;
 import com.kapeta.spring.annotation.KapetaSpringApplication;
 
 @KapetaSpringApplication
+@KapetaEnableRestClient
 @KapetaEnableRestResource
-@KapetaEnablePostgres
-@KapetaEnableEmailSender
-public class UsersApplication {
+@KapetaEnableMongoDB
+public class TodoApplication {
 
     public static void main(String[] args) {
-        KapetaApplication.run(UsersApplication.class, args);
+        KapetaApplication.run(TodoApplication.class, args);
     }
 }

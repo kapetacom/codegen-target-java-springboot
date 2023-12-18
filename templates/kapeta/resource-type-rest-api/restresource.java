@@ -1,26 +1,27 @@
-//#FILENAME:src/main/java/{{packagePath options.basePackage}}/gen/rest/{{class data.metadata.name}}Controller.java:write-always
+//#FILENAME:src/generated/java/{{packagePath options.basePackage}}/gen/rest/{{class data.metadata.name type=true}}Controller.java:write-always
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
 package {{options.basePackage}}.gen.rest;
 
-import {{options.basePackage}}.gen.service.I{{class data.metadata.name}}Service;
+import {{options.basePackage}}.gen.service.I{{class data.metadata.name type=true}}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.kapeta.spring.annotation.*;
 import java.util.*;
 {{#anyEntities}}
 import {{options.basePackage}}.dto.*;
+import {{options.basePackage}}.gen.dto.*;
 {{/anyEntities}}
 
 @RestController
 @KapetaController("{{namespace data.metadata.name}}")
-public class {{class data.metadata.name}}Controller {
+public class {{class data.metadata.name type=true}}Controller {
 
-    private final I{{class data.metadata.name}}Service service;
+    private final I{{class data.metadata.name type=true}}Service service;
 
     @Autowired
-    public {{class data.metadata.name}}Controller( I{{class data.metadata.name}}Service service ) {
+    public {{class data.metadata.name type=true}}Controller( I{{class data.metadata.name type=true}}Service service ) {
         this.service = service;
     }
 

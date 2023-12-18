@@ -6,6 +6,7 @@ package org.mycompany.services.todo.gen.rest;
 import com.kapeta.spring.annotation.*;
 import java.util.*;
 import org.mycompany.services.todo.dto.*;
+import org.mycompany.services.todo.gen.dto.*;
 import org.mycompany.services.todo.gen.service.ITasksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
