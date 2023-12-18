@@ -7,8 +7,10 @@ package {{options.basePackage}}.gen.clients;
 import com.kapeta.spring.annotation.KapetaRestClient;
 import retrofit2.Call;
 import retrofit2.http.*;
-import {{options.basePackage}}.dto.*;
 import java.util.*;
+{{#anyEntities}}
+import {{options.basePackage}}.dto.*;
+{{/anyEntities}}
 
 @KapetaRestClient("{{string data.metadata.name}}")
 public interface {{class data.metadata.name}}Client {

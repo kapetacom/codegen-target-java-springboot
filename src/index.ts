@@ -158,9 +158,9 @@ export default class Java8SpringBoot2Target extends Target {
             const typeName = toTypeName(type).toLowerCase();
 
             switch (typeName) {
-                case 'boolean':
                 case 'int':
                 case 'integer':
+                case 'boolean':
                 case 'float':
                 case 'double':
                 case 'long':
@@ -302,6 +302,13 @@ export default class Java8SpringBoot2Target extends Target {
                 return Template.SafeString(options.fn(this));
             }
             return Template.SafeString(options.inverse(this));
+        });
+
+        engine.registerHelper('anyEntities', (options) => {
+            if (context?.spec?.entities?.types && context?.spec?.entities?.types.length > 0) {
+                return options.fn(this);
+            }
+            return options.inverse(this);
         });
 
         return engine;
