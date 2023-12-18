@@ -75,4 +75,16 @@ public class TasksController {
     ) throws Exception {
         return service.updateTask(listId, taskId, task);
     }
+
+    /**
+     * Find tasks
+     */
+    @ResponseBody
+    @RequestMapping(value = "/tasks", method = RequestMethod.GET)
+    public List<TaskDTO> search(
+        @RequestParam("title") String title,
+        @RequestParam(name = "description", required = false) String description
+    ) throws Exception {
+        return service.search(title, description);
+    }
 }

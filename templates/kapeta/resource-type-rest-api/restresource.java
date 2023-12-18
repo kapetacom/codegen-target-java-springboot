@@ -33,10 +33,10 @@ public class {{class data.metadata.name type=true}}Controller {
     @RequestMapping(value = "{{string path}}", method = RequestMethod.{{constant method}})
     public {{returnType responseType}} {{method methodName}}( {{#arguments arguments}}
                 {{#switch (uppercase transport)}}
-                    {{#case 'PATH'}} @PathVariable("{{string argumentName}}") {{/case}}
-                    {{#case 'QUERY'}} @RequestParam {{/case}}
-                    {{#case 'HEADER'}} @RequestHeader{{#if argument}}("{{string argument}}"){{/if}} {{/case}}
-                    {{#case 'BODY'}} @RequestBody {{/case}}
+                    {{#case 'PATH'}} @PathVariable{{{params}}} {{/case}}
+                    {{#case 'QUERY'}} @RequestParam{{{params}}} {{/case}}
+                    {{#case 'HEADER'}} @RequestHeader{{{params}}} {{/case}}
+                    {{#case 'BODY'}} @RequestBody{{{params}}} {{/case}}
                 {{/switch}}
                 {{class this}} {{variable argumentName}}
             {{/arguments}} ) throws Exception {

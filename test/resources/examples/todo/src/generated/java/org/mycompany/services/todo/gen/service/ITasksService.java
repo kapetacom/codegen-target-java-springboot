@@ -29,4 +29,9 @@ public interface ITasksService {
      */
     TaskDTO updateTask(String listId, String taskId, TaskDTO task)
         throws Exception;
+
+    /**
+     * Find tasks
+     */
+    List<TaskDTO> search(String title, String description) throws Exception;
 }
