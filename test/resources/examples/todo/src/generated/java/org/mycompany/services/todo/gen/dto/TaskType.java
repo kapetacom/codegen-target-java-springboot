@@ -6,7 +6,7 @@ package org.mycompany.services.todo.gen.dto;
 import java.util.*;
 import lombok.*;
 
-enum TaskType {
+public enum TaskType {
     DEV,
     DESIGN,
 }
