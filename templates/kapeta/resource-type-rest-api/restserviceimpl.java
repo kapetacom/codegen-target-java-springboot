@@ -1,15 +1,16 @@
-//#FILENAME:src/main/java/{{packagePath options.basePackage}}/service/{{class data.metadata.name}}Service.java:create-only
+//#FILENAME:src/main/java/{{packagePath options.basePackage}}/service/{{class data.metadata.name type=true}}Service.java:create-only
 package {{options.basePackage}}.service;
 
-import {{options.basePackage}}.gen.service.I{{class data.metadata.name}}Service;
+import {{options.basePackage}}.gen.service.I{{class data.metadata.name type=true}}Service;
 import java.util.*;
 import org.springframework.stereotype.Service;
 {{#anyEntities}}
 import {{options.basePackage}}.dto.*;
+import {{options.basePackage}}.gen.dto.*;
 {{/anyEntities}}
 
 @Service
-public class {{class data.metadata.name}}Service implements I{{class data.metadata.name}}Service {
+public class {{class data.metadata.name type=true}}Service implements I{{class data.metadata.name type=true}}Service {
 
 {{#methods data.spec.methods}}
 
