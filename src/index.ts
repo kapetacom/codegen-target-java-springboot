@@ -330,8 +330,9 @@ export default class Java8SpringBoot2Target extends Target {
             }
 
             if (argument) {
-                let formatted = optional ? 'name = ' + argument + ', required = false' : argument;
-                return '(' + formatted + ')';
+                return `(${optional ? `name = ${argument}, required = false` : argument})`;
+            } else if (optional) {
+                return `(required = false)`;
             }
 
             return "";

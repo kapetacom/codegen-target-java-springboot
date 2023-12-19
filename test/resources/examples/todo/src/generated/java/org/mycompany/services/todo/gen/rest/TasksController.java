@@ -29,7 +29,7 @@ public class TasksController {
     @RequestMapping(value = "/tasks/{listId}/new", method = RequestMethod.POST)
     public void addTask(
         @PathVariable("listId") String listId,
-        @RequestBody TaskDTO task,
+        @RequestBody(required = false) TaskDTO task,
         @RequestHeader("Kapeta-Overwrite") String overwrite
     ) throws Exception {
         service.addTask(listId, task, overwrite);
