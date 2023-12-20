@@ -2,6 +2,7 @@ package org.mycompany.services.todo.service;
 
 import java.util.*;
 import org.mycompany.services.todo.dto.*;
+import org.mycompany.services.todo.gen.dto.*;
 import org.mycompany.services.todo.gen.service.ITasksService;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,16 @@ public class TasksService implements ITasksService {
      */
     @Override
     public TaskDTO updateTask(String listId, String taskId, TaskDTO task) {
+        //TODO: Implement me!
+
+        throw new RuntimeException("Not implemented");
+    }
+
+    /**
+     * Find tasks
+     */
+    @Override
+    public List<TaskDTO> search(String title, String description) {
         //TODO: Implement me!
 
         throw new RuntimeException("Not implemented");

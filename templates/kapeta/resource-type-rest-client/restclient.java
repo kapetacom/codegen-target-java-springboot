@@ -1,4 +1,4 @@
-//#FILENAME:src/main/java/{{packagePath options.basePackage}}/gen/clients/{{class data.metadata.name}}Client.java:write-always
+//#FILENAME:src/generated/java/{{packagePath options.basePackage}}/gen/clients/{{class data.metadata.name type=true}}Client.java:write-always
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
@@ -7,11 +7,13 @@ package {{options.basePackage}}.gen.clients;
 import com.kapeta.spring.annotation.KapetaRestClient;
 import retrofit2.Call;
 import retrofit2.http.*;
-import {{options.basePackage}}.dto.*;
 import java.util.*;
+{{#anyEntities}}
+import {{options.basePackage}}.dto.*;
+{{/anyEntities}}
 
 @KapetaRestClient("{{string data.metadata.name}}")
-public interface {{class data.metadata.name}}Client {
+public interface {{class data.metadata.name type=true}}Client {
 
 {{#methods data.spec.methods}}
 

@@ -5,6 +5,7 @@ package org.mycompany.services.todo.gen.service;
 
 import java.util.*;
 import org.mycompany.services.todo.dto.*;
+import org.mycompany.services.todo.gen.dto.*;
 
 public interface IListsService {
     /**

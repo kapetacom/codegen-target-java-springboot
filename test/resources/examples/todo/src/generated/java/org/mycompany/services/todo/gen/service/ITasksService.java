@@ -5,6 +5,7 @@ package org.mycompany.services.todo.gen.service;
 
 import java.util.*;
 import org.mycompany.services.todo.dto.*;
+import org.mycompany.services.todo.gen.dto.*;
 
 public interface ITasksService {
     /**
@@ -28,4 +29,9 @@ public interface ITasksService {
      */
     TaskDTO updateTask(String listId, String taskId, TaskDTO task)
         throws Exception;
+
+    /**
+     * Find tasks
+     */
+    List<TaskDTO> search(String title, String description) throws Exception;
 }

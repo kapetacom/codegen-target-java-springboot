@@ -1,4 +1,4 @@
-//#FILENAME:src/main/java/{{packagePath options.basePackage}}/gen/dto/{{class data.name type=true}}{{#when data.type type='dto'}}Base.java:write-always||.java:write-always{{/when}}
+//#FILENAME:src/generated/java/{{packagePath options.basePackage}}/gen/dto/{{class data.name type=true}}{{#when data.type type='dto'}}Base.java:write-always||.java:write-always{{/when}}
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
@@ -23,7 +23,7 @@ private {{classFrom this}} {{variable propertyId}};
 }
 {{/case}}
 {{#case 'enum'}}
-enum {{class data.name}} {
+public enum {{class data.name}} {
 {{enumValues data.values}}
 }
 {{/case}}

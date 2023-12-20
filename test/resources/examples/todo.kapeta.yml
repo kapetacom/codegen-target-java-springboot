@@ -146,6 +146,9 @@ spec:
         	password: string
         }
   consumers:
+    - kind: kapeta/resource-type-redis:0.0.2
+      metadata:
+        name: cache
     - kind: kapeta/resource-type-mongodb:0.0.2
       metadata:
         name: tododb
@@ -200,6 +203,7 @@ spec:
                 id: task
                 ref: Task
                 transport: BODY
+                optional: true
               overwrite:
                 id: overwrite
                 type: string
@@ -250,6 +254,20 @@ spec:
                 transport: BODY
             responseType:
               ref: Task
+          search:
+            description: Find tasks
+            method: GET
+            path: /tasks
+            arguments:
+              title:
+                type: string
+                transport: QUERY
+              description:
+                type: string
+                transport: QUERY
+                optional: true
+            responseType:
+              ref: Task[]
     - kind: kapeta/resource-type-rest-api:0.0.2
       metadata:
         name: lists

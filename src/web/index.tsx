@@ -70,6 +70,7 @@ const targetConfig: ILanguageTargetProvider<JavaTargetConfigOptions> = {
     resourceKinds: [
         'kapeta/resource-type-mongodb',
         'kapeta/resource-type-postgresql',
+        'kapeta/resource-type-redis',
         'kapeta/resource-type-rest-api',
         'kapeta/resource-type-rest-client',
         'kapeta/resource-type-smtp-client',

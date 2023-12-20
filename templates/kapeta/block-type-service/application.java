@@ -1,4 +1,7 @@
-//#FILENAME:src/main/java/{{packagePath options.basePackage}}/{{class data.metadata.name}}Application.java:write-always
+//#FILENAME:src/generated/java/{{packagePath options.basePackage}}/{{class data.metadata.name type=true}}Application.java:write-always
+/**
+ * GENERATED SOURCE - DO NOT EDIT
+ */
 package {{options.basePackage}};
 
 import com.kapeta.spring.KapetaApplication;
@@ -41,9 +44,6 @@ import com.kapeta.spring.annotation.KapetaEnableEmailSender;
 {{#consumes 'kapeta/resource-type-cassandra'}}
 @KapetaEnableCassandra
 {{/consumes}}
-{{#consumes 'kapeta/resource-type-redis'}}
-@KapetaEnableRedis
-{{/consumes}}
 {{#consumes 'kapeta/resource-type-postgresql'}}
 @KapetaEnablePostgres
 {{/consumes}}
@@ -59,10 +59,10 @@ import com.kapeta.spring.annotation.KapetaEnableEmailSender;
 {{#consumes 'kapeta/resource-type-smtp-client'}}
 @KapetaEnableEmailSender
 {{/consumes}}
-public class {{class data.metadata.name}}Application {
+public class {{class data.metadata.name type=true}}Application {
 
     public static void main(String[] args) {
-        KapetaApplication.run({{class data.metadata.name}}Application.class, args);
+        KapetaApplication.run({{class data.metadata.name type=true}}Application.class, args);
     }
 
 }

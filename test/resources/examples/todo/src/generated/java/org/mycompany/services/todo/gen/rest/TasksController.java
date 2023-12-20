@@ -6,6 +6,7 @@ package org.mycompany.services.todo.gen.rest;
 import com.kapeta.spring.annotation.*;
 import java.util.*;
 import org.mycompany.services.todo.dto.*;
+import org.mycompany.services.todo.gen.dto.*;
 import org.mycompany.services.todo.gen.service.ITasksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,7 @@ public class TasksController {
     @RequestMapping(value = "/tasks/{listId}/new", method = RequestMethod.POST)
     public void addTask(
         @PathVariable("listId") String listId,
-        @RequestBody TaskDTO task,
+        @RequestBody(required = false) TaskDTO task,
         @RequestHeader("Kapeta-Overwrite") String overwrite
     ) throws Exception {
         service.addTask(listId, task, overwrite);
@@ -73,5 +74,17 @@ public class TasksController {
         @RequestBody TaskDTO task
     ) throws Exception {
         return service.updateTask(listId, taskId, task);
+    }
+
+    /**
+     * Find tasks
+     */
+    @ResponseBody
+    @RequestMapping(value = "/tasks", method = RequestMethod.GET)
+    public List<TaskDTO> search(
+        @RequestParam("title") String title,
+        @RequestParam(name = "description", required = false) String description
+    ) throws Exception {
+        return service.search(title, description);
     }
 }
