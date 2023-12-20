@@ -311,6 +311,33 @@ export default class Java8SpringBoot2Target extends Target {
             return options.inverse(this);
         });
 
+        engine.registerHelper('params', function(this: any) {
+            let argument = undefined;
+            let optional = false;
+
+            const body = 'transport' in this && this['transport'].toUpperCase() === "BODY";
+            const header = 'transport' in this && this['transport'].toUpperCase() === "HEADER";
+
+            if ('argumentName' in this && !body && !header) {
+                argument = '"' + this['argumentName'] + '"';
+            }
+            if ('argument' in this && header) {
+                argument = '"' + this['argument'] + '"';
+            }
+
+            if ('optional' in this && this['optional']) {
+                optional = true;
+            }
+
+            if (argument) {
+                return `(${optional ? `name = ${argument}, required = false` : argument})`;
+            } else if (optional) {
+                return `(required = false)`;
+            }
+
+            return "";
+        });
+
         return engine;
     }
 

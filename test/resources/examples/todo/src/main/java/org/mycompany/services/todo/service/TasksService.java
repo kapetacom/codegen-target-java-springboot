@@ -46,4 +46,14 @@ public class TasksService implements ITasksService {
 
         throw new RuntimeException("Not implemented");
     }
+
+    /**
+     * Find tasks
+     */
+    @Override
+    public List<TaskDTO> search(String title, String description) {
+        //TODO: Implement me!
+
+        throw new RuntimeException("Not implemented");
+    }
 }

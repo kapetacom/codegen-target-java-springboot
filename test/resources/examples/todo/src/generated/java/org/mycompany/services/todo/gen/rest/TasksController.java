@@ -29,7 +29,7 @@ public class TasksController {
     @RequestMapping(value = "/tasks/{listId}/new", method = RequestMethod.POST)
     public void addTask(
         @PathVariable("listId") String listId,
-        @RequestBody TaskDTO task,
+        @RequestBody(required = false) TaskDTO task,
         @RequestHeader("Kapeta-Overwrite") String overwrite
     ) throws Exception {
         service.addTask(listId, task, overwrite);
@@ -74,5 +74,17 @@ public class TasksController {
         @RequestBody TaskDTO task
     ) throws Exception {
         return service.updateTask(listId, taskId, task);
+    }
+
+    /**
+     * Find tasks
+     */
+    @ResponseBody
+    @RequestMapping(value = "/tasks", method = RequestMethod.GET)
+    public List<TaskDTO> search(
+        @RequestParam("title") String title,
+        @RequestParam(name = "description", required = false) String description
+    ) throws Exception {
+        return service.search(title, description);
     }
 }
