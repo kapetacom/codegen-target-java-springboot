@@ -4,6 +4,7 @@
  */
 package {{options.basePackage}};
 
+import org.springframework.context.annotation.ComponentScan;
 import com.kapeta.spring.KapetaApplication;
 import com.kapeta.spring.annotation.KapetaSpringApplication;
 {{#provides 'kapeta/resource-type-rest-api'}}
@@ -59,6 +60,11 @@ import com.kapeta.spring.annotation.KapetaEnableEmailSender;
 {{#consumes 'kapeta/resource-type-smtp-client'}}
 @KapetaEnableEmailSender
 {{/consumes}}
+@ComponentScan(basePackages = {
+    "{{options.basePackage}}",
+    "com.kapeta.spring.rest"
+})
+
 public class {{class data.metadata.name type=true}}Application {
 
     public static void main(String[] args) {
