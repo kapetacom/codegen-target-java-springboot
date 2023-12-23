@@ -24,7 +24,7 @@ spec:
   local:
     image: maven:3.9.4-eclipse-temurin-21-alpine
     workingDir: /workspace
-    healthcheck: curl --fail http://localhost:80/__kapeta/health || exit 1
+    healthcheck: curl --fail http://localhost:80/.kapeta/health || exit 1
     handlers:
       onCreate: /workspace/scripts/start-dev.sh
     HostConfig:
