@@ -77,14 +77,5 @@
         "watch": "NODE_ENV=development webpack --watch",
         "format": "prettier --write .",
         "test": "jest"
-    },
-    "bundleDependencies": [
-        "@kapeta/codegen-target",
-        "lodash",
-        "prettier",
-        "prettier-plugin-java",
-        "@prettier/sync",
-        "yaml",
-        "cheerio"
-    ]
+    }
 }
