@@ -6,13 +6,16 @@ This file will be overwritten every time you change the service definition in Ka
 
 ## Structure
 This service is structured as follows:
-* ```src/main/java/{{packagePath options.basePackage}}/repositories```: Contains anything related to databases
-* ```src/main/java/{{packagePath options.basePackage}}/dto```: Contains the entities used by the service.
-* ```src/main/java/{{packagePath options.basePackage}}/gen```: Contains the generated files that you shouldn't edit directly.
+* ```src/generated```: Contains generated code that shouldn't be edited directly
+* ```src/main```: Contains your own and generated code that you can and should edit
+
+In the sub folder structure you'll find the following:
+* ```src/generated/java/{{packagePath options.basePackage}}/repositories```: Contains anything related to databases
+* ```src/generated/java/{{packagePath options.basePackage}}/dto```: Contains the entities used by the service.
   * These are generated files and should not be edited directly
 {{#provides 'kapeta/resource-type-rest-api'}}
-* ```src/main/java/{{packagePath options.basePackage}}/gen/rest```: Contains the REST API routes.
-* ```src/main/java/{{packagePath options.basePackage}}/gen/service```: Contains the REST interfaces.
+* ```src/generated/java/{{packagePath options.basePackage}}/rest```: Contains the REST API routes.
+* ```src/generated/java/{{packagePath options.basePackage}}/service```: Contains the REST interfaces.
   * These are generated files and should not be edited directly
 {{/provides}} 
 * ```src/main/java/{{packagePath options.basePackage}}/service```: Contains the service layer logic. This is where you should add your business logic

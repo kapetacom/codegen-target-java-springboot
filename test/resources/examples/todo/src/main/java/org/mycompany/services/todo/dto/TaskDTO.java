@@ -1,7 +1,7 @@
 package org.mycompany.services.todo.dto;
 
 import lombok.*;
-import org.mycompany.services.todo.gen.dto.TaskBase;
+import org.mycompany.services.todo.dto.TaskBase;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

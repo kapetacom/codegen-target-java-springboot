@@ -1,7 +1,7 @@
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
-package org.mycompany.services.todo.gen.clients;
+package org.mycompany.services.todo.clients;
 
 import com.kapeta.spring.annotation.KapetaRestClient;
 import java.util.*;
