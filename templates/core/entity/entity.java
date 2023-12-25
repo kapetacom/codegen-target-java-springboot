@@ -3,7 +3,7 @@ package {{options.basePackage}}.dto;
 
 import lombok.*;
 
-import {{options.basePackage}}.gen.dto.{{type data.name}}Base;
+import {{options.basePackage}}.dto.{{type data.name}}Base;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

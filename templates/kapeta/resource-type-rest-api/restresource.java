@@ -1,17 +1,16 @@
-//#FILENAME:src/generated/java/{{packagePath options.basePackage}}/gen/rest/{{class data.metadata.name type=true}}Controller.java:write-always
+//#FILENAME:src/generated/java/{{packagePath options.basePackage}}/rest/{{class data.metadata.name type=true}}Controller.java:write-always
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
-package {{options.basePackage}}.gen.rest;
+package {{options.basePackage}}.rest;
 
-import {{options.basePackage}}.gen.service.I{{class data.metadata.name type=true}}Service;
+import {{options.basePackage}}.service.I{{class data.metadata.name type=true}}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.kapeta.spring.annotation.*;
 import java.util.*;
 {{#anyEntities}}
 import {{options.basePackage}}.dto.*;
-import {{options.basePackage}}.gen.dto.*;
 {{/anyEntities}}
 
 @RestController

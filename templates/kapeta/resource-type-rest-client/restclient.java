@@ -1,8 +1,8 @@
-//#FILENAME:src/generated/java/{{packagePath options.basePackage}}/gen/clients/{{class data.metadata.name type=true}}Client.java:write-always
+//#FILENAME:src/generated/java/{{packagePath options.basePackage}}/clients/{{class data.metadata.name type=true}}Client.java:write-always
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
-package {{options.basePackage}}.gen.clients;
+package {{options.basePackage}}.clients;
 
 import com.kapeta.spring.annotation.KapetaRestClient;
 import retrofit2.Call;

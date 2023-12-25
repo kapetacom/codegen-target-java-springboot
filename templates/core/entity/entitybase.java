@@ -1,8 +1,8 @@
-//#FILENAME:src/generated/java/{{packagePath options.basePackage}}/gen/dto/{{class data.name type=true}}{{#when data.type type='dto'}}Base.java:write-always||.java:write-always{{/when}}
+//#FILENAME:src/generated/java/{{packagePath options.basePackage}}/dto/{{class data.name type=true}}{{#when data.type type='dto'}}Base.java:write-always||.java:write-always{{/when}}
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
-package {{options.basePackage}}.gen.dto;
+package {{options.basePackage}}.dto;
 
 import lombok.*;
 import java.util.*;
