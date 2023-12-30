@@ -1,4 +1,4 @@
-##FILENAME:Dockerfile:merge
+##FILENAME:Dockerfile:create-only
 FROM maven:3.9.4-eclipse-temurin-21-alpine AS build
 ADD pom.xml /application/pom.xml
 ADD src /application/src

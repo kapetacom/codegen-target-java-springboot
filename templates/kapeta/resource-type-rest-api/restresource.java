@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.kapeta.spring.annotation.*;
 import java.util.*;
 {{#anyEntities}}
-import {{options.basePackage}}.dto.*;
+import {{../options.basePackage}}.dto.*;
 {{/anyEntities}}
 
 @RestController
