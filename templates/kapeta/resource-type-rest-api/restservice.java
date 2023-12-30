@@ -6,7 +6,7 @@ package {{options.basePackage}}.service;
 
 import java.util.*;
 {{#anyEntities}}
-import {{options.basePackage}}.dto.*;
+import {{../options.basePackage}}.dto.*;
 {{/anyEntities}}
 
 public interface I{{class data.metadata.name type=true}}Service {

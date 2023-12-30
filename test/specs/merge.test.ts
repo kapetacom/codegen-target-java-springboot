@@ -14,7 +14,7 @@ describe('merging', () => {
         target = new Target({});
     });
 
-    function doMergeContent(filename: string, original: string, changed: string) {
+    function doMergeContent(filename: string, original: string, changed: string, last: any | null = null) {
         const merged = target.mergeFile(
             {
                 filename: filename,
@@ -27,6 +27,19 @@ describe('merging', () => {
                 content: changed,
                 mode: 'merge',
             },
+            last
+                ? {
+                      filename: filename,
+                      permissions: '644',
+                      content: last,
+                      mode: 'merge',
+                  }
+                : {
+                      filename: filename,
+                      permissions: '644',
+                      content: original,
+                      mode: 'merge',
+                  }
         );
 
         return merged.content;
@@ -42,11 +55,29 @@ describe('merging', () => {
             expect(result).toEqual(changed);
         });
 
-        test('removed dependencies will be ignored', () => {
+        test('if user removed dependencies it will not be re-added', () => {
+            const original = readString('../resources/packages/original.pom.xml');
+            const changed = readString('../resources/packages/added-dependencies.pom.xml');
+            const result = doMergeContent(FILENAME, original, changed, changed);
+            expect(result).toEqual(original);
+        });
+
+        test('removed dependencies will removed unless changed', () => {
             const original = readString('../resources/packages/original.pom.xml');
             const changed = readString('../resources/packages/removed-dependencies.pom.xml');
             const result = doMergeContent(FILENAME, original, changed);
-            expect(result).toEqual(original);
+            // Hack to fix formatting - the xml parser is not formatting the xml correctly
+            // Has no impact on the actual result since it's just whitespace
+            const expected = result.replace(/<\/dependency>\s+<\/dependencies>/m, '</dependency>\n    </dependencies>');
+            expect(expected).toEqual(changed);
+        });
+
+        test('removed dependencies will be ignored if changed', () => {
+            const original = readString('../resources/packages/original.pom.xml');
+            const userChanged = readString('../resources/packages/user-changed-removed.pom.xml');
+            const changed = readString('../resources/packages/removed-dependencies.pom.xml');
+            const result = doMergeContent(FILENAME, userChanged, changed, original);
+            expect(result).toEqual(userChanged);
         });
 
         test('existing dependencies will be upgraded', () => {
@@ -54,6 +85,14 @@ describe('merging', () => {
             const changed = readString('../resources/packages/upgraded-dependencies.pom.xml');
             const result = doMergeContent(FILENAME, original, changed);
             expect(result).toEqual(changed);
+        });
+
+        test('existing dependencies will be not be upgraded if user changed', () => {
+            const original = readString('../resources/packages/original.pom.xml');
+            const changed = readString('../resources/packages/upgraded-dependencies.pom.xml');
+            const userChanged = readString('../resources/packages/user-upgraded-dependencies.pom.xml');
+            const result = doMergeContent(FILENAME, userChanged, changed, original);
+            expect(result).toEqual(userChanged);
         });
     });
 

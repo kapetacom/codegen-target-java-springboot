@@ -5,7 +5,7 @@ import {{options.basePackage}}.service.I{{class data.metadata.name type=true}}Se
 import java.util.*;
 import org.springframework.stereotype.Service;
 {{#anyEntities}}
-import {{options.basePackage}}.dto.*;
+import {{../options.basePackage}}.dto.*;
 {{/anyEntities}}
 
 @Service

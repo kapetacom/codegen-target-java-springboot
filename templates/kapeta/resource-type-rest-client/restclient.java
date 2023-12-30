@@ -9,7 +9,7 @@ import retrofit2.Call;
 import retrofit2.http.*;
 import java.util.*;
 {{#anyEntities}}
-import {{options.basePackage}}.dto.*;
+import {{../options.basePackage}}.dto.*;
 {{/anyEntities}}
 
 @KapetaRestClient("{{string data.metadata.name}}")
