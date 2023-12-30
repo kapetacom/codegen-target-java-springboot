@@ -8,8 +8,10 @@ import React from 'react';
 import { ILanguageTargetProvider } from '@kapeta/ui-web-types';
 import { FormField } from '@kapeta/ui-web-components';
 
-const kapetaDefinition = require('../../kapeta.yml');
-const packageJson = require('../../package.json');
+// @ts-ignore
+import kapetaDefinition from '../../kapeta.yml';
+// @ts-ignore
+import packageJson from '../../package.json';
 
 interface JavaTargetConfigOptions {
     basePackage: string;
