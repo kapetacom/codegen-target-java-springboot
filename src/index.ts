@@ -69,26 +69,6 @@ export default class JavaSpringBootTarget extends Target {
 
         addTemplateHelpers(engine, data, context);
 
-        // todo: move to codegen-target
-        engine.registerHelper('toArray', (...value: any[]) => {
-            return value.slice(0, value.length - 1);
-        });
-
-        engine.registerHelper('usesAnyOf', (kinds: string[], options) => {
-            const data = context.spec as BlockDefinitionSpec;
-            const usesAny = kinds.some((kind) => {
-                const uri = parseKapetaUri(kind);
-                const matcher = (consumer: Resource) => parseKapetaUri(consumer.kind).fullName === uri.fullName;
-                return data.consumers?.some(matcher) || data.providers?.some(matcher);
-            });
-
-            if (usesAny) {
-                return options.fn(this);
-            }
-
-            return options.inverse(this);
-        });
-
         return engine;
     }
 
