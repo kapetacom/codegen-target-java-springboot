@@ -16,6 +16,40 @@ export default class JavaSpringBootTarget extends Target {
         super(options, Path.resolve(__dirname, '../'));
     }
 
+    generate(data: any, context: any): GeneratedFile[] {
+        let blockSpec = data as BlockDefinition;
+        const uri = parseKapetaUri('kapeta/resource-type-auth-jwt-provider');
+        const matcher = (consumer: Resource) => parseKapetaUri(consumer.kind).fullName === uri.fullName;
+        const hasJwtProvider = blockSpec?.spec?.providers?.some(matcher);
+
+        if (hasJwtProvider) {
+            let resource: Resource = {
+                kind: 'kapeta://kapeta/resource-type-rest-api:1.0.15',
+                metadata: {
+                    name: 'jwks'
+                },
+                spec: {
+                    port: {
+                        name: 'rest',
+                        type: 'rest'
+                    },
+                    methods: {
+                        'getJWKS': {
+                            responseType: {
+                                ref: 'Map<string, any>'
+                            },
+                            method: 'GET',
+                            path: '/.well-known/jwks.json',
+                            arguments: {}
+                        }
+                    }
+                }
+            };
+            blockSpec.spec.providers = [...blockSpec.spec.providers!, resource];
+        }
+        return super.generate(data, context);
+    }
+
     mergeFile(sourceFile: SourceFile, newFile: GeneratedFile, lastFile: GeneratedFile | null): GeneratedFile {
         if (sourceFile.filename === 'pom.xml') {
             return mergePom(sourceFile, newFile, lastFile);
@@ -32,6 +66,26 @@ export default class JavaSpringBootTarget extends Target {
         const engine = super._createTemplateEngine(data, context);
 
         addTemplateHelpers(engine, data, context);
+
+        // todo: move to codegen-target
+        engine.registerHelper('toArray', (...value: any[]) => {
+            return value.slice(0, value.length - 1);
+        });
+
+        engine.registerHelper('usesAnyOf', (kinds: string[], options) => {
+            const data = context.spec as BlockDefinitionSpec;
+            const usesAny = kinds.some((kind) => {
+                const uri = parseKapetaUri(kind);
+                const matcher = (consumer: Resource) => parseKapetaUri(consumer.kind).fullName === uri.fullName;
+                return data.consumers?.some(matcher) || data.providers?.some(matcher);
+            });
+
+            if (usesAny) {
+                return options.fn(this);
+            }
+
+            return options.inverse(this);
+        });
 
         return engine;
     }

@@ -174,7 +174,13 @@
             <version>(,2.0)</version>
         </dependency>
         {{/consumes}}
-
+        {{#usesAnyOf (toArray 'kapeta/resource-type-auth-jwt-provider' 'kapeta/resource-type-auth-jwt-consumer') }}
+        <dependency>
+            <groupId>com.kapeta</groupId>
+            <artifactId>spring-security</artifactId>
+            <version>(,2.0)</version>
+        </dependency>
+        {{/usesAnyOf}}
     </dependencies>
 
 </project>

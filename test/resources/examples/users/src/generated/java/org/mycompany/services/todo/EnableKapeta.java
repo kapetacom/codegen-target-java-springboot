@@ -18,5 +18,6 @@ import java.lang.annotation.*;
 @KapetaEnableRestResource
 @KapetaEnablePostgres
 @KapetaEnableEmailSender
+@KapetaEnableSecurityProviderConfig
 public @interface EnableKapeta {
 }

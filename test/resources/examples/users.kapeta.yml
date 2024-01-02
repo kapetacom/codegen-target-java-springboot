@@ -95,3 +95,10 @@ spec:
             arguments: { }
             responseType:
               ref: User[]
+    - kind: kapeta/resource-type-auth-jwt-provider:1.0.0
+      metadata:
+        name: authjwtprovider
+      spec:
+        port:
+          name: http
+          type: http

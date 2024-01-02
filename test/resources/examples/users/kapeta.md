@@ -21,6 +21,8 @@ In the sub folder structure you'll find the following:
 To edit the REST API handlers edit the services found here:
 * [src/main/java/org/mycompany/services/todo/service/UsersService.java](src/main/java/org/mycompany/services/todo/service/UsersService.java)
 
+* [src/main/java/org/mycompany/services/todo/service/JwksService.java](src/main/java/org/mycompany/services/todo/service/JwksService.java)
+
 The REST layer itself is generated for you - so your service
 will be called as specified within the REST API definition in Kapeta.
 

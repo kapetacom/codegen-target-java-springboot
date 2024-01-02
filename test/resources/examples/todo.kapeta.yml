@@ -184,6 +184,13 @@ spec:
                 transport: HEADER
             responseType:
               ref: User
+    - kind: kapeta/resource-type-auth-jwt-consumer:0.0.2
+      metadata:
+        name: authjwtconsumer
+      spec:
+        port:
+          name: http
+          type: http
   providers:
     - kind: kapeta/resource-type-rest-api:0.0.2
       metadata:
