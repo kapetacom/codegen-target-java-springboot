@@ -10,46 +10,10 @@ import type { GeneratedFile, SourceFile } from '@kapeta/codegen';
 import { mergeDevcontainers } from './target/merge-devcontainers';
 import { addTemplateHelpers } from './target/template-helpers';
 import { mergePom } from './target/merge-pom';
-import {parseKapetaUri} from "@kapeta/nodejs-utils";
-import {BlockDefinition, BlockDefinitionSpec, Resource} from "@kapeta/schemas";
 
 export default class JavaSpringBootTarget extends Target {
     constructor(options: any) {
         super(options, Path.resolve(__dirname, '../'));
-    }
-
-    generate(data: any, context: any): GeneratedFile[] {
-        let blockSpec = data as BlockDefinition;
-        const uri = parseKapetaUri('kapeta/resource-type-auth-jwt-provider');
-        const matcher = (consumer: Resource) => parseKapetaUri(consumer.kind).fullName === uri.fullName;
-        const hasJwtProvider = blockSpec?.spec?.providers?.some(matcher);
-
-        if (hasJwtProvider) {
-            let resource: Resource = {
-                kind: 'kapeta://kapeta/resource-type-rest-api:1.0.15',
-                metadata: {
-                    name: 'jwks'
-                },
-                spec: {
-                    port: {
-                        name: 'rest',
-                        type: 'rest'
-                    },
-                    methods: {
-                        'getJWKS': {
-                            responseType: {
-                                ref: 'Map<string, any>'
-                            },
-                            method: 'GET',
-                            path: '/.well-known/jwks.json',
-                            arguments: {}
-                        }
-                    }
-                }
-            };
-            blockSpec.spec.providers = [...blockSpec.spec.providers!, resource];
-        }
-        return super.generate(data, context);
     }
 
     mergeFile(sourceFile: SourceFile, newFile: GeneratedFile, lastFile: GeneratedFile | null): GeneratedFile {
