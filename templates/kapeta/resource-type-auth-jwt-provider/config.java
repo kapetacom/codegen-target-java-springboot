@@ -1,8 +1,8 @@
-//#FILENAME:src/generated/java/{{packagePath options.basePackage}}/gen/config/SecurityConfiguration.java:write-always
+//#FILENAME:src/generated/java/{{packagePath options.basePackage}}/config/SecurityConfiguration.java:write-always
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
-package {{options.basePackage}}.gen.config;
+package {{options.basePackage}}.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

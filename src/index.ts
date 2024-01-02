@@ -10,6 +10,8 @@ import type { GeneratedFile, SourceFile } from '@kapeta/codegen';
 import { mergeDevcontainers } from './target/merge-devcontainers';
 import { addTemplateHelpers } from './target/template-helpers';
 import { mergePom } from './target/merge-pom';
+import {parseKapetaUri} from "@kapeta/nodejs-utils";
+import {BlockDefinition, BlockDefinitionSpec, Resource} from "@kapeta/schemas";
 
 export default class JavaSpringBootTarget extends Target {
     constructor(options: any) {

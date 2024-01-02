@@ -95,7 +95,7 @@ spec:
             arguments: { }
             responseType:
               ref: User[]
-    - kind: kapeta/resource-type-auth-jwt-provider:1.0.0
+    - kind: kapeta/resource-type-auth-jwt-provider:1.0.1
       metadata:
         name: authjwtprovider
       spec:

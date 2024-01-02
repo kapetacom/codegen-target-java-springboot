@@ -1,11 +1,10 @@
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
-package org.mycompany.services.todo.gen.service;
+package org.mycompany.services.todo.service;
 
 import java.util.*;
 import org.mycompany.services.todo.dto.*;
-import org.mycompany.services.todo.gen.dto.*;
 
 public interface IJwksService {
     /**

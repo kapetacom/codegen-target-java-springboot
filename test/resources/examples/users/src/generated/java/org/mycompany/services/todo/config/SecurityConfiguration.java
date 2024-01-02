@@ -1,7 +1,7 @@
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
-package org.mycompany.services.todo.gen.config;
+package org.mycompany.services.todo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

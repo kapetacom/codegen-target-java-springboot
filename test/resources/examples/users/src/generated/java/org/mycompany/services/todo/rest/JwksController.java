@@ -1,13 +1,12 @@
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
-package org.mycompany.services.todo.gen.rest;
+package org.mycompany.services.todo.rest;
 
 import com.kapeta.spring.annotation.*;
 import java.util.*;
 import org.mycompany.services.todo.dto.*;
-import org.mycompany.services.todo.gen.dto.*;
-import org.mycompany.services.todo.gen.service.IJwksService;
+import org.mycompany.services.todo.service.IJwksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
