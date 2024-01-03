@@ -17,6 +17,7 @@ spec:
             type: string
           name:
             type: string
+            optional: true
           email:
             type: string
       - name: UserAuth

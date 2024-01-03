@@ -6,7 +6,8 @@ package {{options.basePackage}}.dto;
 
 import lombok.*;
 import java.util.*;
-
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 {{#eachTypeReference data}}
 import {{../options.basePackage}}.dto.{{class name}};
 {{/eachTypeReference}}
@@ -17,7 +18,8 @@ import {{../options.basePackage}}.dto.{{class name}};
 public class {{class data.name type=true}}Base {
 
         {{#eachProperty data.properties}}
-private {{classFrom this}} {{variable propertyId}};
+                {{#if optional}}@Nullable{{else}}@NonNull{{/if}}
+                private {{classFrom this}} {{variable propertyId}};
         {{/eachProperty}}
 
 }

@@ -40,10 +40,12 @@ spec:
             description: null
             type: string
             properties: null
+            optional: true
           done:
             description: null
             type: boolean
             properties: null
+            optional: true
           type:
             description: null
             ref: TaskType
