@@ -30,7 +30,7 @@ public class TasksService implements ITasksService {
      * Get tasks for list
      */
     @Override
-    public List<TaskDTO> getTasks(String listId) {
+    public List<TaskDTO> getTasks(String listId, String filter) {
         //TODO: Implement me!
 
         throw new RuntimeException("Not implemented");

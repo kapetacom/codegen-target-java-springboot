@@ -53,6 +53,7 @@ spec:
             type: integer
             properties: null
           metadata:
+            optional: true
             ref: any
           tags:
             ref: Set<string>
@@ -89,10 +90,12 @@ spec:
           createdBy:
             description: null
             type: string
+            optional: true
             properties: null
           created:
             description: null
             type: long
+            optional: true
             properties: null
       - type: dto
         name: UserAuth
@@ -206,16 +209,16 @@ spec:
                 type: string
                 transport: PATH
                 id: listId
-              task:
-                id: task
-                ref: Task
-                transport: BODY
-                optional: true
               overwrite:
                 id: overwrite
                 type: string
                 transport: HEADER
                 argument: Kapeta-Overwrite
+                optional: true
+              task:
+                id: task
+                ref: Task
+                transport: BODY
           removeTask:
             description: Remove task from list
             method: DELETE
@@ -236,6 +239,11 @@ spec:
             method: GET
             path: /tasks/{listId}
             arguments:
+              filter:
+                id: filter
+                type: string
+                transport: QUERY
+                optional: true
               listId:
                 id: listId
                 type: string

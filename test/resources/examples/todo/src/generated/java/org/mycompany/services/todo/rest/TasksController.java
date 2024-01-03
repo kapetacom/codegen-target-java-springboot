@@ -28,8 +28,11 @@ public class TasksController {
     @RequestMapping(value = "/tasks/{listId}/new", method = RequestMethod.POST)
     public void addTask(
         @PathVariable("listId") String listId,
-        @RequestBody(required = false) TaskDTO task,
-        @RequestHeader("Kapeta-Overwrite") String overwrite
+        @RequestBody TaskDTO task,
+        @RequestHeader(
+            name = "Kapeta-Overwrite",
+            required = false
+        ) String overwrite
     ) throws Exception {
         service.addTask(listId, task, overwrite);
     }
@@ -54,9 +57,11 @@ public class TasksController {
      */
     @ResponseBody
     @RequestMapping(value = "/tasks/{listId}", method = RequestMethod.GET)
-    public List<TaskDTO> getTasks(@PathVariable("listId") String listId)
-        throws Exception {
-        return service.getTasks(listId);
+    public List<TaskDTO> getTasks(
+        @PathVariable("listId") String listId,
+        @RequestParam(name = "filter", required = false) String filter
+    ) throws Exception {
+        return service.getTasks(listId, filter);
     }
 
     /**
