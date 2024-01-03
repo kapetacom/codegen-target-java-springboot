@@ -3,7 +3,7 @@
  */
 package org.mycompany.services.todo.dto;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotNull;
 import java.util.*;
 import lombok.*;
 

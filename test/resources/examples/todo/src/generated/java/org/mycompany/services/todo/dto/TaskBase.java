@@ -3,7 +3,7 @@
  */
 package org.mycompany.services.todo.dto;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotNull;
 import java.util.*;
 import lombok.*;
 
@@ -22,10 +22,8 @@ public class TaskBase {
     @NotNull
     private String title;
 
-    @Null
     private String description;
 
-    @Null
     private boolean done;
 
     @NotNull
@@ -34,7 +32,6 @@ public class TaskBase {
     @NotNull
     private int count;
 
-    @Null
     private Object metadata;
 
     @NotNull

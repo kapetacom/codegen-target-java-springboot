@@ -3,7 +3,7 @@
  */
 package org.mycompany.services.todo.dto;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotNull;
 import java.util.*;
 import lombok.*;
 
@@ -16,9 +16,7 @@ public class TaskListBase {
     @NotNull
     private String title;
 
-    @Null
     private String createdBy;
 
-    @Null
     private long created;
 }
