@@ -24,41 +24,48 @@ spec:
             description: null
             type: string
             properties: null
+            required: true
           listId:
             description: null
             type: string
             properties: null
+            required: true
           userId:
             description: null
             type: string
             properties: null
+            required: true
           title:
             description: null
             type: string
             properties: null
+            required: true
           description:
             description: null
             type: string
             properties: null
-            optional: true
+            required: false
           done:
             description: null
             type: boolean
             properties: null
-            optional: true
+            required: false
           type:
             description: null
             ref: TaskType
             properties: null
+            required: true
           count:
             description: null
             type: integer
             properties: null
+            required: true
           metadata:
-            optional: true
+            required: false
             ref: any
           tags:
             ref: Set<string>
+            required: true
       - type: dto
         name: User
         description: null
@@ -67,16 +74,20 @@ spec:
             description: null
             type: string
             properties: null
+            required: true
           name:
             description: null
             type: string
             properties: null
+            required: false
           email:
             description: null
             type: string
             properties: null
+            required: true
           tasks:
             ref: Task[]
+            required: true
       - type: dto
         name: TaskList
         description: null
@@ -85,19 +96,21 @@ spec:
             description: null
             type: string
             properties: null
+            required: true
           title:
             description: null
             type: string
             properties: null
+            required: true
           createdBy:
             description: null
             type: string
-            optional: true
+            required: false
             properties: null
           created:
             description: null
             type: long
-            optional: true
+            required: false
             properties: null
       - type: dto
         name: UserAuth
@@ -106,11 +119,13 @@ spec:
           username:
             description: null
             type: string
+            required: true
             properties: null
           password:
             description: null
             type: string
             properties: null
+            required: true
     source:
       type: kapeta-dsl
       value: |-

@@ -14,7 +14,7 @@ public class UserBase {
     @NotNull
     private String id;
 
-    @NotNull
+    @Null
     private String name;
 
     @NotNull
