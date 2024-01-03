@@ -22,7 +22,7 @@ public class SecurityConfiguration {
 
     @Bean
     public JWKInternalKeyStoreProvider jwkPublicKeySetProvider() {
-        return () -> new JWKInternalKeyStore("https://auth.kapeta.com", null, getKeyStore());
+        return () -> new JWKInternalKeyStore("https://example.auth.kapeta.com", "https://example.kapeta.com", getKeyStore());
     }
 
     private JWKSet getKeyStore() {

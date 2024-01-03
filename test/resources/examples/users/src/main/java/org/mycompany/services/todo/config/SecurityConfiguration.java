@@ -22,8 +22,8 @@ public class SecurityConfiguration {
     public JWKInternalKeyStoreProvider jwkPublicKeySetProvider() {
         return () ->
             new JWKInternalKeyStore(
-                "https://auth.kapeta.com",
-                null,
+                "https://example.auth.kapeta.com",
+                "https://example.kapeta.com",
                 getKeyStore()
             );
     }
