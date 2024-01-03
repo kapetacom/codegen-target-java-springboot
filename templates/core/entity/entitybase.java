@@ -6,8 +6,7 @@ package {{options.basePackage}}.dto;
 
 import lombok.*;
 import java.util.*;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
+import jakarta.validation.constraints.*;
 {{#eachTypeReference data}}
 import {{../options.basePackage}}.dto.{{class name}};
 {{/eachTypeReference}}
@@ -18,7 +17,7 @@ import {{../options.basePackage}}.dto.{{class name}};
 public class {{class data.name type=true}}Base {
 
         {{#eachProperty data.properties}}
-                {{#if optional}}@Nullable{{else}}@NonNull{{/if}}
+                {{#if optional}}@Null{{else}}@NotNull{{/if}}
                 private {{classFrom this}} {{variable propertyId}};
         {{/eachProperty}}
 

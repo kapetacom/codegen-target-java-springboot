@@ -4,6 +4,7 @@
 package org.mycompany.services.todo.rest;
 
 import com.kapeta.spring.annotation.*;
+import jakarta.validation.Valid;
 import java.util.*;
 import org.mycompany.services.todo.dto.*;
 import org.mycompany.services.todo.service.ITasksService;
@@ -28,7 +29,7 @@ public class TasksController {
     @RequestMapping(value = "/tasks/{listId}/new", method = RequestMethod.POST)
     public void addTask(
         @PathVariable("listId") String listId,
-        @RequestBody TaskDTO task,
+        @Valid @RequestBody TaskDTO task,
         @RequestHeader(
             name = "Kapeta-Overwrite",
             required = false
@@ -75,7 +76,7 @@ public class TasksController {
     public TaskDTO updateTask(
         @PathVariable("listId") String listId,
         @PathVariable("taskId") String taskId,
-        @RequestBody TaskDTO task
+        @Valid @RequestBody TaskDTO task
     ) throws Exception {
         return service.updateTask(listId, taskId, task);
     }

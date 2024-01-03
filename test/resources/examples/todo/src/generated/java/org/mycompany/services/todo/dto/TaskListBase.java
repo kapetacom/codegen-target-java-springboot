@@ -3,23 +3,22 @@
  */
 package org.mycompany.services.todo.dto;
 
+import jakarta.validation.constraints.*;
 import java.util.*;
 import lombok.*;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 @Data
 public class TaskListBase {
 
-    @NonNull
+    @NotNull
     private String id;
 
-    @NonNull
+    @NotNull
     private String title;
 
-    @Nullable
+    @Null
     private String createdBy;
 
-    @Nullable
+    @Null
     private long created;
 }

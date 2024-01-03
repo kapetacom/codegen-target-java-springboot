@@ -3,41 +3,40 @@
  */
 package org.mycompany.services.todo.dto;
 
+import jakarta.validation.constraints.*;
 import java.util.*;
 import lombok.*;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 @Data
 public class TaskBase {
 
-    @NonNull
+    @NotNull
     private String id;
 
-    @NonNull
+    @NotNull
     private String listId;
 
-    @NonNull
+    @NotNull
     private String userId;
 
-    @NonNull
+    @NotNull
     private String title;
 
-    @Nullable
+    @Null
     private String description;
 
-    @Nullable
+    @Null
     private boolean done;
 
-    @NonNull
+    @NotNull
     private TaskType type;
 
-    @NonNull
+    @NotNull
     private int count;
 
-    @Nullable
+    @Null
     private Object metadata;
 
-    @NonNull
+    @NotNull
     private Set<String> tags;
 }

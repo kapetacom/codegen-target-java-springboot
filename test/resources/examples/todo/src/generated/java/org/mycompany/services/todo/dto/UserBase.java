@@ -3,24 +3,23 @@
  */
 package org.mycompany.services.todo.dto;
 
+import jakarta.validation.constraints.*;
 import java.util.*;
 import lombok.*;
 import org.mycompany.services.todo.dto.TaskDTO;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 @Data
 public class UserBase {
 
-    @NonNull
+    @NotNull
     private String id;
 
-    @NonNull
+    @NotNull
     private String name;
 
-    @NonNull
+    @NotNull
     private String email;
 
-    @NonNull
+    @NotNull
     private List<TaskDTO> tasks;
 }

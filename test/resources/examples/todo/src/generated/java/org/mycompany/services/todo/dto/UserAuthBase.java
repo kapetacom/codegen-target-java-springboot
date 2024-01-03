@@ -3,17 +3,16 @@
  */
 package org.mycompany.services.todo.dto;
 
+import jakarta.validation.constraints.*;
 import java.util.*;
 import lombok.*;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
 @Data
 public class UserAuthBase {
 
-    @NonNull
+    @NotNull
     private String username;
 
-    @NonNull
+    @NotNull
     private String password;
 }
