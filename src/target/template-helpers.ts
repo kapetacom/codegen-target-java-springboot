@@ -5,7 +5,6 @@
 import Handlebars = require('handlebars');
 import { Template, toTypeName, TypeLike } from '@kapeta/codegen-target';
 import { BlockDefinitionSpec, Resource } from '@kapeta/schemas';
-import { RESTMethod } from '@kapeta/ui-web-types';
 import { parseKapetaUri } from '@kapeta/nodejs-utils';
 import _ from 'lodash';
 
@@ -220,5 +219,24 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         }
 
         return '';
+    });
+
+    engine.registerHelper('toArray', (...value: any[]) => {
+        return value.slice(0, value.length - 1);
+    });
+
+    engine.registerHelper('usesAnyOf', (kinds: string[], options) => {
+        const data = context.spec as BlockDefinitionSpec;
+        const usesAny = kinds.some((kind) => {
+            const uri = parseKapetaUri(kind);
+            const matcher = (consumer: Resource) => parseKapetaUri(consumer.kind).fullName === uri.fullName;
+            return data.consumers?.some(matcher) || data.providers?.some(matcher);
+        });
+
+        if (usesAny) {
+            return options.fn(this);
+        }
+
+        return options.inverse(this);
     });
 };

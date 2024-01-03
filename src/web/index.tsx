@@ -77,6 +77,8 @@ const targetConfig: ILanguageTargetProvider<JavaTargetConfigOptions> = {
         'kapeta/resource-type-rest-client',
         'kapeta/resource-type-smtp-client',
         'kapeta/resource-type-external-service',
+        'kapeta/resource-type-auth-jwt-provider',
+        'kapeta/resource-type-auth-jwt-consumer',
     ],
     definition: kapetaDefinition,
     editorComponent: JavaTargetConfig,

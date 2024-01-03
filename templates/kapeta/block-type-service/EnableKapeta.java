@@ -21,10 +21,13 @@ import com.kapeta.spring.annotation.KapetaEnablePostgres;
 {{/consumes}}
 {{#consumes 'kapeta/resource-type-smtp-client'}}
 import com.kapeta.spring.annotation.KapetaEnableEmailSender;
-
-import java.lang.annotation.*;
 {{/consumes}}
-
+{{#consumes 'kapeta/resource-type-auth-jwt-consumer'}}
+import com.kapeta.spring.annotation.KapetaEnableSecurityConsumerConfig;
+{{/consumes}}
+{{#provides 'kapeta/resource-type-auth-jwt-provider'}}
+import com.kapeta.spring.annotation.KapetaEnableSecurityProviderConfig;
+{{/provides}}
 
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
@@ -67,5 +70,11 @@ import java.lang.annotation.*;
 {{#consumes 'kapeta/resource-type-smtp-client'}}
 @KapetaEnableEmailSender
 {{/consumes}}
+{{#consumes 'kapeta/resource-type-auth-jwt-consumer'}}
+@KapetaEnableSecurityConsumerConfig
+{{/consumes}}
+{{#provides 'kapeta/resource-type-auth-jwt-provider'}}
+@KapetaEnableSecurityProviderConfig
+{{/provides}}
 public @interface EnableKapeta {
 }
