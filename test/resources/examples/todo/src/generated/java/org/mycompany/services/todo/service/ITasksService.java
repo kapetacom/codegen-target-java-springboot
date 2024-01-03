@@ -21,7 +21,7 @@ public interface ITasksService {
     /**
      * Get tasks for list
      */
-    List<TaskDTO> getTasks(String listId) throws Exception;
+    List<TaskDTO> getTasks(String listId, String filter) throws Exception;
 
     /**
      * Update task

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.kapeta.spring.annotation.*;
 import java.util.*;
+import jakarta.validation.Valid;
 {{#anyEntities}}
 import {{../options.basePackage}}.dto.*;
 {{/anyEntities}}
@@ -35,7 +36,7 @@ public class {{class data.metadata.name type=true}}Controller {
                     {{#case 'PATH'}} @PathVariable{{{params}}} {{/case}}
                     {{#case 'QUERY'}} @RequestParam{{{params}}} {{/case}}
                     {{#case 'HEADER'}} @RequestHeader{{{params}}} {{/case}}
-                    {{#case 'BODY'}} @RequestBody{{{params}}} {{/case}}
+                    {{#case 'BODY'}} @Valid @RequestBody{{{params}}} {{/case}}
                 {{/switch}}
                 {{class this}} {{variable argumentName}}
             {{/arguments}} ) throws Exception {

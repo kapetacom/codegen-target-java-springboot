@@ -15,17 +15,22 @@ spec:
         properties:
           id:
             type: string
+            required: true
           name:
             type: string
+            required: false
           email:
             type: string
+            required: true
       - name: UserAuth
         type: dto
         properties:
           username:
             type: string
+            required: true
           password:
             type: string
+            required: true
   consumers:
     - kind: kapeta/resource-type-postgresql:0.0.2
       metadata:

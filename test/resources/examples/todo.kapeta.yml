@@ -24,38 +24,48 @@ spec:
             description: null
             type: string
             properties: null
+            required: true
           listId:
             description: null
             type: string
             properties: null
+            required: true
           userId:
             description: null
             type: string
             properties: null
+            required: true
           title:
             description: null
             type: string
             properties: null
+            required: true
           description:
             description: null
             type: string
             properties: null
+            required: false
           done:
             description: null
             type: boolean
             properties: null
+            required: false
           type:
             description: null
             ref: TaskType
             properties: null
+            required: true
           count:
             description: null
             type: integer
             properties: null
+            required: true
           metadata:
+            required: false
             ref: any
           tags:
             ref: Set<string>
+            required: true
       - type: dto
         name: User
         description: null
@@ -64,16 +74,20 @@ spec:
             description: null
             type: string
             properties: null
+            required: true
           name:
             description: null
             type: string
             properties: null
+            required: false
           email:
             description: null
             type: string
             properties: null
+            required: true
           tasks:
             ref: Task[]
+            required: true
       - type: dto
         name: TaskList
         description: null
@@ -82,17 +96,21 @@ spec:
             description: null
             type: string
             properties: null
+            required: true
           title:
             description: null
             type: string
             properties: null
+            required: true
           createdBy:
             description: null
             type: string
+            required: false
             properties: null
           created:
             description: null
             type: long
+            required: false
             properties: null
       - type: dto
         name: UserAuth
@@ -101,11 +119,13 @@ spec:
           username:
             description: null
             type: string
+            required: true
             properties: null
           password:
             description: null
             type: string
             properties: null
+            required: true
     source:
       type: kapeta-dsl
       value: |-
@@ -206,16 +226,16 @@ spec:
                 type: string
                 transport: PATH
                 id: listId
-              task:
-                id: task
-                ref: Task
-                transport: BODY
-                optional: true
               overwrite:
                 id: overwrite
                 type: string
                 transport: HEADER
                 argument: Kapeta-Overwrite
+                optional: true
+              task:
+                id: task
+                ref: Task
+                transport: BODY
           removeTask:
             description: Remove task from list
             method: DELETE
@@ -236,6 +256,11 @@ spec:
             method: GET
             path: /tasks/{listId}
             arguments:
+              filter:
+                id: filter
+                type: string
+                transport: QUERY
+                optional: true
               listId:
                 id: listId
                 type: string

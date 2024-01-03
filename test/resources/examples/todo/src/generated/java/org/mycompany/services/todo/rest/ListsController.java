@@ -4,6 +4,7 @@
 package org.mycompany.services.todo.rest;
 
 import com.kapeta.spring.annotation.*;
+import jakarta.validation.Valid;
 import java.util.*;
 import org.mycompany.services.todo.dto.*;
 import org.mycompany.services.todo.service.IListsService;
@@ -35,7 +36,7 @@ public class ListsController {
      */
 
     @RequestMapping(value = "/lists/new", method = RequestMethod.POST)
-    public void addList(@RequestBody TaskListDTO list) throws Exception {
+    public void addList(@Valid @RequestBody TaskListDTO list) throws Exception {
         service.addList(list);
     }
 
@@ -46,7 +47,7 @@ public class ListsController {
     @RequestMapping(value = "/lists/{listId}", method = RequestMethod.PUT)
     public void updateList(
         @PathVariable("listId") String listId,
-        @RequestBody TaskListDTO list
+        @Valid @RequestBody TaskListDTO list
     ) throws Exception {
         service.updateList(listId, list);
     }

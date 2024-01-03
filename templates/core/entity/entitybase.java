@@ -6,7 +6,7 @@ package {{options.basePackage}}.dto;
 
 import lombok.*;
 import java.util.*;
-
+import jakarta.validation.constraints.NotNull;
 {{#eachTypeReference data}}
 import {{../options.basePackage}}.dto.{{class name}};
 {{/eachTypeReference}}
@@ -17,7 +17,8 @@ import {{../options.basePackage}}.dto.{{class name}};
 public class {{class data.name type=true}}Base {
 
         {{#eachProperty data.properties}}
-private {{classFrom this}} {{variable propertyId}};
+                {{#if required}}@NotNull{{else}}{{/if}}
+                private {{classFrom this}} {{variable propertyId}};
         {{/eachProperty}}
 
 }

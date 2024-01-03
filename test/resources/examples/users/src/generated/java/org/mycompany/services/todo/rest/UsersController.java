@@ -4,6 +4,7 @@
 package org.mycompany.services.todo.rest;
 
 import com.kapeta.spring.annotation.*;
+import jakarta.validation.Valid;
 import java.util.*;
 import org.mycompany.services.todo.dto.*;
 import org.mycompany.services.todo.service.IUsersService;
@@ -28,7 +29,7 @@ public class UsersController {
     @RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
     public UserDTO createUser(
         @PathVariable("id") String id,
-        @RequestBody UserDTO user,
+        @Valid @RequestBody UserDTO user,
         @RequestHeader Map<String, String> metadata
     ) throws Exception {
         return service.createUser(id, user, metadata);
@@ -57,7 +58,7 @@ public class UsersController {
      */
     @ResponseBody
     @RequestMapping(value = "/users/authenticate", method = RequestMethod.POST)
-    public UserDTO authenticate(@RequestBody UserAuthDTO user)
+    public UserDTO authenticate(@Valid @RequestBody UserAuthDTO user)
         throws Exception {
         return service.authenticate(user);
     }
