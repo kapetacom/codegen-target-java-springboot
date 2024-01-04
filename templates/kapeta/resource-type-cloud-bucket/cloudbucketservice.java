@@ -1,4 +1,4 @@
-//#FILENAME:src/generated/java/{{packagePath options.basePackage}}/service/{{class data.metadata.name type=true}}Service.java:write-always
+//#FILENAME:src/generated/java/{{packagePath options.basePackage}}/service/{{class data.spec.bucketname type=true}}Service.java:write-always
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
@@ -10,25 +10,24 @@ import io.minio.PutObjectArgs;
 import io.minio.MinioClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import {{options.basePackage}}.config.{{class data.metadata.name}}CloudBucketConfiguration;
 
 
 @Service
 @RequiredArgsConstructor
-public class {{class data.metadata.name}}Service {
+public class {{class data.spec.bucketname}}Service {
 
     private final MinioClient minioClient;
 
-    public MinioClient get{{class data.metadata.name}}Client() {
+    public MinioClient get{{class data.spec.bucketname}}Client() {
         return minioClient;
     }
     
     public GetObjectArgs.Builder getBuilder() {
-        return GetObjectArgs.builder().bucket({{class data.metadata.name}}CloudBucketConfiguration.BUCKET_NAME);
+        return GetObjectArgs.builder().bucket("{{data.spec.bucketname}}");
     }
     
     public PutObjectArgs.Builder putBuilder() {
-        return PutObjectArgs.builder().bucket({{class data.metadata.name}}CloudBucketConfiguration.BUCKET_NAME);
+        return PutObjectArgs.builder().bucket("{{data.spec.bucketname}}");
     }
 
 }

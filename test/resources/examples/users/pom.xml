@@ -93,6 +93,11 @@
 
         <dependency>
             <groupId>com.kapeta</groupId>
+            <artifactId>cloud-bucket</artifactId>
+            <version>(,2.0)</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kapeta</groupId>
             <artifactId>sqldb-postgresql</artifactId>
             <version>(,2.0)</version>
         </dependency>

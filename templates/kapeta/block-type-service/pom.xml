@@ -145,9 +145,9 @@
 
         {{#consumes 'kapeta/resource-type-cloud-bucket'}}
         <dependency>
-            <groupId>io.minio</groupId>
-            <artifactId>minio</artifactId>
-            <version>8.5.4</version>
+            <groupId>com.kapeta</groupId>
+            <artifactId>cloud-bucket</artifactId>
+            <version>(,2.0)</version>
         </dependency>
         {{/consumes}}
         {{#consumes 'kapeta/resource-type-postgresql'}}
