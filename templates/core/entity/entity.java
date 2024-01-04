@@ -3,8 +3,6 @@ package {{options.basePackage}}.dto;
 
 import lombok.*;
 
-import {{options.basePackage}}.dto.{{type data.name}}Base;
-
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class {{class data.name}} extends {{class data.name type=true}}Base {
