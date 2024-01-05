@@ -38,6 +38,11 @@ spec:
     - kind: kapeta/resource-type-smtp-client:0.0.6
       metadata:
         name: smtpclient
+    - kind: kapeta/resource-type-cloud-bucket:0.0.1
+      metadata:
+        name: cloudbucket
+      spec:
+        bucketname: mybucket
   providers:
     - kind: kapeta/resource-type-rest-api:0.0.4
       metadata:
