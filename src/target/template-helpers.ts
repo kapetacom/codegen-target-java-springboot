@@ -104,6 +104,14 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
             typeName = baseType + '<' + genericTypeNames.join(',') + '>';
         }
 
+        if (typeName === 'Instance') {
+            return Template.SafeString('InstanceValue');
+        }
+
+        if (typeName === 'InstanceProvider') {
+            return Template.SafeString('InstanceProviderValue');
+        }
+
         if (isEntity(typeName)) {
             return Template.SafeString(ucfirst(typeName) + (asType ? '' : 'DTO'));
         }
@@ -165,6 +173,10 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
 
     engine.registerHelper('relativePath', (path) => {
         return Template.SafeString(path.trim().replace(/^\/+/g, ''));
+    });
+
+    engine.registerHelper('kebab', (camelCase) => {
+        return Template.SafeString(camelCase.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase());
     });
 
     engine.registerHelper('enumValues', (values) => {
