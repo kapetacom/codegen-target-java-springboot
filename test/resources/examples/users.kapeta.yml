@@ -8,6 +8,35 @@ spec:
       groupId: org.mycompany.services
       artifactId: users
       basePackage: org.mycompany.services.users
+  configuration:
+    types:
+      - type: dto
+        name: Service
+        description: Configuration for services
+        properties:
+          instance:
+            ref: Instance
+            properties: null
+            secret: true
+            required: true
+          key:
+            type: string
+            properties: null
+            secret: true
+            required: true
+      - type: dto
+        name: Email
+        description: Configuration for e-mails
+        properties:
+          from:
+            type: string
+            defaultValue: "'support@kapeta.com'"
+            description: Sender for e-mails. Note that you should be allowed to send e-mails
+              from this domain and user
+            properties: null
+            secret: false
+            required: false
+            global: true
   entities:
     types:
       - name: User
