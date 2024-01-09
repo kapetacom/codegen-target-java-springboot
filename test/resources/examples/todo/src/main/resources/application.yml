@@ -8,4 +8,4 @@ mongock:
   transaction-strategy: change_unit
   transaction-enabled: true
   migration-scan-package:
-    - "org.mycompany.services.todo.repositories.tododb.migrations"
+    - "org.mycompany.services.todo.repositories.todo_db.migrations"

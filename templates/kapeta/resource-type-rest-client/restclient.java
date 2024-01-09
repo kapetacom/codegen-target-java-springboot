@@ -2,7 +2,7 @@
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
-package {{options.basePackage}}.clients;
+package {{packageName options.basePackage}}.clients;
 
 import com.kapeta.spring.annotation.KapetaRestClient;
 import retrofit2.Call;

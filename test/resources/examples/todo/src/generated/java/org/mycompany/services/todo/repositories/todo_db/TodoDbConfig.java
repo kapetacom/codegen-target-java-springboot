@@ -1,7 +1,7 @@
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
-package org.mycompany.services.todo.repositories.tododb;
+package org.mycompany.services.todo.repositories.todo_db;
 
 import com.kapeta.spring.mongo.AbstractMongoDBConfig;
 import com.kapeta.spring.mongo.repository.BaseMongoRepositoryImpl;
@@ -11,11 +11,11 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @Configuration
 @EnableMongoRepositories(
     repositoryBaseClass = BaseMongoRepositoryImpl.class,
-    basePackages = { "org.mycompany.services.todo.repositories.tododb" }
+    basePackages = { "org.mycompany.services.todo.repositories.todo_db" }
 )
-public class TododbConfig extends AbstractMongoDBConfig {
+public class TodoDbConfig extends AbstractMongoDBConfig {
 
-    public TododbConfig() {
-        super("tododb");
+    public TodoDbConfig() {
+        super("todo-db");
     }
 }

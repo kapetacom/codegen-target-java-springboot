@@ -2,7 +2,7 @@
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
-package {{options.basePackage}};
+package {{packageName options.basePackage}};
 
 import java.lang.annotation.*;
 

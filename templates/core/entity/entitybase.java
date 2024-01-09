@@ -2,7 +2,7 @@
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
-package {{options.basePackage}}.dto;
+package {{packageName options.basePackage}}.dto;
 
 import lombok.*;
 import java.util.*;

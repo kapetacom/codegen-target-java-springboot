@@ -66,6 +66,11 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         }
     }
 
+    function packageNameHelper(packageName: string): string {
+        return packageName
+            .replace(/-/g, '_');
+    }
+
     function classHelper(typeName: TypeLike, options: any = null): Handlebars.SafeString {
         if (!typeName) {
             return Template.SafeString('void');
@@ -142,6 +147,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         return classHelper(property, options);
     };
 
+    engine.registerHelper('packageName', (name) => Template.SafeString(packageNameHelper(name)));
     engine.registerHelper('classFrom', classFrom);
 
     engine.registerHelper('ifPrimitive', (type: TypeLike, options: any) => {
@@ -168,7 +174,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
     });
 
     engine.registerHelper('packagePath', (packageName) => {
-        return Template.SafeString(packageName.replace(/\./g, '/'));
+        return Template.SafeString(packageNameHelper(packageName).replace(/\./g, '/'));
     });
 
     engine.registerHelper('relativePath', (path) => {

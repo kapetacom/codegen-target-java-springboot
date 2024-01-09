@@ -21,6 +21,6 @@ mongock:
   transaction-enabled: true
   migration-scan-package:
     {{#consumers-of-type 'kapeta/resource-type-mongodb'}}
-    - "{{string ../options.basePackage}}.repositories.{{string metadata.name}}.migrations"
+    - "{{string (packageName ../options.basePackage)}}.repositories.{{string (packageName metadata.name)}}.migrations"
     {{/consumers-of-type}}
 {{/consumes}}
