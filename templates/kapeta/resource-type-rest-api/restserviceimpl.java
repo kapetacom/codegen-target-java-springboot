@@ -1,7 +1,7 @@
 //#FILENAME:src/main/java/{{packagePath options.basePackage}}/service/{{class data.metadata.name type=true}}Service.java:create-only
-package {{options.basePackage}}.service;
+package {{packageName options.basePackage}}.service;
 
-import {{options.basePackage}}.service.I{{class data.metadata.name type=true}}Service;
+import {{packageName options.basePackage}}.service.I{{class data.metadata.name type=true}}Service;
 import java.util.*;
 import org.springframework.stereotype.Service;
 {{#anyEntities}}

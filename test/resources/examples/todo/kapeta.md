@@ -32,11 +32,11 @@ The service files will only be generated if they don't already exist - or if the
 changed since the last time they were generated.
 
 
-## MongoDB: tododb
-To use the "tododb" MongoDB database - simply create Spring
+## MongoDB: todo-db
+To use the "todo-db" MongoDB database - simply create Spring
 repositories in this package:
 
-```org.mycompany.services.todo.repositories.tododb```
+```org.mycompany.services.todo.repositories.todo-db```
 
 These will be picked up and used by the database.
 
@@ -44,12 +44,12 @@ If you extend ```com.kapeta.spring.mongo.repository.BaseMongoRepository``` in yo
 you'll get some extra functionality for free.
 
 ### Schema changes
-This service uses Mongock to apply database migrations to **tododb**. 
+This service uses Mongock to apply database migrations to **todo-db**. 
 You simply define changes in a class annotated with ```@ChangeLog```, 
 ```@ChangeUnit``` or ```@ChangeSet```.
 
 These classes should be placed in the following package:
-```org.mycompany.services.todo.repositories.tododb.migrations```
+```org.mycompany.services.todo.repositories.todo-db.migrations```
 
 See Mongock documentation for more information:
 [https://docs.mongock.io/v5/migration/index.html](https://docs.mongock.io/v5/migration/index.html)

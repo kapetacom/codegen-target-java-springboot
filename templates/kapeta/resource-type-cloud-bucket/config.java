@@ -1,5 +1,5 @@
 //#FILENAME:src/generated/java/{{packagePath options.basePackage}}/config/{{class data.metadata.name}}CloudBucketConfiguration.java:create-only
-package {{options.basePackage}}.config;
+package {{packageName options.basePackage}}.config;
 
 import org.springframework.context.annotation.Configuration;
 import com.kapeta.spring.cloudbucket.AbstractCloudBucketConfig;

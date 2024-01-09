@@ -171,7 +171,7 @@ spec:
         name: cache
     - kind: kapeta/resource-type-mongodb:0.0.2
       metadata:
-        name: tododb
+        name: todo-db
     - kind: kapeta/resource-type-rest-client:0.0.2
       metadata:
         name: users

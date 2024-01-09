@@ -2,9 +2,9 @@
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
-package {{options.basePackage}}.rest;
+package {{packageName options.basePackage}}.rest;
 
-import {{options.basePackage}}.service.I{{class data.metadata.name type=true}}Service;
+import {{packageName options.basePackage}}.service.I{{class data.metadata.name type=true}}Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.kapeta.spring.annotation.*;

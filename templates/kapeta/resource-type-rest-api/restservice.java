@@ -2,7 +2,7 @@
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
-package {{options.basePackage}}.service;
+package {{packageName options.basePackage}}.service;
 
 import java.util.*;
 {{#anyEntities}}

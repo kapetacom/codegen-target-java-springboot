@@ -1,5 +1,5 @@
 //#FILENAME:src/main/java/{{packagePath options.basePackage}}/dto/{{class data.name}}.java:{{#when data.type type='dto'}}create-only||skip{{/when}}
-package {{options.basePackage}}.dto;
+package {{packageName options.basePackage}}.dto;
 
 import lombok.*;
 

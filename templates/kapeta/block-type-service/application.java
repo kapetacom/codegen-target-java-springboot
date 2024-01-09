@@ -2,7 +2,7 @@
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
-package {{options.basePackage}};
+package {{packageName options.basePackage}};
 
 import com.kapeta.spring.KapetaApplication;
 
