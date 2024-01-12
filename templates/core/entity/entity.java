@@ -5,6 +5,8 @@ import lombok.*;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class {{class data.name}} extends {{class data.name type=true}}Base {
 
 }

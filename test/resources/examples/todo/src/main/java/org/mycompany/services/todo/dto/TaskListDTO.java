@@ -4,4 +4,6 @@ import lombok.*;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class TaskListDTO extends TaskListBase {}
