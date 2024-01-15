@@ -68,7 +68,9 @@ public class UsersController {
      */
     @ResponseBody
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public List<UserDTO> listUsers() throws Exception {
-        return service.listUsers();
+    public List<UserDTO> listUsers(
+        @RequestParam(name = "filter", required = false) Set<String> filter
+    ) throws Exception {
+        return service.listUsers(filter);
     }
 }

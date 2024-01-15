@@ -26,11 +26,7 @@ public interface {{class data.metadata.name type=true}}Client {
             {{#switch (uppercase transport)}}
                 {{#case 'PATH'}} @Path("{{string argumentName}}") {{/case}}
                 {{#case 'QUERY'}}
-                    {{#ifPrimitive this}}
-                        @Query("{{string argumentName}}")
-                    {{else}}
-                        @QueryMap
-                    {{/ifPrimitive}}
+                    @Query("{{string argumentName}}")
                 {{/case}}
                 {{#case 'HEADER'}}
                     {{#ifPrimitive this}}

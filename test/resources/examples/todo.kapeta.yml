@@ -204,6 +204,18 @@ spec:
                 transport: HEADER
             responseType:
               ref: User
+          listUsers:
+            description: Get all users
+            method: GET
+            path: /users
+            arguments:
+              filter:
+                id: filter
+                type: Set<string>
+                transport: QUERY
+                optional: true
+            responseType:
+              ref: User[]
     - kind: kapeta/resource-type-auth-jwt-consumer:0.0.3
       metadata:
         name: authjwtconsumer

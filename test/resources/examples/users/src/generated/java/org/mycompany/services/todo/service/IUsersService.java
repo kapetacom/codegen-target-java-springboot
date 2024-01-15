@@ -31,5 +31,5 @@ public interface IUsersService {
     /**
      * Get all users
      */
-    List<UserDTO> listUsers() throws Exception;
+    List<UserDTO> listUsers(Set<String> filter) throws Exception;
 }
