@@ -24,6 +24,7 @@
     "homepage": "https://github.com/kapetacom/codegen-target-java8-springboot2#readme",
     "dependencies": {
         "@kapeta/codegen-target": "<2",
+        "@kapeta/kaplang-core": "^1.6.1",
         "@kapeta/schemas": "<2",
         "cheerio": "^1.0.0-rc.12",
         "handlebars": "4.7.8",
@@ -37,7 +38,16 @@
         "@kapeta/ui-web-types": "<2"
     },
     "bundledDependencies": true,
-    "bundleDependencies": true,
+    "bundleDependencies": [
+        "@kapeta/codegen-target",
+        "@kapeta/schemas",
+        "cheerio",
+        "handlebars",
+        "lodash",
+        "prettier",
+        "prettier-plugin-java",
+        "yaml"
+    ],
     "devDependencies": {
         "@babel/cli": "^7.23.4",
         "@babel/core": "^7.23.7",

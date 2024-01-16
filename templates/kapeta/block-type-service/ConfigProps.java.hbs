@@ -1,9 +1,9 @@
-{{#each data.spec.configuration.types}}
-    //#FILENAME:src/generated/java/{{packagePath ../options.basePackage}}/config/{{class this.name type=true}}{{#when this.type type='dto'}}Config.java:write-always||.java:write-always{{/when}}
+{{#kaplang-config context.spec.configuration.source}}
+    //#FILENAME:src/generated/java/{{packagePath @root.options.basePackage}}/config/{{class name type=true}}{{#when type type='datatype'}}Config.java:write-always||.java:write-always{{/when}}
     /**
     * GENERATED SOURCE - DO NOT EDIT
     */
-    package {{packageName ../options.basePackage}}.config;
+    package {{packageName @root.options.basePackage}}.config;
 
     import lombok.*;
     import java.util.*;
@@ -11,32 +11,22 @@
     import org.springframework.stereotype.Component;
     import org.springframework.boot.context.properties.ConfigurationProperties;
 
-    {{#hasTypeReference this 'Instance'}}
+    {{#typeHasReference this 'Instance'}}
         import com.kapeta.spring.config.InstanceValue;
-    {{/hasTypeReference}}
-    {{#hasTypeReference this 'InstanceProvider'}}
+    {{/typeHasReference}}
+    {{#typeHasReference this 'InstanceProvider'}}
         import com.kapeta.spring.config.InstanceProviderValue;
-    {{/hasTypeReference}}
+    {{/typeHasReference}}
 
-    {{#switch this.type}}
-        {{#case 'dto'}}
-            @Data
+    {{#switch type}}
+        {{#case 'datatype'}}
             @Component
-            @ConfigurationProperties("{{kebab this.name}}")
-            public class {{class this.name type=true}}Config {
-
-            {{#eachProperty this.properties}}
-                {{#if required}}@NotNull{{else}}{{/if}}
-                private {{classFrom this}} {{variable propertyId}};
-            {{/eachProperty}}
-
-            }
+            @ConfigurationProperties("{{kebab name}}")
+            {{java-type-config this}}
         {{/case}}
         {{#case 'enum'}}
-            public enum {{class this.name}} {
-            {{enumValues this.values}}
-            }
+            {{java-type-config this}}
         {{/case}}
     {{/switch}}
 
-{{/each}}
+{{/kaplang-config}}

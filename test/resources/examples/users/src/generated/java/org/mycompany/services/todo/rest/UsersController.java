@@ -9,22 +9,21 @@ import java.util.*;
 import org.mycompany.services.todo.dto.*;
 import org.mycompany.services.todo.service.IUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Description;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @KapetaController("users")
+@RequestMapping("/")
 public class UsersController {
 
     private final IUsersService service;
 
-    @Autowired
     public UsersController(IUsersService service) {
         this.service = service;
     }
 
-    /**
-     * Create user
-     */
+    @Description("Create user")
     @ResponseBody
     @RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
     public UserDTO createUser(
@@ -35,27 +34,20 @@ public class UsersController {
         return service.createUser(id, user, metadata);
     }
 
-    /**
-     * Get user by id
-     */
+    @Description("Get user by id")
     @ResponseBody
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
     public UserDTO getUser(@PathVariable String id) throws Exception {
         return service.getUser(id);
     }
 
-    /**
-     * Delete user by id
-     */
-
+    @Description("Delete user by id")
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
     public void deleteUser(@PathVariable String id) throws Exception {
         service.deleteUser(id);
     }
 
-    /**
-     * Authenticate user
-     */
+    @Description("Authenticate user")
     @ResponseBody
     @RequestMapping(value = "/users/authenticate", method = RequestMethod.POST)
     public UserDTO authenticate(@Valid @RequestBody UserAuthDTO user)
@@ -63,9 +55,7 @@ public class UsersController {
         return service.authenticate(user);
     }
 
-    /**
-     * Get all users
-     */
+    @Description("Get all users")
     @ResponseBody
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public List<UserDTO> listUsers(

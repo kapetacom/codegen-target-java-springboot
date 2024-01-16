@@ -9,129 +9,12 @@ spec:
       groupId: org.mycompany.services
       artifactId: todo
   entities:
-    types:
-      - type: enum
-        name: TaskType
-        description: null
-        values:
-          - DEV
-          - DESIGN
-      - type: dto
-        name: Task
-        description: null
-        properties:
-          id:
-            description: null
-            type: string
-            properties: null
-            required: true
-          listId:
-            description: null
-            type: string
-            properties: null
-            required: true
-          userId:
-            description: null
-            type: string
-            properties: null
-            required: true
-          title:
-            description: null
-            type: string
-            properties: null
-            required: true
-          description:
-            description: null
-            type: string
-            properties: null
-            required: false
-          done:
-            description: null
-            type: boolean
-            properties: null
-            required: false
-          type:
-            description: null
-            ref: TaskType
-            properties: null
-            required: true
-          count:
-            description: null
-            type: integer
-            properties: null
-            required: true
-          metadata:
-            required: false
-            ref: any
-          tags:
-            ref: Set<string>
-            required: true
-      - type: dto
-        name: User
-        description: null
-        properties:
-          id:
-            description: null
-            type: string
-            properties: null
-            required: true
-          name:
-            description: null
-            type: string
-            properties: null
-            required: false
-          email:
-            description: null
-            type: string
-            properties: null
-            required: true
-          tasks:
-            ref: Task[]
-            required: true
-      - type: dto
-        name: TaskList
-        description: null
-        properties:
-          id:
-            description: null
-            type: string
-            properties: null
-            required: true
-          title:
-            description: null
-            type: string
-            properties: null
-            required: true
-          createdBy:
-            description: null
-            type: string
-            required: false
-            properties: null
-          created:
-            description: null
-            type: long
-            required: false
-            properties: null
-      - type: dto
-        name: UserAuth
-        description: null
-        properties:
-          username:
-            description: null
-            type: string
-            required: true
-            properties: null
-          password:
-            description: null
-            type: string
-            properties: null
-            required: true
     source:
       type: kapeta-dsl
       value: |-
         enum TaskType {
         	DEV,
-        	DESIGN2
+        	DESIGN
         }
 
         Task {
@@ -139,16 +22,18 @@ spec:
         	listId: string
         	userId: string
         	title: string
-        	description: string
-        	done: boolean
+        	description?: string
+        	done?: boolean
         	type: TaskType
             count: integer
+            metadata?: any
+        	tags: Set<string>
         }
 
 
         User {
         	id: string
-        	name: string
+        	name?: string
         	email: string
         	tasks:Task[]
         }
@@ -157,8 +42,8 @@ spec:
         TaskList {
         	id: string
         	title: string
-        	createdBy: string
-        	created: long
+        	createdBy?: string
+        	created?: long
         }
 
         UserAuth {
@@ -176,46 +61,20 @@ spec:
       metadata:
         name: users
       spec:
-        methods:
-          deleteUser:
-            method: DELETE
-            path: /users/{other}
-            arguments:
-              other:
-                type: string
-                transport: path
-                id: other
-              overwrite:
-                id: overwrite
-                type: string
-                transport: HEADER
-                argument: Kapeta-Overwrite
-          getUser:
-            method: GET
-            path: /users/{other}/test
-            arguments:
-              other:
-                type: string
-                transport: path
-                id: other
-              metadata:
-                id: metadata
-                ref: Map<string, User>
-                transport: HEADER
-            responseType:
-              ref: User
-          listUsers:
-            description: Get all users
-            method: GET
-            path: /users
-            arguments:
-              filter:
-                id: filter
-                type: Set<string>
-                transport: QUERY
-                optional: true
-            responseType:
-              ref: User[]
+        source:
+          type: kaplang
+          version: 0.0.1
+          value: |-
+              @DELETE('/users/{other}')
+              deleteUser(@Path other:string, @Header('Kapeta-Overwrite') overwrite:string):void
+            
+              @GET('/users/{other}/test')
+              getUser(@Path other:string, @Header metadata:Map<string, User>):User
+            
+              // Get all users
+              @GET('/users')
+              listUsers(@Query filter?:Set<string>):User[]
+
     - kind: kapeta/resource-type-auth-jwt-consumer:0.0.3
       metadata:
         name: authjwtconsumer
@@ -228,137 +87,52 @@ spec:
       metadata:
         name: tasks
       spec:
-        methods:
-          addTask:
-            description: Add task to list
-            method: POST
-            path: /tasks/{listId}/new
-            arguments:
-              listId:
-                type: string
-                transport: PATH
-                id: listId
-              overwrite:
-                id: overwrite
-                type: string
-                transport: HEADER
-                argument: Kapeta-Overwrite
-                optional: true
-              task:
-                id: task
-                ref: Task
-                transport: BODY
-          removeTask:
-            description: Remove task from list
-            method: DELETE
-            path: /tasks/{listId}/{taskId}
-            arguments:
-              listId:
-                id: listId
-                type: string
-                transport: PATH
-              taskId:
-                id: taskId
-                type: string
-                transport: PATH
-            responseType:
-              type: void
-          getTasks:
-            description: Get tasks for list
-            method: GET
-            path: /tasks/{listId}
-            arguments:
-              filter:
-                id: filter
-                type: string
-                transport: QUERY
-                optional: true
-              listId:
-                id: listId
-                type: string
-                transport: PATH
-            responseType:
-              ref: Task[]
-          updateTask:
-            description: Update task
-            method: PUT
-            path: /tasks/{listId}/{taskId}
-            arguments:
-              listId:
-                id: listId
-                type: string
-                transport: PATH
-              taskId:
-                id: taskId
-                type: string
-                transport: PATH
-              task:
-                id: task
-                ref: Task
-                transport: BODY
-            responseType:
-              ref: Task
-          search:
-            description: Find tasks
-            method: GET
-            path: /tasks
-            arguments:
-              title:
-                type: string
-                transport: QUERY
-              description:
-                type: string
-                transport: QUERY
-                argument: desc
-                optional: true
-            responseType:
-              ref: Task[]
+
+        source:
+          type: kaplang
+          version: 0.0.1
+          value: |-
+              // Add task to list
+              @POST('/tasks/{listId}/new')
+              addTask(@Path listId: string, @Body task: Task, @Header('Kapeta-Overwrite') overwrite?:string): void
+            
+              // Remove task from list
+              @DELETE('/tasks/{listId}/{taskId}')
+              removeTask(@Path listId: string, @Path taskId: string): void
+              
+              // Get tasks for list
+              @GET('/tasks/{listId}')
+              getTasks(@Path listId: string, @Query filter?:string): Task[]
+              
+              // Update task
+              @PUT('/tasks/{listId}/{taskId}')
+              updateTask(@Path listId: string, @Path taskId: string, @Body task: Task): Task
+          
+              // Find tasks
+              @GET('/tasks')
+              search(@Query title:string, @Query("desc") description?:string): Task[]
+
     - kind: kapeta/resource-type-rest-api:0.0.2
       metadata:
         name: lists
       spec:
-        methods:
-          getLists:
-            description: Gets all task lists
-            method: GET
-            path: /lists
-            arguments: {}
-            responseType:
-              ref: TaskList[]
-          addList:
-            description: Create new list
-            method: POST
-            path: /lists/new
-            arguments:
-              list:
-                id: list
-                ref: TaskList
-                transport: BODY
-            responseType:
-              type: void
-          updateList:
-            description: Updates a list
-            method: PUT
-            path: /lists/{listId}
-            arguments:
-              listId:
-                id: listId
-                type: string
-                transport: PATH
-              list:
-                id: list
-                ref: TaskList
-                transport: BODY
-            responseType:
-              type: void
-          removeList:
-            description: Deletes a list and all tasks in it
-            method: DELETE
-            path: /lists/{listId}
-            arguments:
-              listId:
-                id: listId
-                type: string
-                transport: PATH
-            responseType:
-              type: void
+        source:
+          type: kaplang
+          version: 0.0.1
+          value: |-
+            // Gets all task lists
+            @GET('/lists')
+            getLists(): TaskList[]
+            
+            // Create new list
+            @POST('/lists/new')
+            addList(@Body list: TaskList): void
+            
+            // Updates a list
+            @PUT('/lists/{listId}')
+            updateList(@Path listId: string, @Body list: TaskList): void
+            
+            // Deletes a list and all tasks in it
+            @DELETE('/lists/{listId}')
+            removeList(@Path listId: string): void
+          

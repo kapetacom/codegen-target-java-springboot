@@ -7,6 +7,10 @@ import { Template, toTypeName, TypeLike } from '@kapeta/codegen-target';
 import { BlockDefinitionSpec, Resource } from '@kapeta/schemas';
 import { parseKapetaUri } from '@kapeta/nodejs-utils';
 import _ from 'lodash';
+import {DSLDataType, JavaWriter, EntityHelpers, DSLController, DSLEnum, DSLType, DSLEntity, ControllerWriteMethod, DSLParser, DSLEntityType, DSLResult, DSLData, typeHasReference} from '@kapeta/kaplang-core';
+import { DataTypeWriteMethod } from '@kapeta/kaplang-core';
+import {HelperOptions} from "handlebars";
+import { asComplexType } from '@kapeta/kaplang-core';
 
 function ucfirst(typeLike: TypeLike) {
     let text = toTypeName(typeLike);
@@ -34,27 +38,11 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
             return false;
         }
 
-        if (typeof type !== 'string' && typeof type.type !== 'string') {
-            return false;
+        if (typeof type === 'string') {
+            return EntityHelpers.isPrimitiveType({type});
         }
 
-        const typeName = toTypeName(type).toLowerCase();
-
-        switch (typeName) {
-            case 'int':
-            case 'integer':
-            case 'boolean':
-            case 'float':
-            case 'double':
-            case 'long':
-            case 'byte':
-            case 'short':
-            case 'char':
-            case 'void':
-                return true;
-        }
-
-        return false;
+        return EntityHelpers.isPrimitiveType(type)
     }
 
     function translatePrimitive(typeName: string): string {
@@ -67,8 +55,8 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
     }
 
     function packageNameHelper(packageName: string): string {
-        return packageName
-            .replace(/-/g, '_');
+        return packageName ? packageName
+            .replace(/-/g, '_') : '';
     }
 
     function classHelper(typeName: TypeLike, options: any = null): Handlebars.SafeString {
@@ -205,12 +193,37 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         return Template.SafeString(options.inverse(this));
     });
 
+    let parsedEntities:DSLResult|undefined = undefined;
+
+    function getParsedEntities():DSLData[] {
+        if (!parsedEntities && context.spec?.entities?.source?.value) {
+            parsedEntities = DSLParser.parse(context.spec?.entities?.source?.value, {
+                types: true,
+            });
+        }
+
+        if (parsedEntities?.entities)  {
+            return parsedEntities.entities
+                .filter(e => e.type === DSLEntityType.DATATYPE || e.type === DSLEntityType.ENUM) as DSLData[];
+        }
+
+        return [];
+    }
+
     engine.registerHelper('anyEntities', (options) => {
+
         if (context?.spec?.entities?.types && context?.spec?.entities?.types.length > 0) {
             return options.fn(this);
         }
+
+        if (getParsedEntities().length > 0) {
+            return options.fn(this);
+        }
+
         return options.inverse(this);
     });
+
+
 
     engine.registerHelper('params', function (this: any) {
         let argument = undefined;
@@ -255,4 +268,81 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
 
         return options.inverse(this);
     });
+
+    engine.registerHelper('typeHasReference', (entity: DSLData, typeName, options:HelperOptions) => {
+        if (entity.type !== DSLEntityType.DATATYPE) {
+            return options.inverse(this);
+        }
+
+        if (typeHasReference(entity, typeName)) {
+            return options.fn(this);
+        }
+        return options.inverse(this);
+    });
+
+    engine.registerHelper('java-type-dto', (entity: DSLData) => {
+        const writer = new JavaWriter({
+            entities: getParsedEntities(),
+            dataTypeWriteMethod: DataTypeWriteMethod.DTO,
+        });
+
+        try {
+            return Template.SafeString(writer.write([entity]));
+        } catch (e) {
+            console.warn('Failed to write entity', entity);
+            throw e;
+        }
+    });
+
+    engine.registerHelper('java-type-config', (entity: DSLDataType|DSLEnum, basePackage:string, options) => {
+        const writer = new JavaWriter({
+            entities: getParsedEntities(),
+            dataTypeWriteMethod: DataTypeWriteMethod.CONFIG,
+        });
+
+        try {
+            return Template.SafeString(writer.write([entity]));
+        } catch (e) {
+            console.warn('Failed to write entity', entity);
+            throw e;
+        }
+    });
+
+
+    engine.registerHelper('java-controller-rest', (entity: DSLController) => {
+        const writer = new JavaWriter({
+            controllerWriteMethod: ControllerWriteMethod.REST_CONTROLLER,
+            entities: getParsedEntities()
+        });
+
+        return Template.SafeString(writer.write([entity]));
+    });
+
+    engine.registerHelper('java-controller-if', (entity: DSLController) => {
+        const writer = new JavaWriter({
+            controllerWriteMethod: ControllerWriteMethod.INTERFACE,
+            entities: getParsedEntities()
+        });
+
+        return Template.SafeString(writer.write([entity]));
+    });
+
+    engine.registerHelper('java-controller-class', (entity: DSLController) => {
+        const writer = new JavaWriter({
+            controllerWriteMethod: ControllerWriteMethod.CLASS,
+            entities: getParsedEntities()
+        });
+
+        return Template.SafeString(writer.write([entity]));
+    });
+
+    engine.registerHelper('java-controller-client', (entity: DSLController) => {
+        const writer = new JavaWriter({
+            controllerWriteMethod: ControllerWriteMethod.CLIENT,
+            entities: getParsedEntities()
+        });
+
+        return Template.SafeString(writer.write([entity]));
+    });
+
 };

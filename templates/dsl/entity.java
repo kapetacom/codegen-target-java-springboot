@@ -1,0 +1,10 @@
+//#FILENAME:src/main/java/{{packagePath @root.options.basePackage}}/dto/{{class name}}DTO.java:{{#when type type='datatype'}}create-only||skip{{/when}}
+package {{packageName @root.options.basePackage}}.dto;
+
+import lombok.*;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class {{class name}}DTO extends {{class name type=true}}Base {
+
+}
