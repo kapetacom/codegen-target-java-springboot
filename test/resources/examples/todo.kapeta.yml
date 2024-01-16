@@ -309,6 +309,7 @@ spec:
               description:
                 type: string
                 transport: QUERY
+                argument: desc
                 optional: true
             responseType:
               ref: Task[]

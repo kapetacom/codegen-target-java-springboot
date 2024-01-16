@@ -28,7 +28,7 @@ public class TasksController {
 
     @RequestMapping(value = "/tasks/{listId}/new", method = RequestMethod.POST)
     public void addTask(
-        @PathVariable("listId") String listId,
+        @PathVariable String listId,
         @Valid @RequestBody TaskDTO task,
         @RequestHeader(
             name = "Kapeta-Overwrite",
@@ -47,8 +47,8 @@ public class TasksController {
         method = RequestMethod.DELETE
     )
     public void removeTask(
-        @PathVariable("listId") String listId,
-        @PathVariable("taskId") String taskId
+        @PathVariable String listId,
+        @PathVariable String taskId
     ) throws Exception {
         service.removeTask(listId, taskId);
     }
@@ -59,8 +59,8 @@ public class TasksController {
     @ResponseBody
     @RequestMapping(value = "/tasks/{listId}", method = RequestMethod.GET)
     public List<TaskDTO> getTasks(
-        @PathVariable("listId") String listId,
-        @RequestParam(name = "filter", required = false) String filter
+        @PathVariable String listId,
+        @RequestParam(required = false) String filter
     ) throws Exception {
         return service.getTasks(listId, filter);
     }
@@ -74,8 +74,8 @@ public class TasksController {
         method = RequestMethod.PUT
     )
     public TaskDTO updateTask(
-        @PathVariable("listId") String listId,
-        @PathVariable("taskId") String taskId,
+        @PathVariable String listId,
+        @PathVariable String taskId,
         @Valid @RequestBody TaskDTO task
     ) throws Exception {
         return service.updateTask(listId, taskId, task);
@@ -87,8 +87,8 @@ public class TasksController {
     @ResponseBody
     @RequestMapping(value = "/tasks", method = RequestMethod.GET)
     public List<TaskDTO> search(
-        @RequestParam("title") String title,
-        @RequestParam(name = "description", required = false) String description
+        @RequestParam String title,
+        @RequestParam(name = "desc", required = false) String description
     ) throws Exception {
         return service.search(title, description);
     }

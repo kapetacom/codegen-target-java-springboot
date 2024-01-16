@@ -217,13 +217,11 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         let optional = false;
 
         const body = 'transport' in this && this['transport'].toUpperCase() === 'BODY';
-        const header = 'transport' in this && this['transport'].toUpperCase() === 'HEADER';
 
-        if ('argumentName' in this && !body && !header) {
-            argument = '"' + this['argumentName'] + '"';
-        }
-        if ('argument' in this && header) {
-            argument = '"' + this['argument'] + '"';
+        if (!body && 'argument' in this) {
+            if ('argumentName' in this && this['argument'] != this['argumentName']) {
+                argument = '"' + this['argument'] + '"';
+            }
         }
 
         if ('optional' in this && this['optional']) {
