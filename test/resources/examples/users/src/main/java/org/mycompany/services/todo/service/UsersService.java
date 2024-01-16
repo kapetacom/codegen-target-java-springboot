@@ -55,7 +55,7 @@ public class UsersService implements IUsersService {
      * Get all users
      */
     @Override
-    public List<UserDTO> listUsers() {
+    public List<UserDTO> listUsers(Set<String> filter) {
         //TODO: Implement me!
 
         throw new RuntimeException("Not implemented");

@@ -131,7 +131,12 @@ spec:
             description: Get all users
             method: GET
             path: /users
-            arguments: { }
+            arguments:
+              filter:
+                id: filter
+                type: Set<string>
+                transport: QUERY
+                optional: true
             responseType:
               ref: User[]
     - kind: kapeta/resource-type-auth-jwt-provider:1.0.1

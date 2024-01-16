@@ -28,4 +28,10 @@ public interface UsersClient {
         @Path("other") String other,
         @HeaderMap Map<String, UserDTO> metadata
     );
+
+    /**
+     * Get all users
+     */
+    @GET("users")
+    Call<List<UserDTO>> listUsers(@Query("filter") Set<String> filter);
 }
