@@ -28,7 +28,7 @@ public class UsersController {
     @ResponseBody
     @RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
     public UserDTO createUser(
-        @PathVariable("id") String id,
+        @PathVariable String id,
         @Valid @RequestBody UserDTO user,
         @RequestHeader Map<String, String> metadata
     ) throws Exception {
@@ -40,7 +40,7 @@ public class UsersController {
      */
     @ResponseBody
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-    public UserDTO getUser(@PathVariable("id") String id) throws Exception {
+    public UserDTO getUser(@PathVariable String id) throws Exception {
         return service.getUser(id);
     }
 
@@ -49,7 +49,7 @@ public class UsersController {
      */
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
-    public void deleteUser(@PathVariable("id") String id) throws Exception {
+    public void deleteUser(@PathVariable String id) throws Exception {
         service.deleteUser(id);
     }
 
@@ -69,7 +69,7 @@ public class UsersController {
     @ResponseBody
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public List<UserDTO> listUsers(
-        @RequestParam(name = "filter", required = false) Set<String> filter
+        @RequestParam(required = false) Set<String> filter
     ) throws Exception {
         return service.listUsers(filter);
     }

@@ -46,7 +46,7 @@ public class ListsController {
 
     @RequestMapping(value = "/lists/{listId}", method = RequestMethod.PUT)
     public void updateList(
-        @PathVariable("listId") String listId,
+        @PathVariable String listId,
         @Valid @RequestBody TaskListDTO list
     ) throws Exception {
         service.updateList(listId, list);
@@ -57,8 +57,7 @@ public class ListsController {
      */
 
     @RequestMapping(value = "/lists/{listId}", method = RequestMethod.DELETE)
-    public void removeList(@PathVariable("listId") String listId)
-        throws Exception {
+    public void removeList(@PathVariable String listId) throws Exception {
         service.removeList(listId);
     }
 }
