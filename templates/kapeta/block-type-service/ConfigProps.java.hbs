@@ -11,12 +11,12 @@
     import org.springframework.stereotype.Component;
     import org.springframework.boot.context.properties.ConfigurationProperties;
 
-    {{#typeHasReference this 'Instance'}}
+    {{#kaplang-has-reference this 'Instance'}}
         import com.kapeta.spring.config.InstanceValue;
-    {{/typeHasReference}}
-    {{#typeHasReference this 'InstanceProvider'}}
+    {{/kaplang-has-reference}}
+    {{#kaplang-has-reference this 'InstanceProvider'}}
         import com.kapeta.spring.config.InstanceProviderValue;
-    {{/typeHasReference}}
+    {{/kaplang-has-reference}}
 
     {{#switch type}}
         {{#case 'datatype'}}

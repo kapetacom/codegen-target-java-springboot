@@ -135,8 +135,16 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         return typeName.endsWith('[]');
     }
 
-    let parsedEntities:DSLResult|undefined = undefined;
+    const classFrom = (property: TypeLike, options: any): any => {
+        const typeName = toTypeName(property);
+        if (isList(typeName)) {
+            return Template.SafeString(`List<${classFrom(typeName.substring(0, typeName.length - 2), options)}>`);
+        }
 
+        return classHelper(property, options);
+    };
+
+    let parsedEntities:DSLResult|undefined = undefined;
     function getParsedEntities():DSLData[] {
         if (!parsedEntities) {
             const code:string[] = [
@@ -158,15 +166,6 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         return [];
     }
 
-    const classFrom = (property: TypeLike, options: any): any => {
-        const typeName = toTypeName(property);
-        if (isList(typeName)) {
-            return Template.SafeString(`List<${classFrom(typeName.substring(0, typeName.length - 2), options)}>`);
-        }
-
-        return classHelper(property, options);
-    };
-
     engine.registerHelper('class', classHelper);
 
     engine.registerHelper('packageName', (name) => Template.SafeString(packageNameHelper(name)));
@@ -175,28 +174,54 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         return Template.SafeString(packageNameHelper(packageName).replace(/\./g, '/'));
     });
 
-    engine.registerHelper('kebab', (camelCase) => {
-        return Template.SafeString(camelCase.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase());
+    engine.registerHelper('java-imports', function(this:DSLEntity, options: HelperOptions) {
+        const entities = getParsedEntities();
+        const basePackage:string = options.data.root.options.basePackage;
+        const resolver = new DSLReferenceResolver();
+        const references = resolver.resolveReference(this);
+        const referencesEntities = references.map((reference:string) => {
+            return entities.find((entity) => {
+                return entity.name === reference;
+            });
+        }).filter((entity:DSLData|undefined) => Boolean(entity)) as DSLData[];
+
+        if (referencesEntities.length === 0) {
+            return '';
+        }
+
+        return Template.SafeString(referencesEntities.map((entity) => {
+            const native = DataTypeReader.getNative(entity);
+            if (native) {
+                return `import ${native};`;
+            }
+
+            switch (entity.type) {
+                case DSLEntityType.DATATYPE:
+                    return `import ${basePackage}.dto.${JavaWriter.toClassName(entity.name)}DTO;`;
+                case DSLEntityType.ENUM:
+                    return `import ${basePackage}.dto.${JavaWriter.toClassName(entity.name)};`;
+            }
+        }).join('\n'));
     });
 
-    engine.registerHelper('when', (type, options) => {
-        const inner = options.fn();
-        const [whenTrue, whenFalse] = inner.split(/\|\|/);
-        if (options.hash && options.hash.type === type) {
-            return Template.SafeString(whenTrue);
-        }
-        return Template.SafeString(whenFalse || '');
-    });
-
-    engine.registerHelper('typeHasReference', (entity: DSLData, typeName, options:HelperOptions) => {
-        if (entity.type !== DSLEntityType.DATATYPE) {
-            return options.inverse(this);
+    engine.registerHelper('java-generics', (entity: DSLDataType) => {
+        if (!entity.generics || entity.generics.length === 0) {
+            return '';
         }
 
-        if (typeHasReference(entity, typeName)) {
-            return options.fn(this);
+        return Template.SafeString(`<${entity.generics.join(', ')}>`);
+    })
+
+    engine.registerHelper('java-class-name', (entity:DSLEntity) => {
+        if (entity.type === DSLEntityType.COMMENT) {
+            return '';
         }
-        return options.inverse(this);
+
+        if (entity.type === DSLEntityType.CONTROLLER) {
+            return Template.SafeString(JavaWriter.toClassName(entity.name, entity.namespace));
+        }
+
+        return Template.SafeString(JavaWriter.toClassName(entity.name));
     });
 
     engine.registerHelper('java-type-dto', (entity: DSLData) => {
@@ -262,55 +287,5 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
 
         return Template.SafeString(writer.write([entity]));
     });
-
-    engine.registerHelper('java-imports', function(this:DSLEntity, options: HelperOptions) {
-        const entities = getParsedEntities();
-        const basePackage:string = options.data.root.options.basePackage;
-        const resolver = new DSLReferenceResolver();
-        const references = resolver.resolveReference(this);
-        const referencesEntities = references.map((reference:string) => {
-            return entities.find((entity) => {
-                return entity.name === reference;
-            });
-        }).filter((entity:DSLData|undefined) => Boolean(entity)) as DSLData[];
-
-        if (referencesEntities.length === 0) {
-            return '';
-        }
-
-        return Template.SafeString(referencesEntities.map((entity) => {
-            const native = DataTypeReader.getNative(entity);
-            if (native) {
-                return `import ${native};`;
-            }
-
-            switch (entity.type) {
-                case DSLEntityType.DATATYPE:
-                    return `import ${basePackage}.dto.${JavaWriter.toClassName(entity.name)}DTO;`;
-                case DSLEntityType.ENUM:
-                    return `import ${basePackage}.dto.${JavaWriter.toClassName(entity.name)};`;
-            }
-        }).join('\n'));
-    });
-
-    engine.registerHelper('java-class-name', (entity:DSLEntity) => {
-        if (entity.type === DSLEntityType.COMMENT) {
-            return '';
-        }
-
-        if (entity.type === DSLEntityType.CONTROLLER) {
-            return Template.SafeString(JavaWriter.toClassName(entity.name, entity.namespace));
-        }
-
-        return Template.SafeString(JavaWriter.toClassName(entity.name));
-    });
-
-    engine.registerHelper('java-generics', (entity: DSLDataType) => {
-        if (!entity.generics || entity.generics.length === 0) {
-            return '';
-        }
-
-        return Template.SafeString(`<${entity.generics.join(', ')}>`);
-    })
 
 };
