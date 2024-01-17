@@ -1,4 +1,4 @@
-import {KAPLANG_ID, KAPLANG_VERSION } from "@kapeta/kaplang-core"
+import { KAPLANG_ID, KAPLANG_VERSION } from '@kapeta/kaplang-core';
 
 export const includes = () => {
     return {
@@ -43,6 +43,6 @@ export const includes = () => {
                 totalPages: long
                 totalElements: long
             }
-            `
-    }
-}
+            `,
+    };
+};

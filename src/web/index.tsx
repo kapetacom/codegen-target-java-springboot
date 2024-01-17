@@ -13,7 +13,7 @@ import { KAPLANG_VERSION, KAPLANG_ID } from '@kapeta/kaplang-core';
 import kapetaDefinition from '../../kapeta.yml';
 // @ts-ignore
 import packageJson from '../../package.json';
-import {includes} from "../includes";
+import { includes } from '../includes';
 
 interface JavaTargetConfigOptions {
     basePackage: string;

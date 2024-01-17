@@ -3,10 +3,12 @@
  * SPDX-License-Identifier: MIT
  */
 import Handlebars = require('handlebars');
-import {Template, toTypeName, TypeLike} from '@kapeta/codegen-target';
+import { Template, toTypeName, TypeLike } from '@kapeta/codegen-target';
 import _ from 'lodash';
 import {
-    ControllerWriteMethod, DATATYPE_CONFIGURATION, DataTypeReader,
+    ControllerWriteMethod,
+    DATATYPE_CONFIGURATION,
+    DataTypeReader,
     DataTypeWriteMethod,
     DSLController,
     DSLData,
@@ -14,14 +16,14 @@ import {
     DSLEntity,
     DSLEntityType,
     DSLEnum,
-    DSLParser, DSLReferenceResolver,
+    DSLParser,
+    DSLReferenceResolver,
     DSLResult,
     EntityHelpers,
     JavaWriter,
-    typeHasReference
 } from '@kapeta/kaplang-core';
-import {HelperOptions} from "handlebars";
-import {includes} from "../includes";
+import { HelperOptions } from 'handlebars';
+import { includes } from '../includes';
 
 function ucfirst(typeLike: TypeLike) {
     let text = toTypeName(typeLike);
@@ -50,10 +52,10 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         }
 
         if (typeof type === 'string') {
-            return EntityHelpers.isPrimitiveType({type});
+            return EntityHelpers.isPrimitiveType({ type });
         }
 
-        return EntityHelpers.isPrimitiveType(type)
+        return EntityHelpers.isPrimitiveType(type);
     }
 
     function translatePrimitive(typeName: string): string {
@@ -66,8 +68,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
     }
 
     function packageNameHelper(packageName: string): string {
-        return packageName ? packageName
-            .replace(/-/g, '_') : '';
+        return packageName ? packageName.replace(/-/g, '_') : '';
     }
 
     function classHelper(typeName: TypeLike, options: any = null): Handlebars.SafeString {
@@ -144,12 +145,10 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         return classHelper(property, options);
     };
 
-    let parsedEntities:DSLResult|undefined = undefined;
-    function getParsedEntities():DSLData[] {
+    let parsedEntities: DSLResult | undefined = undefined;
+    function getParsedEntities(): DSLData[] {
         if (!parsedEntities) {
-            const code:string[] = [
-                includes().source,
-            ];
+            const code: string[] = [includes().source];
 
             if (context.spec?.entities?.source?.value) {
                 code.push(context.spec?.entities?.source?.value);
@@ -158,9 +157,10 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
             parsedEntities = DSLParser.parse(code.join('\n\n'), DATATYPE_CONFIGURATION);
         }
 
-        if (parsedEntities?.entities)  {
-            return parsedEntities.entities
-                .filter(e => e.type === DSLEntityType.DATATYPE || e.type === DSLEntityType.ENUM) as DSLData[];
+        if (parsedEntities?.entities) {
+            return parsedEntities.entities.filter(
+                (e) => e.type === DSLEntityType.DATATYPE || e.type === DSLEntityType.ENUM
+            ) as DSLData[];
         }
 
         return [];
@@ -174,34 +174,40 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         return Template.SafeString(packageNameHelper(packageName).replace(/\./g, '/'));
     });
 
-    engine.registerHelper('java-imports', function(this:DSLEntity, options: HelperOptions) {
+    engine.registerHelper('java-imports', function (this: DSLEntity, options: HelperOptions) {
         const entities = getParsedEntities();
-        const basePackage:string = options.data.root.options.basePackage;
+        const basePackage: string = options.data.root.options.basePackage;
         const resolver = new DSLReferenceResolver();
         const references = resolver.resolveReference(this);
-        const referencesEntities = references.map((reference:string) => {
-            return entities.find((entity) => {
-                return entity.name === reference;
-            });
-        }).filter((entity:DSLData|undefined) => Boolean(entity)) as DSLData[];
+        const referencesEntities = references
+            .map((reference: string) => {
+                return entities.find((entity) => {
+                    return entity.name === reference;
+                });
+            })
+            .filter((entity: DSLData | undefined) => Boolean(entity)) as DSLData[];
 
         if (referencesEntities.length === 0) {
             return '';
         }
 
-        return Template.SafeString(referencesEntities.map((entity) => {
-            const native = DataTypeReader.getNative(entity);
-            if (native) {
-                return `import ${native};`;
-            }
+        return Template.SafeString(
+            referencesEntities
+                .map((entity) => {
+                    const native = DataTypeReader.getNative(entity);
+                    if (native) {
+                        return `import ${native};`;
+                    }
 
-            switch (entity.type) {
-                case DSLEntityType.DATATYPE:
-                    return `import ${basePackage}.dto.${JavaWriter.toClassName(entity.name)}DTO;`;
-                case DSLEntityType.ENUM:
-                    return `import ${basePackage}.dto.${JavaWriter.toClassName(entity.name)};`;
-            }
-        }).join('\n'));
+                    switch (entity.type) {
+                        case DSLEntityType.DATATYPE:
+                            return `import ${basePackage}.dto.${JavaWriter.toClassName(entity.name)}DTO;`;
+                        case DSLEntityType.ENUM:
+                            return `import ${basePackage}.dto.${JavaWriter.toClassName(entity.name)};`;
+                    }
+                })
+                .join('\n')
+        );
     });
 
     engine.registerHelper('java-generics', (entity: DSLDataType) => {
@@ -210,9 +216,9 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         }
 
         return Template.SafeString(`<${entity.generics.join(', ')}>`);
-    })
+    });
 
-    engine.registerHelper('java-class-name', (entity:DSLEntity) => {
+    engine.registerHelper('java-class-name', (entity: DSLEntity) => {
         if (entity.type === DSLEntityType.COMMENT) {
             return '';
         }
@@ -238,7 +244,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         }
     });
 
-    engine.registerHelper('java-type-config', (entity: DSLDataType|DSLEnum, basePackage:string, options) => {
+    engine.registerHelper('java-type-config', (entity: DSLDataType | DSLEnum, basePackage: string, options) => {
         const writer = new JavaWriter({
             entities: getParsedEntities(),
             dataTypeWriteMethod: DataTypeWriteMethod.CONFIG,
@@ -255,7 +261,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
     engine.registerHelper('java-controller-rest', (entity: DSLController) => {
         const writer = new JavaWriter({
             controllerWriteMethod: ControllerWriteMethod.REST_CONTROLLER,
-            entities: getParsedEntities()
+            entities: getParsedEntities(),
         });
 
         return Template.SafeString(writer.write([entity]));
@@ -264,7 +270,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
     engine.registerHelper('java-controller-if', (entity: DSLController) => {
         const writer = new JavaWriter({
             controllerWriteMethod: ControllerWriteMethod.INTERFACE,
-            entities: getParsedEntities()
+            entities: getParsedEntities(),
         });
 
         return Template.SafeString(writer.write([entity]));
@@ -273,7 +279,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
     engine.registerHelper('java-controller-class', (entity: DSLController) => {
         const writer = new JavaWriter({
             controllerWriteMethod: ControllerWriteMethod.CLASS,
-            entities: getParsedEntities()
+            entities: getParsedEntities(),
         });
 
         return Template.SafeString(writer.write([entity]));
@@ -282,10 +288,9 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
     engine.registerHelper('java-controller-client', (entity: DSLController) => {
         const writer = new JavaWriter({
             controllerWriteMethod: ControllerWriteMethod.CLIENT,
-            entities: getParsedEntities()
+            entities: getParsedEntities(),
         });
 
         return Template.SafeString(writer.write([entity]));
     });
-
 };
