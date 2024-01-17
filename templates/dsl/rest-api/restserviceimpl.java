@@ -1,4 +1,4 @@
-//#FILENAME:src/main/java/{{packagePath @root.options.basePackage}}/service/{{class name type=true}}Service.java:create-only
+//#FILENAME:src/main/java/{{packagePath @root.options.basePackage}}/service/{{java-class-name this}}Service.java:create-only
 package {{packageName @root.options.basePackage}}.service;
 
 import java.util.*;

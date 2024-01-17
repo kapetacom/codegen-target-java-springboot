@@ -3,14 +3,26 @@
  * SPDX-License-Identifier: MIT
  */
 import Handlebars = require('handlebars');
-import { Template, toTypeName, TypeLike } from '@kapeta/codegen-target';
-import { BlockDefinitionSpec, Resource } from '@kapeta/schemas';
-import { parseKapetaUri } from '@kapeta/nodejs-utils';
+import {Template, toTypeName, TypeLike} from '@kapeta/codegen-target';
+import {BlockDefinitionSpec, Resource} from '@kapeta/schemas';
+import {parseKapetaUri} from '@kapeta/nodejs-utils';
 import _ from 'lodash';
-import {DSLDataType, JavaWriter, EntityHelpers, DSLController, DSLEnum, DSLType, DSLEntity, ControllerWriteMethod, DSLParser, DSLEntityType, DSLResult, DSLData, typeHasReference} from '@kapeta/kaplang-core';
-import { DataTypeWriteMethod } from '@kapeta/kaplang-core';
+import {
+    ControllerWriteMethod,
+    DataTypeWriteMethod,
+    DSLController,
+    DSLData,
+    DSLDataType,
+    DSLEntity,
+    DSLEntityType,
+    DSLEnum,
+    DSLParser,
+    DSLResult,
+    EntityHelpers,
+    JavaWriter,
+    typeHasReference
+} from '@kapeta/kaplang-core';
 import {HelperOptions} from "handlebars";
-import { asComplexType } from '@kapeta/kaplang-core';
 
 function ucfirst(typeLike: TypeLike) {
     let text = toTypeName(typeLike);
@@ -343,6 +355,18 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         });
 
         return Template.SafeString(writer.write([entity]));
+    });
+
+    engine.registerHelper('java-class-name', (entity:DSLEntity) => {
+        if (entity.type === DSLEntityType.COMMENT) {
+            return '';
+        }
+
+        if (entity.type === DSLEntityType.CONTROLLER) {
+            return Template.SafeString(JavaWriter.toClassName(entity.name, entity.namespace));
+        }
+
+        return Template.SafeString(JavaWriter.toClassName(entity.name));
     });
 
     engine.registerHelper('generics', (entity: DSLDataType) => {

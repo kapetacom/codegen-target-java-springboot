@@ -1,4 +1,4 @@
-//#FILENAME:src/generated/java/{{packagePath @root.options.basePackage}}/clients/{{class name type=true}}Client.java:write-always
+//#FILENAME:src/generated/java/{{packagePath @root.options.basePackage}}/clients/{{java-class-name this}}Client.java:write-always
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */

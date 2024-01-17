@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * Do something with users
  */
 @RestController
-@KapetaController("mainUsers")
+@KapetaController(name = "Users", namespace = "main")
 @RequestMapping("/user")
 public class MainUsersController {
 

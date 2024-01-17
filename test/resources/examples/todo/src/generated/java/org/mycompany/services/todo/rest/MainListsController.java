@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * Do something with lists
  */
 @RestController
-@KapetaController("mainLists")
+@KapetaController(name = "Lists", namespace = "main")
 @RequestMapping("/lists")
 public class MainListsController {
 

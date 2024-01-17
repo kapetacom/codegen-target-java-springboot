@@ -1,4 +1,4 @@
-//#FILENAME:src/generated/java/{{packagePath @root.options.basePackage}}/dto/{{class name type=true}}{{#when type type='datatype'}}Base.java:write-always||.java:write-always{{/when}}
+//#FILENAME:src/generated/java/{{packagePath @root.options.basePackage}}/dto/{{java-class-name this}}{{#when type type='datatype'}}Base.java:write-always||.java:write-always{{/when}}
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
