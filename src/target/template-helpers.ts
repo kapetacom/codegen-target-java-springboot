@@ -20,16 +20,10 @@ import {
     DSLReferenceResolver,
     DSLResult,
     EntityHelpers,
-    JavaWriter,
+    JavaWriter, ucFirst,
 } from '@kapeta/kaplang-core';
 import { HelperOptions } from 'handlebars';
 import { includes } from '../includes';
-
-function ucfirst(typeLike: TypeLike) {
-    let text = toTypeName(typeLike);
-
-    return text.substring(0, 1).toUpperCase() + text.substring(1);
-}
 
 export type HandleBarsType = typeof Handlebars;
 
@@ -118,7 +112,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         }
 
         if (isEntity(typeName)) {
-            return Template.SafeString(ucfirst(typeName) + (asType ? '' : 'DTO'));
+            return Template.SafeString(ucFirst(typeName) + (asType ? '' : 'DTO'));
         }
 
         if (['any', 'unknown'].includes(typeName.toLowerCase())) {
@@ -129,7 +123,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
             return Template.SafeString(translatePrimitive(typeName.toLowerCase()));
         }
 
-        return Template.SafeString(ucfirst(typeName));
+        return Template.SafeString(ucFirst(typeName));
     }
 
     function isList(typeName: string) {
