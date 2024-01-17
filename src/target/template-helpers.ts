@@ -4,8 +4,6 @@
  */
 import Handlebars = require('handlebars');
 import {Template, toTypeName, TypeLike} from '@kapeta/codegen-target';
-import {BlockDefinitionSpec, Resource} from '@kapeta/schemas';
-import {parseKapetaUri} from '@kapeta/nodejs-utils';
 import _ from 'lodash';
 import {
     ControllerWriteMethod, DATATYPE_CONFIGURATION, DataTypeReader,
@@ -137,75 +135,6 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         return typeName.endsWith('[]');
     }
 
-    engine.registerHelper('class', classHelper);
-
-    const classFrom = (property: TypeLike, options: any): any => {
-        const typeName = toTypeName(property);
-        if (isList(typeName)) {
-            return Template.SafeString(`List<${classFrom(typeName.substring(0, typeName.length - 2), options)}>`);
-        }
-
-        return classHelper(property, options);
-    };
-
-    engine.registerHelper('packageName', (name) => Template.SafeString(packageNameHelper(name)));
-    engine.registerHelper('classFrom', classFrom);
-
-    engine.registerHelper('ifPrimitive', (type: TypeLike, options: any) => {
-        const typeName = toTypeName(type).toLowerCase();
-        if (isPrimitive(type) || typeName === 'string') {
-            return Template.SafeString(options.fn(this));
-        }
-        return Template.SafeString(options.inverse(this));
-    });
-
-    engine.registerHelper('returnType', (type: TypeLike, options: any) => {
-        const isUCFirst = options.hash && options.hash.ucfirst;
-        if (!type) {
-            return isUCFirst ? 'Void' : 'void';
-        }
-
-        const out = classHelper(type);
-
-        if (isUCFirst) {
-            return Template.SafeString(ucfirst(out.toString()));
-        }
-
-        return out;
-    });
-
-    engine.registerHelper('packagePath', (packageName) => {
-        return Template.SafeString(packageNameHelper(packageName).replace(/\./g, '/'));
-    });
-
-    engine.registerHelper('relativePath', (path) => {
-        return Template.SafeString(path.trim().replace(/^\/+/g, ''));
-    });
-
-    engine.registerHelper('kebab', (camelCase) => {
-        return Template.SafeString(camelCase.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase());
-    });
-
-    engine.registerHelper('enumValues', (values) => {
-        return Template.SafeString('\t' + values.join(',\n\t'));
-    });
-
-    engine.registerHelper('when', (type, options) => {
-        const inner = options.fn();
-        const [whenTrue, whenFalse] = inner.split(/\|\|/);
-        if (options.hash && options.hash.type === type) {
-            return Template.SafeString(whenTrue);
-        }
-        return Template.SafeString(whenFalse || '');
-    });
-
-    engine.registerHelper('ifValueType', (type, options) => {
-        if ((type?.type || type?.ref) && type?.type?.toLowerCase() !== 'void') {
-            return Template.SafeString(options.fn(this));
-        }
-        return Template.SafeString(options.inverse(this));
-    });
-
     let parsedEntities:DSLResult|undefined = undefined;
 
     function getParsedEntities():DSLData[] {
@@ -229,63 +158,34 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         return [];
     }
 
-    engine.registerHelper('anyEntities', (options) => {
-
-        if (context?.spec?.entities?.types && context?.spec?.entities?.types.length > 0) {
-            return options.fn(this);
+    const classFrom = (property: TypeLike, options: any): any => {
+        const typeName = toTypeName(property);
+        if (isList(typeName)) {
+            return Template.SafeString(`List<${classFrom(typeName.substring(0, typeName.length - 2), options)}>`);
         }
 
-        if (getParsedEntities().length > 0) {
-            return options.fn(this);
-        }
+        return classHelper(property, options);
+    };
 
-        return options.inverse(this);
+    engine.registerHelper('class', classHelper);
+
+    engine.registerHelper('packageName', (name) => Template.SafeString(packageNameHelper(name)));
+
+    engine.registerHelper('packagePath', (packageName) => {
+        return Template.SafeString(packageNameHelper(packageName).replace(/\./g, '/'));
     });
 
-
-
-    engine.registerHelper('params', function (this: any) {
-        let argument = undefined;
-        let optional = false;
-
-        const body = 'transport' in this && this['transport'].toUpperCase() === 'BODY';
-
-        if (!body && 'argument' in this) {
-            if ('argumentName' in this && this['argument'] != this['argumentName']) {
-                argument = '"' + this['argument'] + '"';
-            }
-        }
-
-        if ('optional' in this && this['optional']) {
-            optional = true;
-        }
-
-        if (argument) {
-            return `(${optional ? `name = ${argument}, required = false` : argument})`;
-        } else if (optional) {
-            return `(required = false)`;
-        }
-
-        return '';
+    engine.registerHelper('kebab', (camelCase) => {
+        return Template.SafeString(camelCase.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase());
     });
 
-    engine.registerHelper('toArray', (...value: any[]) => {
-        return value.slice(0, value.length - 1);
-    });
-
-    engine.registerHelper('usesAnyOf', (kinds: string[], options) => {
-        const data = context.spec as BlockDefinitionSpec;
-        const usesAny = kinds.some((kind) => {
-            const uri = parseKapetaUri(kind);
-            const matcher = (consumer: Resource) => parseKapetaUri(consumer.kind).fullName === uri.fullName;
-            return data.consumers?.some(matcher) || data.providers?.some(matcher);
-        });
-
-        if (usesAny) {
-            return options.fn(this);
+    engine.registerHelper('when', (type, options) => {
+        const inner = options.fn();
+        const [whenTrue, whenFalse] = inner.split(/\|\|/);
+        if (options.hash && options.hash.type === type) {
+            return Template.SafeString(whenTrue);
         }
-
-        return options.inverse(this);
+        return Template.SafeString(whenFalse || '');
     });
 
     engine.registerHelper('typeHasReference', (entity: DSLData, typeName, options:HelperOptions) => {
@@ -327,7 +227,6 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         }
     });
 
-
     engine.registerHelper('java-controller-rest', (entity: DSLController) => {
         const writer = new JavaWriter({
             controllerWriteMethod: ControllerWriteMethod.REST_CONTROLLER,
@@ -363,7 +262,6 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
 
         return Template.SafeString(writer.write([entity]));
     });
-
 
     engine.registerHelper('java-imports', function(this:DSLEntity, options: HelperOptions) {
         const entities = getParsedEntities();
@@ -407,7 +305,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         return Template.SafeString(JavaWriter.toClassName(entity.name));
     });
 
-    engine.registerHelper('generics', (entity: DSLDataType) => {
+    engine.registerHelper('java-generics', (entity: DSLDataType) => {
         if (!entity.generics || entity.generics.length === 0) {
             return '';
         }
