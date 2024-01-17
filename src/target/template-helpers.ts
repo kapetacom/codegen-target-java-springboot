@@ -8,7 +8,7 @@ import {BlockDefinitionSpec, Resource} from '@kapeta/schemas';
 import {parseKapetaUri} from '@kapeta/nodejs-utils';
 import _ from 'lodash';
 import {
-    ControllerWriteMethod,
+    ControllerWriteMethod, DATATYPE_CONFIGURATION, DataTypeReader,
     DataTypeWriteMethod,
     DSLController,
     DSLData,
@@ -16,13 +16,14 @@ import {
     DSLEntity,
     DSLEntityType,
     DSLEnum,
-    DSLParser,
+    DSLParser, DSLReferenceResolver,
     DSLResult,
     EntityHelpers,
     JavaWriter,
     typeHasReference
 } from '@kapeta/kaplang-core';
 import {HelperOptions} from "handlebars";
+import {includes} from "../includes";
 
 function ucfirst(typeLike: TypeLike) {
     let text = toTypeName(typeLike);
@@ -208,10 +209,16 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
     let parsedEntities:DSLResult|undefined = undefined;
 
     function getParsedEntities():DSLData[] {
-        if (!parsedEntities && context.spec?.entities?.source?.value) {
-            parsedEntities = DSLParser.parse(context.spec?.entities?.source?.value, {
-                types: true,
-            });
+        if (!parsedEntities) {
+            const code:string[] = [
+                includes().source,
+            ];
+
+            if (context.spec?.entities?.source?.value) {
+                code.push(context.spec?.entities?.source?.value);
+            }
+
+            parsedEntities = DSLParser.parse(code.join('\n\n'), DATATYPE_CONFIGURATION);
         }
 
         if (parsedEntities?.entities)  {
@@ -355,6 +362,37 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         });
 
         return Template.SafeString(writer.write([entity]));
+    });
+
+
+    engine.registerHelper('java-imports', function(this:DSLEntity, options: HelperOptions) {
+        const entities = getParsedEntities();
+        const basePackage:string = options.data.root.options.basePackage;
+        const resolver = new DSLReferenceResolver();
+        const references = resolver.resolveReference(this);
+        const referencesEntities = references.map((reference:string) => {
+            return entities.find((entity) => {
+                return entity.name === reference;
+            });
+        }).filter((entity:DSLData|undefined) => Boolean(entity)) as DSLData[];
+
+        if (referencesEntities.length === 0) {
+            return '';
+        }
+
+        return Template.SafeString(referencesEntities.map((entity) => {
+            const native = DataTypeReader.getNative(entity);
+            if (native) {
+                return `import ${native};`;
+            }
+
+            switch (entity.type) {
+                case DSLEntityType.DATATYPE:
+                    return `import ${basePackage}.dto.${JavaWriter.toClassName(entity.name)}DTO;`;
+                case DSLEntityType.ENUM:
+                    return `import ${basePackage}.dto.${JavaWriter.toClassName(entity.name)};`;
+            }
+        }).join('\n'));
     });
 
     engine.registerHelper('java-class-name', (entity:DSLEntity) => {

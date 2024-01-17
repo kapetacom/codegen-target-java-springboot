@@ -3,8 +3,6 @@ package {{packageName @root.options.basePackage}}.service;
 
 import java.util.*;
 import org.springframework.stereotype.Service;
-{{#anyEntities}}
-import {{@root.options.basePackage}}.dto.*;
-{{/anyEntities}}
+{{java-imports}}
 
 {{java-controller-class this}}

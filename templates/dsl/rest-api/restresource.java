@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import com.kapeta.spring.annotation.*;
 import java.util.*;
 import jakarta.validation.Valid;
-{{#anyEntities}}
-import {{@root.options.basePackage}}.dto.*;
-{{/anyEntities}}
+{{java-imports}}
 
 {{java-controller-rest this}}

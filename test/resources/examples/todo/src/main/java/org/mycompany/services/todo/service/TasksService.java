@@ -1,7 +1,9 @@
 package org.mycompany.services.todo.service;
 
 import java.util.*;
-import org.mycompany.services.todo.dto.*;
+import org.mycompany.services.todo.dto.TaskDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,7 +29,11 @@ public class TasksService implements ITasksService {
      * Get tasks for list
      */
     @Override
-    public List<TaskDTO> getTasks(String listId, String filter) {
+    public Page<TaskDTO> getTasks(
+        String listId,
+        Pageable pageable,
+        String filter
+    ) {
         throw new RuntimeException("Not implemented");
     }
 

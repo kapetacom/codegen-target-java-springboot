@@ -1,7 +1,8 @@
 package org.mycompany.services.todo.service;
 
 import java.util.*;
-import org.mycompany.services.todo.dto.*;
+import org.mycompany.services.todo.dto.UserAuthDTO;
+import org.mycompany.services.todo.dto.UserDTO;
 import org.springframework.stereotype.Service;
 
 @Service

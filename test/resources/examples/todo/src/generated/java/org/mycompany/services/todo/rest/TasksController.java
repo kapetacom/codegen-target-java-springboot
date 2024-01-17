@@ -6,10 +6,12 @@ package org.mycompany.services.todo.rest;
 import com.kapeta.spring.annotation.*;
 import jakarta.validation.Valid;
 import java.util.*;
-import org.mycompany.services.todo.dto.*;
+import org.mycompany.services.todo.dto.TaskDTO;
 import org.mycompany.services.todo.service.ITasksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Description;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -51,11 +53,12 @@ public class TasksController {
     @Description("Get tasks for list")
     @ResponseBody
     @RequestMapping(value = "/tasks/{listId}", method = RequestMethod.GET)
-    public List<TaskDTO> getTasks(
+    public Page<TaskDTO> getTasks(
         @PathVariable String listId,
+        @RequestParam Pageable pageable,
         @RequestParam(required = false) String filter
     ) throws Exception {
-        return service.getTasks(listId, filter);
+        return service.getTasks(listId, pageable, filter);
     }
 
     @Description("Update task")

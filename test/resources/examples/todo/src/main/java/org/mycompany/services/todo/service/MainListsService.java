@@ -1,7 +1,7 @@
 package org.mycompany.services.todo.service;
 
 import java.util.*;
-import org.mycompany.services.todo.dto.*;
+import org.mycompany.services.todo.dto.TaskListDTO;
 import org.springframework.stereotype.Service;
 
 /**

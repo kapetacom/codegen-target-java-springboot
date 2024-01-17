@@ -2,8 +2,6 @@
 package {{packageName @root.options.basePackage}}.service;
 
 import java.util.*;
-{{#anyEntities}}
-import {{@root.options.basePackage}}.dto.*;
-{{/anyEntities}}
+{{java-imports}}
 
 {{java-controller-if this}}

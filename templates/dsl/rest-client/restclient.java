@@ -8,9 +8,7 @@ import com.kapeta.spring.annotation.KapetaRestClient;
 import retrofit2.Call;
 import retrofit2.http.*;
 import java.util.*;
-{{#anyEntities}}
-    import {{@root.options.basePackage}}.dto.*;
-{{/anyEntities}}
+{{java-imports}}
 
 
 {{java-controller-client this}}

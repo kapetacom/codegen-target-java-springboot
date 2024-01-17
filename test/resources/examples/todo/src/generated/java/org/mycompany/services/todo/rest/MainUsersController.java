@@ -6,7 +6,7 @@ package org.mycompany.services.todo.rest;
 import com.kapeta.spring.annotation.*;
 import jakarta.validation.Valid;
 import java.util.*;
-import org.mycompany.services.todo.dto.*;
+import org.mycompany.services.todo.dto.UserDTO;
 import org.mycompany.services.todo.service.IMainUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Description;

@@ -7,6 +7,7 @@ package {{packageName @root.options.basePackage}}.dto;
 import lombok.*;
 import java.util.*;
 import jakarta.validation.constraints.NotNull;
+{{java-imports}}
 
 {{#switch type}}
 {{#case 'datatype'}}

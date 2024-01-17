@@ -103,7 +103,7 @@ spec:
               
               // Get tasks for list
               @GET('/tasks/{listId}')
-              getTasks(@Path listId: string, @Query filter?:string): Task[]
+              getTasks(@Path listId: string, @Query filter?:string, @Query pageable:Pageable): Page<Task>
               
               // Update task
               @PUT('/tasks/{listId}/{taskId}')

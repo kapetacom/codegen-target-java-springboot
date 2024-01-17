@@ -1,7 +1,9 @@
 package org.mycompany.services.todo.service;
 
 import java.util.*;
-import org.mycompany.services.todo.dto.*;
+import org.mycompany.services.todo.dto.TaskDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface ITasksService {
     /**
@@ -18,7 +20,8 @@ public interface ITasksService {
     /**
      * Get tasks for list
      */
-    List<TaskDTO> getTasks(String listId, String filter) throws Exception;
+    Page<TaskDTO> getTasks(String listId, Pageable pageable, String filter)
+        throws Exception;
 
     /**
      * Update task

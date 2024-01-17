@@ -13,6 +13,7 @@ import { KAPLANG_VERSION, KAPLANG_ID } from '@kapeta/kaplang-core';
 import kapetaDefinition from '../../kapeta.yml';
 // @ts-ignore
 import packageJson from '../../package.json';
+import {includes} from "../includes";
 
 interface JavaTargetConfigOptions {
     basePackage: string;
@@ -85,50 +86,7 @@ const targetConfig: ILanguageTargetProvider<JavaTargetConfigOptions> = {
     definition: kapetaDefinition,
     editorComponent: JavaTargetConfig,
     getDSLIncludes: () => {
-        return {
-            version: KAPLANG_VERSION,
-            language: KAPLANG_ID,
-            source: `
-
-            @Native("org.springframework.data.domain.Sort.Direction")
-            enum SortOrderDirection {
-                ASC,
-                DESC
-            }
-            
-            @Native("org.springframework.data.domain.Sort.Order")
-            type SortOrder {
-                direction: SortOrderDirection
-                property: string
-            }
-            
-            @Native("org.springframework.data.domain.Sort")
-            type Sort {
-                orders: SortOrder[]
-            }
-            
-            @Native("org.springframework.data.domain.Pageable")
-            type Pageable {
-                page: number
-                size: number
-                sort: Sort
-            }
-            
-            @Native("org.springframework.data.domain.Slice")
-            type Slice<T> {
-                content: T[]
-                last: boolean
-                first: boolean
-                pageable: Pageable
-            }
-            
-            @Native("org.springframework.data.domain.Page")
-            type Page<T> extends Slice<T> {
-                totalPages: long
-                totalElements: long
-            }
-            `
-        }
+        return includes();
     },
     validate: (options: any) => {
         const errors: string[] = [];
