@@ -16,9 +16,12 @@ spec:
         	DEV,
         	DESIGN
         }
-
-        Task {
+        
+        Idable {
         	id: string
+        }
+
+        Task extends Idable {
         	listId: string
         	userId: string
         	title: string
@@ -31,16 +34,14 @@ spec:
         }
 
 
-        User {
-        	id: string
+        User extends Idable {
         	name?: string
         	email: string
         	tasks:Task[]
         }
 
 
-        TaskList {
-        	id: string
+        TaskList extends Idable {
         	title: string
         	createdBy?: string
         	created?: long
@@ -114,25 +115,40 @@ spec:
 
     - kind: kapeta/resource-type-rest-api:0.0.2
       metadata:
-        name: lists
+        name: main
       spec:
         source:
           type: kaplang
           version: 0.0.1
           value: |-
-            // Gets all task lists
-            @GET('/lists')
-            getLists(): TaskList[]
+            // Do something with lists
+            controller Lists('/lists') {
+                // Gets all task lists
+                @GET('/')
+                getLists(): TaskList[]
+                
+                // Create new list
+                @POST('/new')
+                addList(@Body list: TaskList): void
+                
+                // Updates a list
+                @PUT('/{listId}')
+                updateList(@Path listId: string, @Body list: TaskList): void
+                
+                // Deletes a list and all tasks in it
+                @DELETE('/{listId}')
+                removeList(@Path listId: string): void
+            }
             
-            // Create new list
-            @POST('/lists/new')
-            addList(@Body list: TaskList): void
+            // Do something with users
+            controller Users('/user') {
+                // Get user
+                @GET('/')
+                get(): User
             
-            // Updates a list
-            @PUT('/lists/{listId}')
-            updateList(@Path listId: string, @Body list: TaskList): void
+                // Create user
+                @POST('/new')
+                add(@Body user: User): void
             
-            // Deletes a list and all tasks in it
-            @DELETE('/lists/{listId}')
-            removeList(@Path listId: string): void
+            }
           

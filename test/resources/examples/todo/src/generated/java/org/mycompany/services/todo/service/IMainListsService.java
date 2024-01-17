@@ -3,7 +3,10 @@ package org.mycompany.services.todo.service;
 import java.util.*;
 import org.mycompany.services.todo.dto.*;
 
-public interface IListsService {
+/**
+ * Do something with lists
+ */
+public interface IMainListsService {
     /**
      * Gets all task lists
      */

@@ -345,4 +345,12 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         return Template.SafeString(writer.write([entity]));
     });
 
+    engine.registerHelper('generics', (entity: DSLDataType) => {
+        if (!entity.generics || entity.generics.length === 0) {
+            return '';
+        }
+
+        return Template.SafeString(`<${entity.generics.join(', ')}>`);
+    })
+
 };

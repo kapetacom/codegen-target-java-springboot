@@ -8,10 +8,7 @@ import java.util.*;
 import lombok.*;
 
 @Data
-public class TaskListBase {
-
-    @NotNull
-    private String id;
+public class TaskListBase extends IdableDTO {
 
     @NotNull
     private String title;

@@ -4,8 +4,11 @@ import java.util.*;
 import org.mycompany.services.todo.dto.*;
 import org.springframework.stereotype.Service;
 
+/**
+ * Do something with lists
+ */
 @Service
-public class ListsService implements IListsService {
+public class MainListsService implements IMainListsService {
 
     /**
      * Gets all task lists

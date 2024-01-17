@@ -23,9 +23,7 @@ In the sub folder structure you'll find the following:
 {{#provides 'kapeta/resource-type-rest-api'}}
 ## REST API 
 To edit the REST API handlers edit the services found here:
-{{#providers-of-type 'kapeta/resource-type-rest-api'}}
-* [src/main/java/{{packagePath ../options.basePackage}}/service/{{class metadata.name}}Service.java](src/main/java/{{packagePath ../options.basePackage}}/service/{{class metadata.name}}Service.java)
-{{/providers-of-type}}
+[src/main/java/{{packagePath @root.options.basePackage}}/service](src/main/java/{{packagePath @root.options.basePackage}}/service/)
 
 The REST layer itself is generated for you - so your service
 will be called as specified within the REST API definition in Kapeta.
@@ -40,7 +38,7 @@ changed since the last time they were generated.
 ## Postgres: {{metadata.name}}
 To use the "{{metadata.name}}" Postgres database - simply create Spring 
 repositories in this package:
-```{{string ../options.basePackage}}.repositories.{{string metadata.name}}```
+```{{string @root.options.basePackage}}.repositories.{{string metadata.name}}```
 
 ### Schema changes
 This service uses Flyway to manage the database schema and migrations.
@@ -67,7 +65,7 @@ Migrations will be applied automatically when the service starts.
 To use the "{{metadata.name}}" MongoDB database - simply create Spring
 repositories in this package:
 
-```{{string ../options.basePackage}}.repositories.{{string metadata.name}}```
+```{{string @root.options.basePackage}}.repositories.{{string metadata.name}}```
 
 These will be picked up and used by the database.
 
@@ -80,7 +78,7 @@ You simply define changes in a class annotated with ```@ChangeLog```,
 ```@ChangeUnit``` or ```@ChangeSet```.
 
 These classes should be placed in the following package:
-```{{string ../options.basePackage}}.repositories.{{string metadata.name}}.migrations```
+```{{string @root.options.basePackage}}.repositories.{{string metadata.name}}.migrations```
 
 See Mongock documentation for more information:
 [https://docs.mongock.io/v5/migration/index.html](https://docs.mongock.io/v5/migration/index.html)

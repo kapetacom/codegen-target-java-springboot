@@ -8,13 +8,14 @@ import java.util.*;
 import lombok.*;
 
 @Data
-public class UserBase extends IdableDTO {
+public class ArtifactBase<T> {
 
+    @NotNull
+    private String id;
+
+    @NotNull
     private String name;
 
     @NotNull
-    private String email;
-
-    @NotNull
-    private List<TaskDTO> tasks;
+    private T data;
 }

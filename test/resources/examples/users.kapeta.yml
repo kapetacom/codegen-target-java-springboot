@@ -34,6 +34,26 @@ spec:
           id: string
           name?: string
           email: string
+          metadata?: {
+            age:integer
+            gender:string
+            bio:string
+          }
+        }
+        
+        type FileContent {
+          name: string
+          content: string
+        }
+        
+        type Artifact<T> {
+          id: string
+          name: string
+          data: T
+        }
+        
+        type FileArtifact extends Artifact<FileContent> {
+          
         }
         
         type UserAuth {
