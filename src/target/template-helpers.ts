@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 import Handlebars = require('handlebars');
-import { Template, toTypeName, TypeLike } from '@kapeta/codegen-target';
+import { parseEntities, Template, toTypeName, TypeLike } from '@kapeta/codegen-target';
 import _ from 'lodash';
 import {
     ControllerWriteMethod,
@@ -20,7 +20,8 @@ import {
     DSLReferenceResolver,
     DSLResult,
     EntityHelpers,
-    JavaWriter, ucFirst,
+    JavaWriter,
+    ucFirst,
 } from '@kapeta/kaplang-core';
 import { HelperOptions } from 'handlebars';
 import { includes } from '../includes';
@@ -139,7 +140,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         return classHelper(property, options);
     };
 
-    let parsedEntities: DSLResult | undefined = undefined;
+    let parsedEntities: DSLData[] | undefined = undefined;
     function getParsedEntities(): DSLData[] {
         if (!parsedEntities) {
             const code: string[] = [includes().source];
@@ -148,16 +149,14 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
                 code.push(context.spec?.entities?.source?.value);
             }
 
-            parsedEntities = DSLParser.parse(code.join('\n\n'), DATATYPE_CONFIGURATION);
+            parsedEntities = parseEntities(code.join('\n\n'));
         }
 
-        if (parsedEntities?.entities) {
-            return parsedEntities.entities.filter(
-                (e) => e.type === DSLEntityType.DATATYPE || e.type === DSLEntityType.ENUM
-            ) as DSLData[];
+        if (!parsedEntities) {
+            return [];
         }
 
-        return [];
+        return parsedEntities as DSLData[];
     }
 
     engine.registerHelper('class', classHelper);
@@ -172,14 +171,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         const entities = getParsedEntities();
         const basePackage: string = options.data.root.options.basePackage;
         const resolver = new DSLReferenceResolver();
-        const references = resolver.resolveReference(this);
-        const referencesEntities = references
-            .map((reference: string) => {
-                return entities.find((entity) => {
-                    return entity.name === reference;
-                });
-            })
-            .filter((entity: DSLData | undefined) => Boolean(entity)) as DSLData[];
+        const referencesEntities = resolver.resolveReferencesFrom([this], entities);
 
         if (referencesEntities.length === 0) {
             return '';
