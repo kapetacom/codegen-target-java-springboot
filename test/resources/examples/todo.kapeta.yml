@@ -75,6 +75,16 @@ spec:
               // Get all users
               @GET('/users')
               listUsers(@Query filter?:Set<string>):User[]
+            
+              controller Groups('/groups') {
+                    // Create group
+                    @POST('/{groupId}')
+                    addGroup(@Path groupId:string):void
+                    
+                    // Delete group
+                    @DELETE('/{groupId}')
+                    deleteGroup(@Path groupId:string):void
+              }
 
     - kind: kapeta/resource-type-auth-jwt-consumer:0.0.3
       metadata:
