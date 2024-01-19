@@ -52,11 +52,16 @@ module.exports = {
     devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'inline-source-map',
     resolve: {
         extensions: ['.js', '.ts', '.tsx', '.less', '.yml', '.yaml'],
+        fallback: {
+            path: require.resolve('path-browserify'),
+        },
     },
     externals: {
         react: 'React',
         lodash: '_',
         '@kapeta/ui-web-components': 'Kapeta.Components',
         '@kapeta/ui-web-types': 'Kapeta.Types',
+        'prettier-plugin-java': 'window',
+        prettier: 'window',
     },
 };

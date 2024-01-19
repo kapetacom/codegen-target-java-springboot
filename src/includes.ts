@@ -1,3 +1,4 @@
+// @ts-ignore
 import { KAPLANG_ID, KAPLANG_VERSION } from '@kapeta/kaplang-core';
 
 export const includes = () => {

@@ -7,7 +7,6 @@ import React from 'react';
 
 import { ILanguageTargetProvider } from '@kapeta/ui-web-types';
 import { FormField } from '@kapeta/ui-web-components';
-import { KAPLANG_VERSION, KAPLANG_ID } from '@kapeta/kaplang-core';
 
 // @ts-ignore
 import kapetaDefinition from '../../kapeta.yml';

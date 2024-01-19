@@ -7,7 +7,6 @@ import { parseEntities, Template, toTypeName, TypeLike } from '@kapeta/codegen-t
 import _ from 'lodash';
 import {
     ControllerWriteMethod,
-    DATATYPE_CONFIGURATION,
     DataTypeReader,
     DataTypeWriteMethod,
     DSLController,
@@ -16,9 +15,7 @@ import {
     DSLEntity,
     DSLEntityType,
     DSLEnum,
-    DSLParser,
     DSLReferenceResolver,
-    DSLResult,
     EntityHelpers,
     JavaWriter,
     ucFirst,
