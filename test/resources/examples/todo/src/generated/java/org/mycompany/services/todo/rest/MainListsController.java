@@ -6,45 +6,41 @@ package org.mycompany.services.todo.rest;
 import com.kapeta.spring.annotation.*;
 import jakarta.validation.Valid;
 import java.util.*;
-import org.mycompany.services.todo.dto.*;
-import org.mycompany.services.todo.service.IListsService;
+import org.mycompany.services.todo.dto.TaskListDTO;
+import org.mycompany.services.todo.service.IMainListsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Description;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Do something with lists
+ */
 @RestController
-@KapetaController("lists")
-public class ListsController {
+@KapetaController("main")
+@RequestMapping("/lists")
+public class MainListsController {
 
-    private final IListsService service;
+    private final IMainListsService service;
 
-    @Autowired
-    public ListsController(IListsService service) {
+    public MainListsController(IMainListsService service) {
         this.service = service;
     }
 
-    /**
-     * Gets all task lists
-     */
+    @Description("Gets all task lists")
     @ResponseBody
-    @RequestMapping(value = "/lists", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<TaskListDTO> getLists() throws Exception {
         return service.getLists();
     }
 
-    /**
-     * Create new list
-     */
-
-    @RequestMapping(value = "/lists/new", method = RequestMethod.POST)
+    @Description("Create new list")
+    @RequestMapping(value = "/new", method = RequestMethod.POST)
     public void addList(@Valid @RequestBody TaskListDTO list) throws Exception {
         service.addList(list);
     }
 
-    /**
-     * Updates a list
-     */
-
-    @RequestMapping(value = "/lists/{listId}", method = RequestMethod.PUT)
+    @Description("Updates a list")
+    @RequestMapping(value = "/{listId}", method = RequestMethod.PUT)
     public void updateList(
         @PathVariable String listId,
         @Valid @RequestBody TaskListDTO list
@@ -52,11 +48,8 @@ public class ListsController {
         service.updateList(listId, list);
     }
 
-    /**
-     * Deletes a list and all tasks in it
-     */
-
-    @RequestMapping(value = "/lists/{listId}", method = RequestMethod.DELETE)
+    @Description("Deletes a list and all tasks in it")
+    @RequestMapping(value = "/{listId}", method = RequestMethod.DELETE)
     public void removeList(@PathVariable String listId) throws Exception {
         service.removeList(listId);
     }

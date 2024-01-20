@@ -1,0 +1,11 @@
+{{#kaplang-render this}}
+{{#switch type}}
+    {{#case 'datatype'}}
+        {{> dsl/entitybase.java}}
+        {{> dsl/entity.java}}
+    {{/case}}
+    {{#case 'enum'}}
+        {{> dsl/entitybase.java}}
+    {{/case}}
+{{/switch}}
+{{/kaplang-render}}

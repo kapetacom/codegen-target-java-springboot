@@ -6,12 +6,11 @@ package org.mycompany.services.todo.dto;
 import jakarta.validation.constraints.NotNull;
 import java.util.*;
 import lombok.*;
+import org.mycompany.services.todo.dto.IdableDTO;
+import org.mycompany.services.todo.dto.TaskType;
 
 @Data
-public class TaskBase {
-
-    @NotNull
-    private String id;
+public class TaskBase extends IdableDTO {
 
     @NotNull
     private String listId;

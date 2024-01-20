@@ -1,12 +1,12 @@
-/**
- * GENERATED SOURCE - DO NOT EDIT
- */
 package org.mycompany.services.todo.service;
 
 import java.util.*;
-import org.mycompany.services.todo.dto.*;
+import org.mycompany.services.todo.dto.TaskListDTO;
 
-public interface IListsService {
+/**
+ * Do something with lists
+ */
+public interface IMainListsService {
     /**
      * Gets all task lists
      */

@@ -3,16 +3,26 @@
  * SPDX-License-Identifier: MIT
  */
 import Handlebars = require('handlebars');
-import { Template, toTypeName, TypeLike } from '@kapeta/codegen-target';
-import { BlockDefinitionSpec, Resource } from '@kapeta/schemas';
-import { parseKapetaUri } from '@kapeta/nodejs-utils';
+import { parseEntities, Template, toTypeName, TypeLike } from '@kapeta/codegen-target';
 import _ from 'lodash';
-
-function ucfirst(typeLike: TypeLike) {
-    let text = toTypeName(typeLike);
-
-    return text.substring(0, 1).toUpperCase() + text.substring(1);
-}
+import {
+    ControllerWriteMethod,
+    DataTypeReader,
+    DataTypeWriteMethod,
+    DSLController,
+    DSLData,
+    DSLDataType,
+    DSLEntity,
+    DSLEntityType,
+    DSLEnum,
+    DSLReferenceResolver,
+    EntityHelpers,
+    JavaWriter,
+    ucFirst,
+} from '@kapeta/kaplang-core';
+import { HelperOptions } from 'handlebars';
+import { includes } from '../includes';
+import { IncludeContextType } from '@kapeta/ui-web-types';
 
 export type HandleBarsType = typeof Handlebars;
 
@@ -34,27 +44,11 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
             return false;
         }
 
-        if (typeof type !== 'string' && typeof type.type !== 'string') {
-            return false;
+        if (typeof type === 'string') {
+            return EntityHelpers.isPrimitiveType({ type });
         }
 
-        const typeName = toTypeName(type).toLowerCase();
-
-        switch (typeName) {
-            case 'int':
-            case 'integer':
-            case 'boolean':
-            case 'float':
-            case 'double':
-            case 'long':
-            case 'byte':
-            case 'short':
-            case 'char':
-            case 'void':
-                return true;
-        }
-
-        return false;
+        return EntityHelpers.isPrimitiveType(type);
     }
 
     function translatePrimitive(typeName: string): string {
@@ -67,8 +61,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
     }
 
     function packageNameHelper(packageName: string): string {
-        return packageName
-            .replace(/-/g, '_');
+        return packageName ? packageName.replace(/-/g, '_') : '';
     }
 
     function classHelper(typeName: TypeLike, options: any = null): Handlebars.SafeString {
@@ -118,7 +111,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         }
 
         if (isEntity(typeName)) {
-            return Template.SafeString(ucfirst(typeName) + (asType ? '' : 'DTO'));
+            return Template.SafeString(ucFirst(typeName) + (asType ? '' : 'DTO'));
         }
 
         if (['any', 'unknown'].includes(typeName.toLowerCase())) {
@@ -129,14 +122,12 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
             return Template.SafeString(translatePrimitive(typeName.toLowerCase()));
         }
 
-        return Template.SafeString(ucfirst(typeName));
+        return Template.SafeString(ucFirst(typeName));
     }
 
     function isList(typeName: string) {
         return typeName.endsWith('[]');
     }
-
-    engine.registerHelper('class', classHelper);
 
     const classFrom = (property: TypeLike, options: any): any => {
         const typeName = toTypeName(property);
@@ -147,112 +138,143 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         return classHelper(property, options);
     };
 
+    let parsedEntities: DSLData[] | undefined = undefined;
+    function getParsedEntities(): DSLData[] {
+        if (!parsedEntities) {
+            const code: string[] = [includes().source];
+
+            if (context.spec?.entities?.source?.value) {
+                code.push(context.spec?.entities?.source?.value);
+            }
+
+            parsedEntities = parseEntities(code.join('\n\n'));
+        }
+
+        if (!parsedEntities) {
+            return [];
+        }
+
+        return parsedEntities as DSLData[];
+    }
+
+    engine.registerHelper('class', classHelper);
+
     engine.registerHelper('packageName', (name) => Template.SafeString(packageNameHelper(name)));
-    engine.registerHelper('classFrom', classFrom);
-
-    engine.registerHelper('ifPrimitive', (type: TypeLike, options: any) => {
-        const typeName = toTypeName(type).toLowerCase();
-        if (isPrimitive(type) || typeName === 'string') {
-            return Template.SafeString(options.fn(this));
-        }
-        return Template.SafeString(options.inverse(this));
-    });
-
-    engine.registerHelper('returnType', (type: TypeLike, options: any) => {
-        const isUCFirst = options.hash && options.hash.ucfirst;
-        if (!type) {
-            return isUCFirst ? 'Void' : 'void';
-        }
-
-        const out = classHelper(type);
-
-        if (isUCFirst) {
-            return Template.SafeString(ucfirst(out.toString()));
-        }
-
-        return out;
-    });
 
     engine.registerHelper('packagePath', (packageName) => {
         return Template.SafeString(packageNameHelper(packageName).replace(/\./g, '/'));
     });
 
-    engine.registerHelper('relativePath', (path) => {
-        return Template.SafeString(path.trim().replace(/^\/+/g, ''));
-    });
+    engine.registerHelper('java-imports', function (this: DSLEntity, options: HelperOptions) {
+        const entities = getParsedEntities();
+        const basePackage: string = options.data.root.options.basePackage;
+        const resolver = new DSLReferenceResolver();
+        const referencesEntities = resolver.resolveReferencesFrom([this], entities);
 
-    engine.registerHelper('kebab', (camelCase) => {
-        return Template.SafeString(camelCase.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase());
-    });
-
-    engine.registerHelper('enumValues', (values) => {
-        return Template.SafeString('\t' + values.join(',\n\t'));
-    });
-
-    engine.registerHelper('when', (type, options) => {
-        const inner = options.fn();
-        const [whenTrue, whenFalse] = inner.split(/\|\|/);
-        if (options.hash && options.hash.type === type) {
-            return Template.SafeString(whenTrue);
-        }
-        return Template.SafeString(whenFalse || '');
-    });
-
-    engine.registerHelper('ifValueType', (type, options) => {
-        if ((type?.type || type?.ref) && type?.type?.toLowerCase() !== 'void') {
-            return Template.SafeString(options.fn(this));
-        }
-        return Template.SafeString(options.inverse(this));
-    });
-
-    engine.registerHelper('anyEntities', (options) => {
-        if (context?.spec?.entities?.types && context?.spec?.entities?.types.length > 0) {
-            return options.fn(this);
-        }
-        return options.inverse(this);
-    });
-
-    engine.registerHelper('params', function (this: any) {
-        let argument = undefined;
-        let optional = false;
-
-        const body = 'transport' in this && this['transport'].toUpperCase() === 'BODY';
-
-        if (!body && 'argument' in this) {
-            if ('argumentName' in this && this['argument'] != this['argumentName']) {
-                argument = '"' + this['argument'] + '"';
-            }
+        if (referencesEntities.length === 0) {
+            return '';
         }
 
-        if ('optional' in this && this['optional']) {
-            optional = true;
-        }
+        return Template.SafeString(
+            referencesEntities
+                .map((entity) => {
+                    const native = DataTypeReader.getNative(entity);
+                    if (native) {
+                        return `import ${native};`;
+                    }
 
-        if (argument) {
-            return `(${optional ? `name = ${argument}, required = false` : argument})`;
-        } else if (optional) {
-            return `(required = false)`;
-        }
-
-        return '';
+                    switch (entity.type) {
+                        case DSLEntityType.DATATYPE:
+                            return `import ${basePackage}.dto.${JavaWriter.toClassName(entity.name)}DTO;`;
+                        case DSLEntityType.ENUM:
+                            return `import ${basePackage}.dto.${JavaWriter.toClassName(entity.name)};`;
+                    }
+                })
+                .join('\n')
+        );
     });
 
-    engine.registerHelper('toArray', (...value: any[]) => {
-        return value.slice(0, value.length - 1);
+    engine.registerHelper('java-generics', (entity: DSLDataType) => {
+        if (!entity.generics || entity.generics.length === 0) {
+            return '';
+        }
+
+        return Template.SafeString(`<${entity.generics.join(', ')}>`);
     });
 
-    engine.registerHelper('usesAnyOf', (kinds: string[], options) => {
-        const data = context.spec as BlockDefinitionSpec;
-        const usesAny = kinds.some((kind) => {
-            const uri = parseKapetaUri(kind);
-            const matcher = (consumer: Resource) => parseKapetaUri(consumer.kind).fullName === uri.fullName;
-            return data.consumers?.some(matcher) || data.providers?.some(matcher);
+    engine.registerHelper('java-class-name', (entity: DSLEntity) => {
+        if (entity.type === DSLEntityType.COMMENT) {
+            return '';
+        }
+
+        if (entity.type === DSLEntityType.CONTROLLER) {
+            return Template.SafeString(JavaWriter.toClassName(entity.name, entity.namespace));
+        }
+
+        return Template.SafeString(JavaWriter.toClassName(entity.name));
+    });
+
+    engine.registerHelper('java-type-dto', (entity: DSLData) => {
+        const writer = new JavaWriter({
+            entities: getParsedEntities(),
+            dataTypeWriteMethod: DataTypeWriteMethod.DTO,
         });
 
-        if (usesAny) {
-            return options.fn(this);
+        try {
+            return Template.SafeString(writer.write([entity]));
+        } catch (e) {
+            console.warn('Failed to write entity', entity);
+            throw e;
         }
+    });
 
-        return options.inverse(this);
+    engine.registerHelper('java-type-config', (entity: DSLDataType | DSLEnum, basePackage: string, options) => {
+        const writer = new JavaWriter({
+            entities: getParsedEntities(),
+            dataTypeWriteMethod: DataTypeWriteMethod.CONFIG,
+        });
+
+        try {
+            return Template.SafeString(writer.write([entity]));
+        } catch (e) {
+            console.warn('Failed to write entity', entity);
+            throw e;
+        }
+    });
+
+    engine.registerHelper('java-controller-rest', (entity: DSLController) => {
+        const writer = new JavaWriter({
+            controllerWriteMethod: ControllerWriteMethod.REST_CONTROLLER,
+            entities: getParsedEntities(),
+        });
+
+        return Template.SafeString(writer.write([entity]));
+    });
+
+    engine.registerHelper('java-controller-if', (entity: DSLController) => {
+        const writer = new JavaWriter({
+            controllerWriteMethod: ControllerWriteMethod.INTERFACE,
+            entities: getParsedEntities(),
+        });
+
+        return Template.SafeString(writer.write([entity]));
+    });
+
+    engine.registerHelper('java-controller-class', (entity: DSLController) => {
+        const writer = new JavaWriter({
+            controllerWriteMethod: ControllerWriteMethod.CLASS,
+            entities: getParsedEntities(),
+        });
+
+        return Template.SafeString(writer.write([entity]));
+    });
+
+    engine.registerHelper('java-controller-client', (entity: DSLController) => {
+        const writer = new JavaWriter({
+            controllerWriteMethod: ControllerWriteMethod.CLIENT,
+            entities: getParsedEntities(),
+        });
+
+        return Template.SafeString(writer.write([entity]));
     });
 };

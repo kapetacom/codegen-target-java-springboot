@@ -17,4 +17,19 @@ public class UserBase {
 
     @NotNull
     private String email;
+
+    private Metadata metadata;
+
+    @Data
+    public static class Metadata {
+
+        @NotNull
+        private int age;
+
+        @NotNull
+        private String gender;
+
+        @NotNull
+        private String bio;
+    }
 }

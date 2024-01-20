@@ -9,57 +9,58 @@ spec:
       artifactId: users
       basePackage: org.mycompany.services.users
   configuration:
-    types:
-      - type: dto
-        name: Service
-        description: Configuration for services
-        properties:
-          instance:
-            ref: Instance
-            properties: null
-            secret: true
-            required: true
-          key:
-            type: string
-            properties: null
-            secret: true
-            required: true
-      - type: dto
-        name: Email
-        description: Configuration for e-mails
-        properties:
-          from:
-            type: string
-            defaultValue: "'support@kapeta.com'"
-            description: Sender for e-mails. Note that you should be allowed to send e-mails
-              from this domain and user
-            properties: null
-            secret: false
-            required: false
-            global: true
+    source:
+      type: kapeta-dsl
+      value: |-
+          type Service {
+              @secret
+              instance: Instance
+        
+              @secret
+              key: string
+          }
+        
+          type Email {
+              // Sender for e-mails. Note that you should be allowed to send e-mails from this domain and user
+              @global
+              from: string = 'support@kapeta.com'
+          }
+
   entities:
-    types:
-      - name: User
-        type: dto
-        properties:
-          id:
-            type: string
-            required: true
-          name:
-            type: string
-            required: false
-          email:
-            type: string
-            required: true
-      - name: UserAuth
-        type: dto
-        properties:
-          username:
-            type: string
-            required: true
-          password:
-            type: string
-            required: true
+    source:
+      type: kapeta-dsl
+      value: |-
+        type User {
+          id: string
+          name?: string
+          email: string
+          metadata?: {
+            age:integer
+            gender:string
+            bio:string
+          }
+        }
+        
+        type FileContent {
+          name: string
+          content: string
+        }
+        
+        type Artifact<T> {
+          id: string
+          name: string
+          data: T
+        }
+        
+        type FileArtifact extends Artifact<FileContent> {
+          
+        }
+        
+        type UserAuth {
+          username: string
+          password: string
+        }
+
   consumers:
     - kind: kapeta/resource-type-postgresql:0.0.2
       metadata:
@@ -77,68 +78,31 @@ spec:
       metadata:
         name: users
       spec:
-        methods:
-          createUser:
-            description: Create user
-            method: POST
-            path: /users/{id}
-            arguments:
-              id:
-                type: string
-                transport: path
-                id: id
-              user:
-                ref: User
-                transport: body
-                id: user
-              metadata:
-                ref: Map<string, string>
-                transport: HEADER
-            responseType:
-              ref: User
-          getUser:
-            description: Get user by id
-            method: GET
-            path: /users/{id}
-            arguments:
-              id:
-                type: string
-                transport: path
-                id: id
-            responseType:
-              ref: User
-          deleteUser:
-            description: Delete user by id
-            method: DELETE
-            path: /users/{id}
-            arguments:
-              id:
-                type: string
-                transport: path
-                id: id
-          authenticate:
-            description: Authenticate user
-            method: POST
-            path: /users/authenticate
-            arguments:
-              user:
-                id: user
-                ref: UserAuth
-                transport: BODY
-            responseType:
-              ref: User
-          listUsers:
-            description: Get all users
-            method: GET
-            path: /users
-            arguments:
-              filter:
-                id: filter
-                type: Set<string>
-                transport: QUERY
-                optional: true
-            responseType:
-              ref: User[]
+        source:
+          type: kaplang
+          version: 0.0.1
+          value: |-
+              // Create user
+              @POST("/users/{id}")
+              createUser(@Path id: string, @Body user: User, @Header metadata: Map<string, string>): User
+            
+              // Get user by id
+              @GET("/users/{id}")
+              getUser(@Path id: string): User
+          
+              // Delete user by id
+              @DELETE("/users/{id}")
+              deleteUser(@Path id: string): void
+          
+              // Authenticate user
+              @POST("/users/authenticate")
+              authenticate(@Body user: UserAuth): User
+          
+              // Get all users
+              @GET("/users")
+              listUsers(@Query filter?:Set<string>): User[]
+
+
     - kind: kapeta/resource-type-auth-jwt-provider:1.0.1
       metadata:
         name: authjwtprovider

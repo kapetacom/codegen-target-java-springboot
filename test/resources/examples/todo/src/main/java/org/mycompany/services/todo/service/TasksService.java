@@ -1,8 +1,9 @@
 package org.mycompany.services.todo.service;
 
 import java.util.*;
-import org.mycompany.services.todo.dto.*;
-import org.mycompany.services.todo.service.ITasksService;
+import org.mycompany.services.todo.dto.TaskDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,8 +14,7 @@ public class TasksService implements ITasksService {
      */
     @Override
     public void addTask(String listId, TaskDTO task, String overwrite) {
-        //TODO: Implement me!
-
+        throw new RuntimeException("Not implemented");
     }
 
     /**
@@ -22,17 +22,18 @@ public class TasksService implements ITasksService {
      */
     @Override
     public void removeTask(String listId, String taskId) {
-        //TODO: Implement me!
-
+        throw new RuntimeException("Not implemented");
     }
 
     /**
      * Get tasks for list
      */
     @Override
-    public List<TaskDTO> getTasks(String listId, String filter) {
-        //TODO: Implement me!
-
+    public Page<TaskDTO> getTasks(
+        String listId,
+        Pageable pageable,
+        String filter
+    ) {
         throw new RuntimeException("Not implemented");
     }
 
@@ -41,8 +42,6 @@ public class TasksService implements ITasksService {
      */
     @Override
     public TaskDTO updateTask(String listId, String taskId, TaskDTO task) {
-        //TODO: Implement me!
-
         throw new RuntimeException("Not implemented");
     }
 
@@ -51,8 +50,6 @@ public class TasksService implements ITasksService {
      */
     @Override
     public List<TaskDTO> search(String title, String description) {
-        //TODO: Implement me!
-
         throw new RuntimeException("Not implemented");
     }
 }

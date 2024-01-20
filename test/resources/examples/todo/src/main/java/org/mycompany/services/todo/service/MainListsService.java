@@ -1,20 +1,20 @@
 package org.mycompany.services.todo.service;
 
 import java.util.*;
-import org.mycompany.services.todo.dto.*;
-import org.mycompany.services.todo.service.IListsService;
+import org.mycompany.services.todo.dto.TaskListDTO;
 import org.springframework.stereotype.Service;
 
+/**
+ * Do something with lists
+ */
 @Service
-public class ListsService implements IListsService {
+public class MainListsService implements IMainListsService {
 
     /**
      * Gets all task lists
      */
     @Override
     public List<TaskListDTO> getLists() {
-        //TODO: Implement me!
-
         throw new RuntimeException("Not implemented");
     }
 
@@ -23,8 +23,7 @@ public class ListsService implements IListsService {
      */
     @Override
     public void addList(TaskListDTO list) {
-        //TODO: Implement me!
-
+        throw new RuntimeException("Not implemented");
     }
 
     /**
@@ -32,8 +31,7 @@ public class ListsService implements IListsService {
      */
     @Override
     public void updateList(String listId, TaskListDTO list) {
-        //TODO: Implement me!
-
+        throw new RuntimeException("Not implemented");
     }
 
     /**
@@ -41,7 +39,6 @@ public class ListsService implements IListsService {
      */
     @Override
     public void removeList(String listId) {
-        //TODO: Implement me!
-
+        throw new RuntimeException("Not implemented");
     }
 }

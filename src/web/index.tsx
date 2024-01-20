@@ -5,13 +5,14 @@
 
 import React from 'react';
 
-import { ILanguageTargetProvider } from '@kapeta/ui-web-types';
+import { ILanguageTargetProvider, IncludeContextType } from '@kapeta/ui-web-types';
 import { FormField } from '@kapeta/ui-web-components';
 
 // @ts-ignore
 import kapetaDefinition from '../../kapeta.yml';
 // @ts-ignore
 import packageJson from '../../package.json';
+import { includes } from '../includes';
 
 interface JavaTargetConfigOptions {
     basePackage: string;
@@ -83,6 +84,9 @@ const targetConfig: ILanguageTargetProvider<JavaTargetConfigOptions> = {
     ],
     definition: kapetaDefinition,
     editorComponent: JavaTargetConfig,
+    getDSLIncludes: (context: IncludeContextType) => {
+        return includes(context);
+    },
     validate: (options: any) => {
         const errors: string[] = [];
 

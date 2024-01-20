@@ -6,15 +6,10 @@ package org.mycompany.services.todo.dto;
 import jakarta.validation.constraints.NotNull;
 import java.util.*;
 import lombok.*;
-import org.mycompany.services.todo.dto.IdableDTO;
 
 @Data
-public class TaskListBase extends IdableDTO {
+public class IdableBase {
 
     @NotNull
-    private String title;
-
-    private String createdBy;
-
-    private long created;
+    private String id;
 }
