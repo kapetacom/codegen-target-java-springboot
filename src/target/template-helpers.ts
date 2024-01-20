@@ -22,6 +22,7 @@ import {
 } from '@kapeta/kaplang-core';
 import { HelperOptions } from 'handlebars';
 import { includes } from '../includes';
+import { IncludeContextType } from '@kapeta/ui-web-types';
 
 export type HandleBarsType = typeof Handlebars;
 
