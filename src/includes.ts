@@ -1,7 +1,16 @@
 // @ts-ignore
 import { KAPLANG_ID, KAPLANG_VERSION } from '@kapeta/kaplang-core';
+import { DSLInclude, IncludeContextType } from '@kapeta/ui-web-types';
 
-export const includes = () => {
+export const includes = (context: IncludeContextType): DSLInclude => {
+    if (context === IncludeContextType.CONFIG) {
+        // These types are for entities only
+        return {
+            version: KAPLANG_VERSION,
+            language: KAPLANG_ID,
+            source: '',
+        };
+    }
     return {
         version: KAPLANG_VERSION,
         language: KAPLANG_ID,

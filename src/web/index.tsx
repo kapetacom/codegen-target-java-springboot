@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import { ILanguageTargetProvider } from '@kapeta/ui-web-types';
+import { ILanguageTargetProvider, IncludeContextType } from '@kapeta/ui-web-types';
 import { FormField } from '@kapeta/ui-web-components';
 
 // @ts-ignore
@@ -84,8 +84,8 @@ const targetConfig: ILanguageTargetProvider<JavaTargetConfigOptions> = {
     ],
     definition: kapetaDefinition,
     editorComponent: JavaTargetConfig,
-    getDSLIncludes: () => {
-        return includes();
+    getDSLIncludes: (context: IncludeContextType) => {
+        return includes(context);
     },
     validate: (options: any) => {
         const errors: string[] = [];
