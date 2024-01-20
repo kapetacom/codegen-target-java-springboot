@@ -5,6 +5,6 @@ import lombok.*;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class {{class name}}DTO{{java-generics this}} extends {{class name type=true}}Base{{java-generics this}} {
+public class {{java-class-name this}}DTO{{java-generics this}} extends {{class name type=true}}Base{{java-generics this}} {
 
 }
