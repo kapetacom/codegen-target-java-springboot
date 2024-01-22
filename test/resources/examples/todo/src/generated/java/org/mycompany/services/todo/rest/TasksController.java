@@ -55,7 +55,7 @@ public class TasksController {
     @RequestMapping(value = "/tasks/{listId}", method = RequestMethod.GET)
     public Page<TaskDTO> getTasks(
         @PathVariable String listId,
-        @RequestParam Pageable pageable,
+        Pageable pageable,
         @RequestParam(required = false) String filter
     ) throws Exception {
         return service.getTasks(listId, pageable, filter);
