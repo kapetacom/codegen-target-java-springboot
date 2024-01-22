@@ -35,9 +35,9 @@ export const includes = (context: IncludeContextType = IncludeContextType.REST):
             
             @Native("org.springframework.data.domain.Pageable")
             type Pageable {
-                page: long
-                size: long
-                sort: Sort
+                page?: long
+                size?: long
+                sort?: SortOrder[]
             }
             
             @Native("org.springframework.data.domain.Slice")
