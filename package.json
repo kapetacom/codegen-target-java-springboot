@@ -31,23 +31,14 @@
         "lodash": "^4",
         "prettier": "^2.8.8",
         "prettier-plugin-java": "^2.5.0",
-        "yaml": "^2.3.4"
-    },
-    "peerDependencies": {
-        "@kapeta/ui-web-components": "^3.0.1",
+        "yaml": "^2.3.4",
         "@kapeta/ui-web-types": "^1.2.0"
     },
+    "peerDependencies": {
+        "@kapeta/ui-web-components": "^3.0.1"
+    },
     "bundledDependencies": true,
-    "bundleDependencies": [
-        "@kapeta/codegen-target",
-        "@kapeta/schemas",
-        "cheerio",
-        "handlebars",
-        "lodash",
-        "prettier",
-        "prettier-plugin-java",
-        "yaml"
-    ],
+    "bundleDependencies": true,
     "devDependencies": {
         "@babel/cli": "^7.23.4",
         "@babel/core": "^7.23.7",
@@ -63,7 +54,7 @@
         "@kapeta/codegen": "<2",
         "@kapeta/prettier-config": "^0.6.2",
         "@kapeta/ui-web-components": "<2",
-        "@kapeta/ui-web-types": "<2",
+
         "@tsconfig/node18": "^18.2.2",
         "@types/cheerio": "^0.22.35",
         "@types/lodash": "^4.14.202",
