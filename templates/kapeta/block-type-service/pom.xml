@@ -192,6 +192,13 @@
             <version>[0.2.0,2.0)</version>
         </dependency>
         {{/usesAnyOf}}
+        {{#usesAnyOf (toArray 'kapeta/resource-type-rabbitmq-publisher' 'kapeta/resource-type-rabbitmq-subscriber') }}
+        <dependency>
+            <groupId>com.kapeta</groupId>
+            <artifactId>rabbitmq</artifactId>
+            <version>(,2.0)</version>
+        </dependency>
+        {{/usesAnyOf}}
     </dependencies>
 
 </project>
