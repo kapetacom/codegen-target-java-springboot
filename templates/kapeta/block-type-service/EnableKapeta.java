@@ -28,6 +28,9 @@ import com.kapeta.spring.annotation.KapetaEnableSecurityConsumerConfig;
 {{#provides 'kapeta/resource-type-auth-jwt-provider'}}
 import com.kapeta.spring.annotation.KapetaEnableSecurityProviderConfig;
 {{/provides}}
+{{#usesAnyOf (toArray 'kapeta/resource-type-rabbitmq-publisher' 'kapeta/resource-type-rabbitmq-subscriber') }}
+import com.kapeta.spring.annotation.KapetaEnableRabbitMQ;
+{{/usesAnyOf}}
 
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
@@ -76,5 +79,8 @@ import com.kapeta.spring.annotation.KapetaEnableSecurityProviderConfig;
 {{#provides 'kapeta/resource-type-auth-jwt-provider'}}
 @KapetaEnableSecurityProviderConfig
 {{/provides}}
+{{#usesAnyOf (toArray 'kapeta/resource-type-rabbitmq-publisher' 'kapeta/resource-type-rabbitmq-subscriber') }}
+@KapetaEnableRabbitMQ
+{{/usesAnyOf}}
 public @interface EnableKapeta {
 }

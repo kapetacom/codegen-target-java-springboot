@@ -81,6 +81,8 @@ const targetConfig: ILanguageTargetProvider<JavaTargetConfigOptions> = {
         'kapeta/resource-type-auth-jwt-provider',
         'kapeta/resource-type-auth-jwt-consumer',
         'kapeta/resource-type-cloud-bucket',
+        'kapeta/resource-type-rabbitmq-subscriber',
+        'kapeta/resource-type-rabbitmq-publisher',
     ],
     definition: kapetaDefinition,
     editorComponent: JavaTargetConfig,

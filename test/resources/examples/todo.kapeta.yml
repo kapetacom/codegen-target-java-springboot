@@ -94,6 +94,15 @@ spec:
           name: http
           type: http
   providers:
+    - kind: kapeta/resource-type-rabbitmq-publisher:local
+      metadata:
+        name: logs
+      spec:
+        port:
+          name: amqp
+          type: amqp
+        payloadType:
+          type: Task
     - kind: kapeta/resource-type-rest-api:0.0.2
       metadata:
         name: tasks
