@@ -12,7 +12,7 @@ import {{packageName options.basePackage}}.dto.{{class data.spec.payloadType.typ
 @Component
 public class {{class data.metadata.name type=true}}Publisher extends RabbitPublisher<{{class data.spec.payloadType.type}}> {
 
-    public {{class data.metadata.name type=true}}Publisher(RabbitMQProvider {{camelCase data.metadata.name}}Provider) {
+    public {{class data.metadata.name type=true}}Publisher(RabbitMQProvider<{{class data.spec.payloadType.type}}> {{camelCase data.metadata.name}}Provider) {
         super({{camelCase data.metadata.name}}Provider.getTemplate(), {{camelCase data.metadata.name}}Provider.getTargetedExchangeNames());
     }
 

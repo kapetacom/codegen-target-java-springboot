@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogsPublisher extends RabbitPublisher<Task> {
 
-    public LogsPublisher(RabbitMQProvider logsProvider) {
+    public LogsPublisher(RabbitMQProvider<Task> logsProvider) {
         super(
             logsProvider.getTemplate(),
             logsProvider.getTargetedExchangeNames()
