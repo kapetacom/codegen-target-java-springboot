@@ -102,4 +102,61 @@ Read more here:
 https://gitlab.com/sorenmat/gosmtpd
 
 {{/consumes}}
+{{#consumes 'kapeta/resource-type-rabbitmq-subscriber'}}
+## RabbitMQ Subscriber
+To consume messages from a RabbitMQ queue a consumer is generated for you for each resource.
 
+Implement the subscriber interface in a component to consume from a queue
+
+Below is an example of how to use the consumer to listen for messages on the queue:
+```java
+package com.example.queue;
+
+import com.example.dto.EventDTO;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.messaging.Message;
+import org.springframework.stereotype.Component;
+
+@Slf4j
+@Component
+public class EventsSubscriber implements IEventsSubscriber {
+
+  @Override
+  public void onMessage(Message<EventDTO> message) {
+    log.warn("Received message from events using example handler: {}", message);
+  }
+}
+```
+{{/consumes}}
+{{#provides 'kapeta/resource-type-rabbitmq-publisher'}}
+## RabbitMQ Publisher
+To publish messages to the RabbitMQ queue a publisher is generated for you for each resource.
+
+Use the publisher bean relevant for the exchange you want to publish to
+
+Below is an example of how to use the publisher to publish a message to one or more exchanges:
+```java
+package com.pub.service;
+
+import com.pub.dto.EventDTO;
+import com.pub.queue.EventsPublisher;
+import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+
+@Service
+public class SomeService {
+
+  private final EventsPublisher eventsPublisher;
+
+  public SomeService(EventsPublisher eventsPublisher) {
+    this.eventsPublisher = eventsPublisher;
+  }
+
+  public void doPublish(EventDTO event) {
+    eventsPublisher.publish(event);
+  }
+}
+
+```
+{{/provides}}

@@ -1,6 +1,3 @@
-/**
- * GENERATED SOURCE - DO NOT EDIT
- */
 package org.mycompany.services.todo.queue;
 
 import lombok.extern.slf4j.Slf4j;

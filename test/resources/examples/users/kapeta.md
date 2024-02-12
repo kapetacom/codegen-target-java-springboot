@@ -68,4 +68,27 @@ It has a web interface and API where you can see the e-mails that would have bee
 Read more here:
 https://gitlab.com/sorenmat/gosmtpd
 
+## RabbitMQ Subscriber
+To consume messages from a RabbitMQ queue a consumer is generated for you for each resource.
 
+Implement the subscriber interface in a component to consume from a queue
+
+Below is an example of how to use the consumer to listen for messages on the queue:
+```java
+package com.example.queue;
+
+import com.example.dto.EventDTO;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.messaging.Message;
+import org.springframework.stereotype.Component;
+
+@Slf4j
+@Component
+public class EventsSubscriber implements IEventsSubscriber {
+
+  @Override
+  public void onMessage(Message<EventDTO> message) {
+    log.warn("Received message from events using example handler: {}", message);
+  }
+}
+```

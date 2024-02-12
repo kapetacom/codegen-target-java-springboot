@@ -1,7 +1,4 @@
 //#FILENAME:src/main/java/{{packagePath options.basePackage}}/queue/{{class data.metadata.name type=true}}Subscriber.java:write-always
-/**
- * GENERATED SOURCE - DO NOT EDIT
- */
 package {{packageName options.basePackage}}.queue;
 
 import lombok.extern.slf4j.Slf4j;
