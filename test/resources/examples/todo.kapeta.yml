@@ -103,6 +103,15 @@ spec:
           type: amqp
         payloadType:
           type: Task
+    - kind: kapeta/resource-type-pubsub-publisher:local
+      metadata:
+        name: pubsubpublisher
+      spec:
+        port:
+          name: http
+          type: http
+        payloadType:
+          type: UserAuth
     - kind: kapeta/resource-type-rest-api:0.0.2
       metadata:
         name: tasks

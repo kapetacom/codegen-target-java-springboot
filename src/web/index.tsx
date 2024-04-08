@@ -83,6 +83,8 @@ const targetConfig: ILanguageTargetProvider<JavaTargetConfigOptions> = {
         'kapeta/resource-type-cloud-bucket',
         'kapeta/resource-type-rabbitmq-subscriber',
         'kapeta/resource-type-rabbitmq-publisher',
+        'kapeta/resource-type-pubsub-publisher',
+        'kapeta/resource-type-pubsub-subscriber',
     ],
     definition: kapetaDefinition,
     editorComponent: JavaTargetConfig,

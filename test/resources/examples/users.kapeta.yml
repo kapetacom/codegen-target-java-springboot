@@ -82,6 +82,15 @@ spec:
         name: cloudbucket
       spec:
         bucketname: mybucket
+    - kind: kapeta/resource-type-pubsub-subscriber:local
+      metadata:
+        name: pubsubsubscription
+      spec:
+        port:
+          name: http
+          type: http
+        payloadType:
+          type: UserAuth
   providers:
     - kind: kapeta/resource-type-rest-api:0.0.4
       metadata:
