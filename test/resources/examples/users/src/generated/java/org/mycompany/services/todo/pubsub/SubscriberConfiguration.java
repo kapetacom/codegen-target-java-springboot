@@ -15,13 +15,13 @@ public class SubscriberConfiguration {
     @Bean
     public KapetaPubSubSubscriptionManager<
         UserAuthDTO
-    > userAuthSubscriptionManager(
+    > userAuthsSubscriptionManager(
         KapetaConfigurationProvider kapetaConfigurationProvider,
-        IUserAuthSubscriber subscriber
+        IUserAuthsSubscriber subscriber
     ) {
         return new KapetaPubSubSubscriptionManager<>(
             kapetaConfigurationProvider,
-            "pubsubsubscription",
+            "userAuths",
             UserAuthDTO.class,
             subscriber::onMessage
         );

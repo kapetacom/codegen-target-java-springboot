@@ -84,7 +84,7 @@ spec:
         bucketname: mybucket
     - kind: kapeta/resource-type-pubsub-subscriber:local
       metadata:
-        name: pubsubsubscription
+        name: userAuths
       spec:
         port:
           name: http

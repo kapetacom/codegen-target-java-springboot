@@ -16,8 +16,8 @@ import java.io.IOException;
 public class PublisherConfiguration {
 
     {{#providers-of-type 'kapeta/resource-type-pubsub-publisher'}}
-        @Bean("{{camelCase this.spec.payloadType.type}}PublisherTemplate")
-        public KapetaPubSubPublisherTemplate<{{this.spec.payloadType.type}}DTO> {{camelCase this.spec.payloadType.type}}PublisherTemplate(PubSubPublisherTemplate publisherTemplate, KapetaConfigurationProvider kapetaConfigurationProvider) throws IOException {
+        @Bean("{{camelCase this.metadata.name}}PublisherTemplate")
+        public KapetaPubSubPublisherTemplate<{{this.spec.payloadType.type}}DTO> {{camelCase this.metadata.name}}PublisherTemplate(PubSubPublisherTemplate publisherTemplate, KapetaConfigurationProvider kapetaConfigurationProvider) throws IOException {
             return new KapetaPubSubPublisherTemplate<>(publisherTemplate, kapetaConfigurationProvider, "{{this.metadata.name}}");
         }
     {{/providers-of-type}}

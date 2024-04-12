@@ -15,8 +15,8 @@ public class SubscriberConfiguration {
     {{#consumers-of-type 'kapeta/resource-type-pubsub-subscriber'}}
     @Bean
     public KapetaPubSubSubscriptionManager<{{this.spec.payloadType.type}}DTO>
-        {{camelCase this.spec.payloadType.type}}SubscriptionManager(KapetaConfigurationProvider kapetaConfigurationProvider,
-                                                                    I{{this.spec.payloadType.type}}Subscriber subscriber) {
+        {{camelCase this.metadata.name}}SubscriptionManager(KapetaConfigurationProvider kapetaConfigurationProvider,
+                                                                    I{{pascalCase this.metadata.name}}Subscriber subscriber) {
         return new KapetaPubSubSubscriptionManager<>(kapetaConfigurationProvider, "{{this.metadata.name}}", {{this.spec.payloadType.type}}DTO.class, subscriber::onMessage);
     }
     {{/consumers-of-type}}

@@ -14,15 +14,17 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class PublisherConfiguration {
 
-    @Bean("userAuthPublisherTemplate")
-    public KapetaPubSubPublisherTemplate<UserAuthDTO> userAuthPublisherTemplate(
+    @Bean("userAuthsPublisherTemplate")
+    public KapetaPubSubPublisherTemplate<
+        UserAuthDTO
+    > userAuthsPublisherTemplate(
         PubSubPublisherTemplate publisherTemplate,
         KapetaConfigurationProvider kapetaConfigurationProvider
     ) throws IOException {
         return new KapetaPubSubPublisherTemplate<>(
             publisherTemplate,
             kapetaConfigurationProvider,
-            "pubsubpublisher"
+            "userAuths"
         );
     }
 }

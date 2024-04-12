@@ -105,7 +105,7 @@ spec:
           type: Task
     - kind: kapeta/resource-type-pubsub-publisher:local
       metadata:
-        name: pubsubpublisher
+        name: userAuths
       spec:
         port:
           name: http
