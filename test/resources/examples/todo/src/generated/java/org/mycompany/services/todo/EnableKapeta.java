@@ -3,6 +3,7 @@
  */
 package org.mycompany.services.todo;
 
+import com.kapeta.spring.annotation.KapetaEnableGooglePubSub;
 import com.kapeta.spring.annotation.KapetaEnableMongoDB;
 import com.kapeta.spring.annotation.KapetaEnableRabbitMQ;
 import com.kapeta.spring.annotation.KapetaEnableRestClient;
@@ -21,5 +22,6 @@ import java.lang.annotation.*;
 @KapetaEnableMongoDB
 @KapetaEnableSecurityConsumerConfig
 @KapetaEnableRabbitMQ
+@KapetaEnableGooglePubSub
 public @interface EnableKapeta {
 }

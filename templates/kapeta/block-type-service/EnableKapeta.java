@@ -31,6 +31,9 @@ import com.kapeta.spring.annotation.KapetaEnableSecurityProviderConfig;
 {{#usesAnyOf (toArray 'kapeta/resource-type-rabbitmq-publisher' 'kapeta/resource-type-rabbitmq-subscriber') }}
 import com.kapeta.spring.annotation.KapetaEnableRabbitMQ;
 {{/usesAnyOf}}
+{{#usesAnyOf (toArray 'kapeta/resource-type-pubsub-publisher' 'kapeta/resource-type-pubsub-subscriber') }}
+import com.kapeta.spring.annotation.KapetaEnableGooglePubSub;
+{{/usesAnyOf}}
 
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
@@ -81,6 +84,9 @@ import com.kapeta.spring.annotation.KapetaEnableRabbitMQ;
 {{/provides}}
 {{#usesAnyOf (toArray 'kapeta/resource-type-rabbitmq-publisher' 'kapeta/resource-type-rabbitmq-subscriber') }}
 @KapetaEnableRabbitMQ
+{{/usesAnyOf}}
+{{#usesAnyOf (toArray 'kapeta/resource-type-pubsub-publisher' 'kapeta/resource-type-pubsub-subscriber') }}
+@KapetaEnableGooglePubSub
 {{/usesAnyOf}}
 public @interface EnableKapeta {
 }
