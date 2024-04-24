@@ -1,4 +1,4 @@
-//#FILENAME:src/generated/java/{{packagePath options.basePackage}}/pubsub/PublisherConfiguration.java:write-always
+//#FILENAME:src/generated/java/{{packagePath options.basePackage}}/pubsub/{{class data.metadata.name type=true}}PublisherConfiguration.java:write-always
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
@@ -13,12 +13,10 @@ import org.springframework.context.annotation.Configuration;
 import java.io.IOException;
 
 @Configuration
-public class PublisherConfiguration {
+public class {{class data.metadata.name type=true}}PublisherConfiguration {
 
-    {{#providers-of-type 'kapeta/resource-type-pubsub-publisher'}}
-        @Bean("{{camelCase this.metadata.name}}PublisherTemplate")
-        public KapetaPubSubPublisherTemplate<{{this.spec.payloadType.type}}DTO> {{camelCase this.metadata.name}}PublisherTemplate(PubSubPublisherTemplate publisherTemplate, KapetaConfigurationProvider kapetaConfigurationProvider) throws IOException {
-            return new KapetaPubSubPublisherTemplate<>(publisherTemplate, kapetaConfigurationProvider, "{{this.metadata.name}}");
-        }
-    {{/providers-of-type}}
+    @Bean("{{camelCase data.metadata.name}}PublisherTemplate")
+    public KapetaPubSubPublisherTemplate<{{class data.spec.payloadType.type}}> {{camelCase data.metadata.name}}PublisherTemplate(PubSubPublisherTemplate publisherTemplate, KapetaConfigurationProvider kapetaConfigurationProvider) throws IOException {
+        return new KapetaPubSubPublisherTemplate<>(publisherTemplate, kapetaConfigurationProvider, "{{data.metadata.name}}");
+    }
 }

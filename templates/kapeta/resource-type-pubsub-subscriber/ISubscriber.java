@@ -4,8 +4,8 @@
  */
 package {{packageName options.basePackage}}.pubsub;
 
-import {{packageName options.basePackage}}.dto.{{data.spec.payloadType.type}}DTO;
+import {{packageName options.basePackage}}.dto.*;
 
 public interface I{{pascalCase data.metadata.name}}Subscriber {
-    void onMessage({{data.spec.payloadType.type}}DTO {{camelCase data.spec.payloadType.type}}DTO) throws Exception;
+    void onMessage({{class data.spec.payloadType.type}} event) throws Exception;
 }

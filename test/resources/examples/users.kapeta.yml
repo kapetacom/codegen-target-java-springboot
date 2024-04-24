@@ -27,6 +27,17 @@ spec:
           }
 
   entities:
+    types:
+      - name: User
+        type: dto
+      - name: FileContent
+        type: dto
+      - name: Artifact
+        type: dto
+      - name: FileArtifact
+        type: dto
+      - name: UserAuth
+        type: dto
     source:
       type: kapeta-dsl
       value: |-
@@ -64,6 +75,15 @@ spec:
   consumers:
     - kind: kapeta/resource-type-rabbitmq-subscriber:local
       metadata:
+        name: anyEvents
+      spec:
+        payloadType:
+          type: any
+        port:
+          name: amqp
+          type: amqp
+    - kind: kapeta/resource-type-rabbitmq-subscriber:local
+      metadata:
         name: events
       spec:
         payloadType:
@@ -91,6 +111,15 @@ spec:
           type: http
         payloadType:
           type: UserAuth
+    - kind: kapeta/resource-type-pubsub-subscriber:local
+      metadata:
+        name: anyPubSub
+      spec:
+        port:
+          name: http
+          type: http
+        payloadType:
+          type: any
   providers:
     - kind: kapeta/resource-type-rest-api:0.0.4
       metadata:

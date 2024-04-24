@@ -4,10 +4,10 @@ import org.mycompany.services.todo.dto.*;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserAuthsSubscriber implements IUserAuthsSubscriber {
+public class AnyPubSubSubscriber implements IAnyPubSubSubscriber {
 
     @Override
-    public void onMessage(UserAuthDTO event) throws Exception {
+    public void onMessage(Object event) throws Exception {
         throw new RuntimeException("Not implemented");
     }
 }
