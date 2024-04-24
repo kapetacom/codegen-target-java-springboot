@@ -9,6 +9,19 @@ spec:
       groupId: org.mycompany.services
       artifactId: todo
   entities:
+    types:
+      - name: TaskType
+        type: enum
+      - name: Idable
+        type: dto
+      - name: Task
+        type: dto
+      - name: User
+        type: dto
+      - name: TaskList
+        type: dto
+      - name: UserAuth
+        type: dto
     source:
       type: kapeta-dsl
       value: |-
@@ -112,6 +125,15 @@ spec:
           type: http
         payloadType:
           type: UserAuth
+    - kind: kapeta/resource-type-pubsub-publisher:local
+      metadata:
+        name: anyPubSub
+      spec:
+        port:
+          name: http
+          type: http
+        payloadType:
+          type: any
     - kind: kapeta/resource-type-rest-api:0.0.2
       metadata:
         name: tasks

@@ -1,18 +1,18 @@
 package org.mycompany.services.todo.queue;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mycompany.services.todo.dto.UserDTO;
+import org.mycompany.services.todo.dto.Object;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class EventsSubscriber implements IEventsSubscriber {
+public class AnyEventsSubscriber implements IAnyEventsSubscriber {
 
     @Override
-    public void onMessage(Message<UserDTO> message) {
+    public void onMessage(Message<Object> message) {
         log.warn(
-            "Received message from events using example handler: {}",
+            "Received message from anyEvents using example handler: {}",
             message
         );
     }

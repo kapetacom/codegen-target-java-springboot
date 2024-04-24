@@ -4,6 +4,6 @@
 package org.mycompany.services.todo.queue;
 
 import com.kapeta.spring.rabbitmq.KapetaMessageListener;
-import org.mycompany.services.todo.dto.UserDTO;
+import org.mycompany.services.todo.dto.Object;
 
-public interface IEventsSubscriber extends KapetaMessageListener<UserDTO> {}
+public interface IAnyEventsSubscriber extends KapetaMessageListener<Object> {}
