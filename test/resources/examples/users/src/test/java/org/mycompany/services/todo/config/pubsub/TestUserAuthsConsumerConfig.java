@@ -49,7 +49,7 @@ public class TestUserAuthsConsumerConfig {
         out.getConsumer().setBlockId(instanceId);
         out.getConsumer().setResourceName("userAuths");
         out.getProvider().setBlockId(pubSubBlockId);
-        out.getProvider().setResourceName("userAuths-topic");
+        out.getProvider().setResourceName("userAuths-subscription");
         return out;
     }
 

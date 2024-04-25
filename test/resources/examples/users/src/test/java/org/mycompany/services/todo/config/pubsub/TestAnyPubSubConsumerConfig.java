@@ -49,7 +49,7 @@ public class TestAnyPubSubConsumerConfig {
         out.getConsumer().setBlockId(instanceId);
         out.getConsumer().setResourceName("anyPubSub");
         out.getProvider().setBlockId(pubSubBlockId);
-        out.getProvider().setResourceName("anyPubSub-topic");
+        out.getProvider().setResourceName("anyPubSub-subscription");
         return out;
     }
 
