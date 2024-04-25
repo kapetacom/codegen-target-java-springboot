@@ -19,13 +19,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class AnyPubSubProviderConfig {
+public class TestUserAuthsProviderConfig {
 
     @Bean
-    public TestConfigProvider.TestConfigurationAdjuster pubsubAnyPubSubProviderConfig() {
+    public TestConfigProvider.TestConfigurationAdjuster pubsubUserAuthsProviderConfig() {
         return provider ->
             provider.withProviderInstances(
-                "anyPubSub",
+                "userAuths",
                 Arrays.asList(
                     BlockInstanceDetails
                         .fromBlock(createPubSubBlockDefinition())
@@ -39,7 +39,7 @@ public class AnyPubSubProviderConfig {
         var out = new PubSubBlockDefinition();
         out.setKind("kapeta/block-type-pubsub");
         out.setMetadata(new Metadata());
-        out.getMetadata().setName("test/anyPubSub");
+        out.getMetadata().setName("test/userAuths");
         out.setSpec(new PubSubBlockSpec());
         out.getSpec().setConsumers(new ArrayList<>());
         out.getSpec().setProviders(new ArrayList<>());
@@ -47,16 +47,16 @@ public class AnyPubSubProviderConfig {
         var consumer = new PubSubProviderConsumer();
         consumer.setSpec(new PubSubTopicSubscriptionSpec());
         consumer.setMetadata(new ResourceMetadata());
-        consumer.getMetadata().setName("anyPubSub");
-        consumer.getSpec().setTopic("anyPubSub-topic");
+        consumer.getMetadata().setName("userAuths");
+        consumer.getSpec().setTopic("userAuths-topic");
         out.getSpec().getConsumers().add(consumer);
 
         var provider = new PubSubProviderConsumer();
         provider.setSpec(new PubSubTopicSubscriptionSpec());
         provider.setMetadata(new ResourceMetadata());
-        provider.getMetadata().setName("anyPubSub");
-        provider.getSpec().setTopic("anyPubSub-topic");
-        provider.getSpec().setSubscription("anyPubSub-subscription");
+        provider.getMetadata().setName("userAuths");
+        provider.getSpec().setTopic("userAuths-topic");
+        provider.getSpec().setSubscription("userAuths-subscription");
         out.getSpec().getProviders().add(provider);
         return out;
     }

@@ -1,4 +1,4 @@
-//#FILENAME:src/test/java/{{packagePath options.basePackage}}/config/postgres/{{class data.metadata.name type=true}}Config.java:write-once
+//#FILENAME:src/test/java/{{packagePath options.basePackage}}/config/postgres/Test{{class data.metadata.name type=true}}Config.java:create-only
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
@@ -10,7 +10,7 @@ import com.kapeta.spring.config.providers.TestConfigProvider;
 import com.kapeta.spring.config.providers.types.ResourceInfo;
 
 @Configuration
-public class {{class data.metadata.name type=true}}Config  {
+public class Test{{class data.metadata.name type=true}}Config  {
 
     @Bean
     public TestConfigProvider.TestConfigurationAdjuster postgres{{class data.metadata.name type=true}}Config() {

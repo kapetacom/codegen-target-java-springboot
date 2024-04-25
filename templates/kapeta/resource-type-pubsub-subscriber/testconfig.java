@@ -1,4 +1,4 @@
-//#FILENAME:src/test/java/{{packagePath options.basePackage}}/config/pubsub/{{class data.metadata.name type=true}}ConsumerConfig.java:write-once
+//#FILENAME:src/test/java/{{packagePath options.basePackage}}/config/pubsub/Test{{class data.metadata.name type=true}}ConsumerConfig.java:create-only
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import com.kapeta.schemas.entity.Connection;
 import com.kapeta.schemas.entity.Metadata;
+import com.kapeta.schemas.entity.Endpoint;
 import com.kapeta.schemas.entity.ResourceMetadata;
 import com.kapeta.spring.config.providers.TestConfigProvider;
 import com.kapeta.spring.config.providers.types.BlockInstanceDetails;
@@ -20,17 +21,31 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 @Configuration
-public class {{class data.metadata.name type=true}}ConsumerConfig  {
+public class Test{{class data.metadata.name type=true}}ConsumerConfig  {
 
     @Bean
     public TestConfigProvider.TestConfigurationAdjuster pubsub{{class data.metadata.name type=true}}ConsumerConfig() {
+        var pubSubBlockId = UUID.randomUUID().toString();
         return provider -> provider
                 .withConsumerInstance("{{string data.metadata.name}}",
                         BlockInstanceDetails.fromBlock(createPubSubBlockDefinition())
-                                .withInstanceId(UUID.randomUUID().toString())
-                                .withConnection(new Connection())
+                                .withInstanceId(pubSubBlockId)
+                                .withConnection(createConnection(provider.getInstanceId(), pubSubBlockId))
                 );
 
+    }
+
+
+
+    private Connection createConnection(String instanceId, String pubSubBlockId) {
+        var out = new Connection();
+        out.setConsumer(new Endpoint());
+        out.setProvider(new Endpoint());
+        out.getConsumer().setBlockId(instanceId);
+        out.getConsumer().setResourceName("{{string data.metadata.name}}");
+        out.getProvider().setBlockId(pubSubBlockId);
+        out.getProvider().setResourceName("{{string data.metadata.name}}-subscription");
+        return out;
     }
 
     private PubSubBlockDefinition createPubSubBlockDefinition() {
@@ -45,7 +60,7 @@ public class {{class data.metadata.name type=true}}ConsumerConfig  {
         var consumer = new PubSubProviderConsumer();
         consumer.setSpec(new PubSubTopicSubscriptionSpec());
         consumer.setMetadata(new ResourceMetadata());
-        consumer.getMetadata().setName("{{string data.metadata.name}}");
+        consumer.getMetadata().setName("{{string data.metadata.name}}-topic");
         consumer.getSpec().setTopic("{{string data.metadata.name}}-topic");
         consumer.getSpec().setSubscription("{{string data.metadata.name}}-subscription");
         out.getSpec().getConsumers().add(consumer);
@@ -53,7 +68,7 @@ public class {{class data.metadata.name type=true}}ConsumerConfig  {
         var provider = new PubSubProviderConsumer();
         provider.setSpec(new PubSubTopicSubscriptionSpec());
         provider.setMetadata(new ResourceMetadata());
-        provider.getMetadata().setName("{{string data.metadata.name}}");
+        provider.getMetadata().setName("{{string data.metadata.name}}-subscription");
         provider.getSpec().setTopic("{{string data.metadata.name}}-topic");
         provider.getSpec().setSubscription("{{string data.metadata.name}}-subscription");
         out.getSpec().getProviders().add(provider);

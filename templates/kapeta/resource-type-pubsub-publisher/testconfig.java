@@ -1,4 +1,4 @@
-//#FILENAME:src/test/java/{{packagePath options.basePackage}}/config/pubsub/{{class data.metadata.name type=true}}ProviderConfig.java:write-once
+//#FILENAME:src/test/java/{{packagePath options.basePackage}}/config/pubsub/Test{{class data.metadata.name type=true}}ProviderConfig.java:create-only
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.UUID;
 
 @Configuration
-public class {{class data.metadata.name type=true}}ProviderConfig  {
+public class Test{{class data.metadata.name type=true}}ProviderConfig  {
 
     @Bean
     public TestConfigProvider.TestConfigurationAdjuster pubsub{{class data.metadata.name type=true}}ProviderConfig() {

@@ -1,7 +1,7 @@
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
-package org.mycompany.services.todo.config.postgres;
+package org.mycompany.services.todo.config.mongodb;
 
 import com.kapeta.spring.config.providers.TestConfigProvider;
 import com.kapeta.spring.config.providers.types.ResourceInfo;
@@ -9,20 +9,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class UsersdbConfig {
+public class TestTodoDbConfig {
 
     @Bean
-    public TestConfigProvider.TestConfigurationAdjuster postgresUsersdbConfig() {
+    public TestConfigProvider.TestConfigurationAdjuster mongoTodoDbConfig() {
         return provider ->
             provider.withResourceInfo(
-                "usersdb",
-                "postgres",
+                "todo-db",
+                "mongodb",
                 new ResourceInfo()
                     .withHost("localhost")
-                    .withPort("5432")
+                    .withPort("27017")
                     .withCredential("username", "root")
                     .withCredential("password", "root")
-                    .withResource("usersdb")
+                    .withResource("todo-db")
             );
     }
 }

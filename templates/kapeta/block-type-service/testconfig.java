@@ -1,4 +1,4 @@
-//#FILENAME:src/test/java/{{packagePath options.basePackage}}/config/BaseConfig.java:write-once
+//#FILENAME:src/test/java/{{packagePath options.basePackage}}/config/TestBaseConfig.java:create-only
 package {{packageName options.basePackage}}.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +15,6 @@ import com.kapeta.spring.annotation.KapetaTestContext;
  */
 @Configuration
 @KapetaTestContext
-public class BaseConfig  {
+public class TestBaseConfig  {
 
 }

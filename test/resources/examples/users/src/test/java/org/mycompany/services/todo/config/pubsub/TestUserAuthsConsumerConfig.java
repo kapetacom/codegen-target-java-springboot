@@ -4,6 +4,7 @@
 package org.mycompany.services.todo.config.pubsub;
 
 import com.kapeta.schemas.entity.Connection;
+import com.kapeta.schemas.entity.Endpoint;
 import com.kapeta.schemas.entity.Metadata;
 import com.kapeta.schemas.entity.ResourceMetadata;
 import com.kapeta.spring.config.providers.TestConfigProvider;
@@ -13,26 +14,43 @@ import com.kapeta.spring.pubsub.types.PubSubBlockSpec;
 import com.kapeta.spring.pubsub.types.PubSubProviderConsumer;
 import com.kapeta.spring.pubsub.types.PubSubTopicSubscriptionSpec;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.UUID;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class UserAuthsProviderConfig {
+public class TestUserAuthsConsumerConfig {
 
     @Bean
-    public TestConfigProvider.TestConfigurationAdjuster pubsubUserAuthsProviderConfig() {
+    public TestConfigProvider.TestConfigurationAdjuster pubsubUserAuthsConsumerConfig() {
+        var pubSubBlockId = UUID.randomUUID().toString();
         return provider ->
-            provider.withProviderInstances(
+            provider.withConsumerInstance(
                 "userAuths",
-                Arrays.asList(
-                    BlockInstanceDetails
-                        .fromBlock(createPubSubBlockDefinition())
-                        .withInstanceId(UUID.randomUUID().toString())
-                        .withConnection(new Connection())
-                )
+                BlockInstanceDetails
+                    .fromBlock(createPubSubBlockDefinition())
+                    .withInstanceId(pubSubBlockId)
+                    .withConnection(
+                        createConnection(
+                            provider.getInstanceId(),
+                            pubSubBlockId
+                        )
+                    )
             );
+    }
+
+    private Connection createConnection(
+        String instanceId,
+        String pubSubBlockId
+    ) {
+        var out = new Connection();
+        out.setConsumer(new Endpoint());
+        out.setProvider(new Endpoint());
+        out.getConsumer().setBlockId(instanceId);
+        out.getConsumer().setResourceName("userAuths");
+        out.getProvider().setBlockId(pubSubBlockId);
+        out.getProvider().setResourceName("userAuths-topic");
+        return out;
     }
 
     private PubSubBlockDefinition createPubSubBlockDefinition() {
@@ -47,14 +65,15 @@ public class UserAuthsProviderConfig {
         var consumer = new PubSubProviderConsumer();
         consumer.setSpec(new PubSubTopicSubscriptionSpec());
         consumer.setMetadata(new ResourceMetadata());
-        consumer.getMetadata().setName("userAuths");
+        consumer.getMetadata().setName("userAuths-topic");
         consumer.getSpec().setTopic("userAuths-topic");
+        consumer.getSpec().setSubscription("userAuths-subscription");
         out.getSpec().getConsumers().add(consumer);
 
         var provider = new PubSubProviderConsumer();
         provider.setSpec(new PubSubTopicSubscriptionSpec());
         provider.setMetadata(new ResourceMetadata());
-        provider.getMetadata().setName("userAuths");
+        provider.getMetadata().setName("userAuths-subscription");
         provider.getSpec().setTopic("userAuths-topic");
         provider.getSpec().setSubscription("userAuths-subscription");
         out.getSpec().getProviders().add(provider);

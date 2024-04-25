@@ -14,4 +14,4 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @KapetaTestContext
-public class BaseConfig {}
+public class TestBaseConfig {}

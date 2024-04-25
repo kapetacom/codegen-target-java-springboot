@@ -4,6 +4,7 @@
 package org.mycompany.services.todo.config.pubsub;
 
 import com.kapeta.schemas.entity.Connection;
+import com.kapeta.schemas.entity.Endpoint;
 import com.kapeta.schemas.entity.Metadata;
 import com.kapeta.schemas.entity.ResourceMetadata;
 import com.kapeta.spring.config.providers.TestConfigProvider;
@@ -18,18 +19,38 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class AnyPubSubConsumerConfig {
+public class TestAnyPubSubConsumerConfig {
 
     @Bean
     public TestConfigProvider.TestConfigurationAdjuster pubsubAnyPubSubConsumerConfig() {
+        var pubSubBlockId = UUID.randomUUID().toString();
         return provider ->
             provider.withConsumerInstance(
                 "anyPubSub",
                 BlockInstanceDetails
                     .fromBlock(createPubSubBlockDefinition())
-                    .withInstanceId(UUID.randomUUID().toString())
-                    .withConnection(new Connection())
+                    .withInstanceId(pubSubBlockId)
+                    .withConnection(
+                        createConnection(
+                            provider.getInstanceId(),
+                            pubSubBlockId
+                        )
+                    )
             );
+    }
+
+    private Connection createConnection(
+        String instanceId,
+        String pubSubBlockId
+    ) {
+        var out = new Connection();
+        out.setConsumer(new Endpoint());
+        out.setProvider(new Endpoint());
+        out.getConsumer().setBlockId(instanceId);
+        out.getConsumer().setResourceName("anyPubSub");
+        out.getProvider().setBlockId(pubSubBlockId);
+        out.getProvider().setResourceName("anyPubSub-topic");
+        return out;
     }
 
     private PubSubBlockDefinition createPubSubBlockDefinition() {
@@ -44,7 +65,7 @@ public class AnyPubSubConsumerConfig {
         var consumer = new PubSubProviderConsumer();
         consumer.setSpec(new PubSubTopicSubscriptionSpec());
         consumer.setMetadata(new ResourceMetadata());
-        consumer.getMetadata().setName("anyPubSub");
+        consumer.getMetadata().setName("anyPubSub-topic");
         consumer.getSpec().setTopic("anyPubSub-topic");
         consumer.getSpec().setSubscription("anyPubSub-subscription");
         out.getSpec().getConsumers().add(consumer);
@@ -52,7 +73,7 @@ public class AnyPubSubConsumerConfig {
         var provider = new PubSubProviderConsumer();
         provider.setSpec(new PubSubTopicSubscriptionSpec());
         provider.setMetadata(new ResourceMetadata());
-        provider.getMetadata().setName("anyPubSub");
+        provider.getMetadata().setName("anyPubSub-subscription");
         provider.getSpec().setTopic("anyPubSub-topic");
         provider.getSpec().setSubscription("anyPubSub-subscription");
         out.getSpec().getProviders().add(provider);
