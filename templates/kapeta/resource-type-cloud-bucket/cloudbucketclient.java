@@ -4,10 +4,6 @@
  */
 package {{packageName options.basePackage}}.clients;
 
-
-import io.minio.GetObjectArgs;
-import io.minio.PutObjectArgs;
-import io.minio.MinioClient;
 import com.kapeta.spring.cloudbucket.CloudBucketClientFactory;
 import org.springframework.stereotype.Component;
 
