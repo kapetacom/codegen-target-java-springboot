@@ -10,6 +10,9 @@ import com.kapeta.spring.annotation.KapetaSpringApplication;
 {{#provides 'kapeta/resource-type-rest-api'}}
 import com.kapeta.spring.annotation.KapetaEnableRestResource;
 {{/provides}}
+{{#provides 'kapeta/resource-type-cloud-bucket'}}
+import com.kapeta.spring.annotation.KapetaEnableCloudBucket;
+{{/provides}}
 {{#consumes 'kapeta/resource-type-rest-client'}}
 import com.kapeta.spring.annotation.KapetaEnableRestClient;
 {{/consumes}}
