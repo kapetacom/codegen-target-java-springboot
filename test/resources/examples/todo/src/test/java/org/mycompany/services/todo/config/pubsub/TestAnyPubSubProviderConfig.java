@@ -4,6 +4,7 @@
 package org.mycompany.services.todo.config.pubsub;
 
 import com.kapeta.schemas.entity.Connection;
+import com.kapeta.schemas.entity.Endpoint;
 import com.kapeta.schemas.entity.Metadata;
 import com.kapeta.schemas.entity.ResourceMetadata;
 import com.kapeta.spring.config.providers.TestConfigProvider;
@@ -30,9 +31,19 @@ public class TestAnyPubSubProviderConfig {
                     BlockInstanceDetails
                         .fromBlock(createPubSubBlockDefinition())
                         .withInstanceId(UUID.randomUUID().toString())
-                        .withConnection(new Connection())
+                        .withConnection(createConnection())
                 )
             );
+    }
+
+    private Connection createConnection() {
+        var out = new Connection();
+        out.setProvider(new Endpoint());
+        out.setConsumer(new Endpoint());
+
+        out.getProvider().setResourceName("anyPubSub");
+        out.getConsumer().setResourceName("anyPubSubTopic");
+        return out;
     }
 
     private PubSubBlockDefinition createPubSubBlockDefinition() {
@@ -47,14 +58,14 @@ public class TestAnyPubSubProviderConfig {
         var consumer = new PubSubProviderConsumer();
         consumer.setSpec(new PubSubTopicSubscriptionSpec());
         consumer.setMetadata(new ResourceMetadata());
-        consumer.getMetadata().setName("anyPubSub");
+        consumer.getMetadata().setName("anyPubSubTopic");
         consumer.getSpec().setTopic("anyPubSub-topic");
         out.getSpec().getConsumers().add(consumer);
 
         var provider = new PubSubProviderConsumer();
         provider.setSpec(new PubSubTopicSubscriptionSpec());
         provider.setMetadata(new ResourceMetadata());
-        provider.getMetadata().setName("anyPubSub");
+        provider.getMetadata().setName("anyPubSubSubscription");
         provider.getSpec().setTopic("anyPubSub-topic");
         provider.getSpec().setSubscription("anyPubSub-subscription");
         out.getSpec().getProviders().add(provider);

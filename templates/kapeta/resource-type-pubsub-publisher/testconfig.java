@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import com.kapeta.schemas.entity.Connection;
 import com.kapeta.schemas.entity.Metadata;
+import com.kapeta.schemas.entity.Endpoint;
 import com.kapeta.schemas.entity.ResourceMetadata;
 import com.kapeta.spring.config.providers.TestConfigProvider;
 import com.kapeta.spring.config.providers.types.BlockInstanceDetails;
@@ -29,9 +30,18 @@ public class Test{{class data.metadata.name type=true}}ProviderConfig  {
                 .withProviderInstances("{{string data.metadata.name}}", Arrays.asList(
                         BlockInstanceDetails.fromBlock(createPubSubBlockDefinition())
                                 .withInstanceId(UUID.randomUUID().toString())
-                                .withConnection(new Connection())
+                                .withConnection(createConnection())
                 ));
+    }
 
+    private Connection createConnection() {
+        var out = new Connection();
+        out.setProvider(new Endpoint());
+        out.setConsumer(new Endpoint());
+
+        out.getProvider().setResourceName("{{string data.metadata.name}}");
+        out.getConsumer().setResourceName("{{string data.metadata.name}}Topic");
+        return out;
     }
 
     private PubSubBlockDefinition createPubSubBlockDefinition() {
@@ -46,14 +56,14 @@ public class Test{{class data.metadata.name type=true}}ProviderConfig  {
         var consumer = new PubSubProviderConsumer();
         consumer.setSpec(new PubSubTopicSubscriptionSpec());
         consumer.setMetadata(new ResourceMetadata());
-        consumer.getMetadata().setName("{{string data.metadata.name}}");
+        consumer.getMetadata().setName("{{string data.metadata.name}}Topic");
         consumer.getSpec().setTopic("{{string data.metadata.name}}-topic");
         out.getSpec().getConsumers().add(consumer);
 
         var provider = new PubSubProviderConsumer();
         provider.setSpec(new PubSubTopicSubscriptionSpec());
         provider.setMetadata(new ResourceMetadata());
-        provider.getMetadata().setName("{{string data.metadata.name}}");
+        provider.getMetadata().setName("{{string data.metadata.name}}Subscription");
         provider.getSpec().setTopic("{{string data.metadata.name}}-topic");
         provider.getSpec().setSubscription("{{string data.metadata.name}}-subscription");
         out.getSpec().getProviders().add(provider);
