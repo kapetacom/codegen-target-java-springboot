@@ -2,7 +2,7 @@
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
-package {{packageName options.basePackage}}.clients.cloudbuckets;
+package {{packageName options.basePackage}}.clients;
 
 
 import io.minio.GetObjectArgs;
