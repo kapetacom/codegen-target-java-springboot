@@ -147,7 +147,7 @@
         <dependency>
             <groupId>com.kapeta</groupId>
             <artifactId>cloud-bucket</artifactId>
-            <version>(1.1,2.0)</version>
+            <version>[1.1.0,2.0)</version>
         </dependency>
         {{/consumes}}
         {{#consumes 'kapeta/resource-type-postgresql'}}
