@@ -10,9 +10,6 @@ import com.kapeta.spring.annotation.KapetaSpringApplication;
 {{#provides 'kapeta/resource-type-rest-api'}}
 import com.kapeta.spring.annotation.KapetaEnableRestResource;
 {{/provides}}
-{{#provides 'kapeta/resource-type-cloud-bucket'}}
-import com.kapeta.spring.annotation.KapetaEnableCloudBucket;
-{{/provides}}
 {{#consumes 'kapeta/resource-type-rest-client'}}
 import com.kapeta.spring.annotation.KapetaEnableRestClient;
 {{/consumes}}
@@ -37,6 +34,9 @@ import com.kapeta.spring.annotation.KapetaEnableRabbitMQ;
 {{#usesAnyOf (toArray 'kapeta/resource-type-pubsub-publisher' 'kapeta/resource-type-pubsub-subscriber') }}
 import com.kapeta.spring.annotation.KapetaEnableGooglePubSub;
 {{/usesAnyOf}}
+{{#consumes 'kapeta/resource-type-cloud-bucket'}}
+import com.kapeta.spring.annotation.KapetaEnableCloudBucket;
+{{/consumes}}
 
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
@@ -91,5 +91,8 @@ import com.kapeta.spring.annotation.KapetaEnableGooglePubSub;
 {{#usesAnyOf (toArray 'kapeta/resource-type-pubsub-publisher' 'kapeta/resource-type-pubsub-subscriber') }}
 @KapetaEnableGooglePubSub
 {{/usesAnyOf}}
+{{#consumes 'kapeta/resource-type-cloud-bucket'}}
+@KapetaEnableCloudBucket
+{{/consumes}}
 public @interface EnableKapeta {
 }

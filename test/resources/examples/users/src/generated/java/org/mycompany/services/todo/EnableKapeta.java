@@ -3,6 +3,7 @@
  */
 package org.mycompany.services.todo;
 
+import com.kapeta.spring.annotation.KapetaEnableCloudBucket;
 import com.kapeta.spring.annotation.KapetaEnableEmailSender;
 import com.kapeta.spring.annotation.KapetaEnableGooglePubSub;
 import com.kapeta.spring.annotation.KapetaEnablePostgres;
@@ -23,5 +24,6 @@ import java.lang.annotation.*;
 @KapetaEnableSecurityProviderConfig
 @KapetaEnableRabbitMQ
 @KapetaEnableGooglePubSub
+@KapetaEnableCloudBucket
 public @interface EnableKapeta {
 }
