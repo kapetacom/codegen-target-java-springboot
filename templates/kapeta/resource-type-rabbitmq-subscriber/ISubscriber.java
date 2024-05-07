@@ -5,7 +5,7 @@
 package {{packageName options.basePackage}}.queue;
 
 import com.kapeta.spring.rabbitmq.KapetaMessageListener;
-import {{packageName options.basePackage}}.dto.{{class data.spec.payloadType.type}};
+import {{packageName options.basePackage}}.dto.*;
 
 public interface I{{class data.metadata.name type=true}}Subscriber extends KapetaMessageListener<{{class data.spec.payloadType.type}}> {
 

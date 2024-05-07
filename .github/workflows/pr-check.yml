@@ -8,12 +8,21 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
       - uses: actions/setup-node@v3
         with:
           node-version: 18
           registry-url: https://registry.npmjs.org/
+
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '19'
+          distribution: 'adopt'
+
       - run: npm install
+
       - run: npm run build
         env:
           CI: true
+
       - run: npm run test
