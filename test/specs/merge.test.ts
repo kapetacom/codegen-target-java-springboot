@@ -68,7 +68,7 @@ describe('merging', () => {
             const result = doMergeContent(FILENAME, original, changed);
             // Hack to fix formatting - the xml parser is not formatting the xml correctly
             // Has no impact on the actual result since it's just whitespace
-            const expected = result.replace(/<\/dependency>\s+<\/dependencies>/m, '</dependency>\n    </dependencies>');
+            const expected = result.toString().replace(/<\/dependency>\s+<\/dependencies>/m, '</dependency>\n    </dependencies>');
             expect(expected).toEqual(changed);
         });
 
@@ -103,28 +103,28 @@ describe('merging', () => {
             const original = readString('../resources/devcontainer/original.json');
             const changed = readString('../resources/devcontainer/added-kapeta-env.json');
             const result = doMergeContent(FILENAME, original, changed);
-            expect(JSON.parse(result)).toEqual(JSON.parse(changed));
+            expect(JSON.parse(result.toString())).toEqual(JSON.parse(changed));
         });
 
         test('changed kapeta env is persisted', () => {
             const original = readString('../resources/devcontainer/original.json');
             const changed = readString('../resources/devcontainer/changed-kapeta-env.json');
             const result = doMergeContent(FILENAME, original, changed);
-            expect(JSON.parse(result)).toEqual(JSON.parse(changed));
+            expect(JSON.parse(result.toString())).toEqual(JSON.parse(changed));
         });
 
         test('removed kapeta env is persisted', () => {
             const original = readString('../resources/devcontainer/original.json');
             const changed = readString('../resources/devcontainer/removed-kapeta-env.json');
             const result = doMergeContent(FILENAME, original, changed);
-            expect(JSON.parse(result)).toEqual(JSON.parse(changed));
+            expect(JSON.parse(result.toString())).toEqual(JSON.parse(changed));
         });
 
         test('changed top level is ignored', () => {
             const original = readString('../resources/devcontainer/original.json');
             const changed = readString('../resources/devcontainer/changed-top-level.json');
             const result = doMergeContent(FILENAME, original, changed);
-            expect(JSON.parse(result)).toEqual(JSON.parse(original));
+            expect(JSON.parse(result.toString())).toEqual(JSON.parse(original));
         });
 
         test('original changes are retained', () => {
@@ -134,7 +134,7 @@ describe('merging', () => {
             changedData.containerEnv['SOME_OTHER_ENV_VAR'] = 'some-value';
             changed = JSON.stringify(changedData, null, 4);
             const result = doMergeContent(FILENAME, original, changed);
-            expect(JSON.parse(result)).toEqual(JSON.parse(changed));
+            expect(JSON.parse(result.toString())).toEqual(JSON.parse(changed));
         });
     });
 });

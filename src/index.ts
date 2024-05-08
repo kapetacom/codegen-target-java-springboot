@@ -4,9 +4,9 @@
  */
 
 import { Target } from '@kapeta/codegen-target';
+import type { SourceFile, GeneratedFile } from '@kapeta/codegen-target';
 import prettier from 'prettier';
 import Path from 'path';
-import type { GeneratedFile, SourceFile } from '@kapeta/codegen';
 import { mergeDevcontainers } from './target/merge-devcontainers';
 import { addTemplateHelpers } from './target/template-helpers';
 import { mergePom } from './target/merge-pom';
@@ -16,7 +16,7 @@ export default class JavaSpringBootTarget extends Target {
         super(options, Path.resolve(__dirname, '../'));
     }
 
-    mergeFile(sourceFile: SourceFile, newFile: GeneratedFile, lastFile: GeneratedFile | null): GeneratedFile {
+    mergeFile(sourceFile: SourceFile, newFile: GeneratedFile, lastFile: GeneratedFile): GeneratedFile {
         if (sourceFile.filename === 'pom.xml') {
             return mergePom(sourceFile, newFile, lastFile);
         }

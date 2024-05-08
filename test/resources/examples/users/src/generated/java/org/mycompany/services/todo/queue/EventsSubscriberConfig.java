@@ -6,7 +6,7 @@ package org.mycompany.services.todo.queue;
 import com.kapeta.spring.rabbitmq.KapetaMessageListenerContainer;
 import com.kapeta.spring.rabbitmq.RabbitConnectionManager;
 import com.kapeta.spring.rabbitmq.RabbitMQConsumer;
-import org.mycompany.services.todo.dto.UserDTO;
+import org.mycompany.services.todo.dto.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

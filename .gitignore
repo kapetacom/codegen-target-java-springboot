@@ -4,3 +4,5 @@ dist/*
 node/*
 .DS_Store
 .idea
+test/resources/examples/users/target
+test/resources/examples/todo/target

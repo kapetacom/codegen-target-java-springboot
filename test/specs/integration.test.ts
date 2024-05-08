@@ -18,13 +18,15 @@ describe('blocks', () => {
         const basedir = Path.resolve(__dirname, '../resources/examples/todo');
         const data = require('../resources/examples/todo.kapeta.yml');
 
-        return CodegenHelpers.testCodeGenFor(target, new BlockCodeGenerator(data), basedir);
+        return CodegenHelpers.testCodeGenFor(target, new BlockCodeGenerator(data), basedir,
+            (path) => !path.includes("/todo/target/"));
     });
 
     test('users', async () => {
         const basedir = Path.resolve(__dirname, '../resources/examples/users');
         const data = require('../resources/examples/users.kapeta.yml');
 
-        return CodegenHelpers.testCodeGenFor(target, new BlockCodeGenerator(data), basedir);
+        return CodegenHelpers.testCodeGenFor(target, new BlockCodeGenerator(data), basedir,
+            (path) => !path.includes("/users/target/"));
     });
 });

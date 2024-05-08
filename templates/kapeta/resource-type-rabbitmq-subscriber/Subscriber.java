@@ -4,7 +4,7 @@ package {{packageName options.basePackage}}.queue;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
-import {{packageName options.basePackage}}.dto.{{class data.spec.payloadType.type}};
+import {{packageName options.basePackage}}.dto.*;
 
 @Slf4j
 @Component

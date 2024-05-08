@@ -7,7 +7,7 @@ package {{packageName options.basePackage}}.queue;
 import com.kapeta.spring.rabbitmq.RabbitMQProvider;
 import com.kapeta.spring.rabbitmq.RabbitPublisher;
 import org.springframework.stereotype.Component;
-import {{packageName options.basePackage}}.dto.{{class data.spec.payloadType.type}};
+import {{packageName options.basePackage}}.dto.*;
 
 @Component
 public class {{class data.metadata.name type=true}}Publisher extends RabbitPublisher<{{class data.spec.payloadType.type}}> {

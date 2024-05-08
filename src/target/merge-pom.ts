@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 import cheerio from 'cheerio';
-import { GeneratedFile, SourceFile } from '@kapeta/codegen';
+import { GeneratedFile, SourceFile } from '@kapeta/codegen-target';
 
 function decodeEntities(encodedString: string) {
     const translate_re = /&(nbsp|amp|quot|lt|gt);/g;
