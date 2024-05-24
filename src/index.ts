@@ -31,7 +31,7 @@ export default class JavaSpringBootTarget extends Target {
     protected _createTemplateEngine(data: any, context: any) {
         const engine = super._createTemplateEngine(data, context);
 
-        addTemplateHelpers(engine, data, context);
+        addTemplateHelpers(engine, this.options, data, context);
 
         return engine;
     }

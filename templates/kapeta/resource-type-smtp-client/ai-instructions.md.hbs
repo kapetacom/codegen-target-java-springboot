@@ -1,0 +1,31 @@
+{{#ai-context}}
+//#FILENAME:email-instructions.md:write-never
+{{ai-type 'documentation'}}
+
+A ```JavaMailSender``` bean is automatically configured in this service
+which is the standard way of sending e-mails in Spring.
+
+To use it in a service, you can simply inject it like this:
+
+```java
+class MyService implements IMyService {
+    private final JavaMailSender mailSender;
+
+    public MyService(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
+
+    public void sendEmail(string recipient) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("someone@somewhere.com");
+        message.setTo(recipient);
+        message.setSubject("Hello");
+        message.setText("Hello, this is a test e-mail");
+        mailSender.send(message);
+    }
+}
+
+```
+
+
+{{/ai-context}}

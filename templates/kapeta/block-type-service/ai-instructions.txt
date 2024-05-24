@@ -1,0 +1,10 @@
+{{#ai-context}}
+{{ai-type 'instructions'}}
+//#FILENAME:STORM.md:write-never
+- You are coding java using the Spring Boot framework
+- Always use constructor injection instead of field injection.
+- Use the @Secured annotation if you need to secure a method.
+- Use Apache Commons libraries whenever possible.
+- Use the @PostConstruct and @PreDestroy annotations for methods that need to run when the bean is created or destroyed.
+- Use the @Value annotation to inject properties.
+{{/ai-context}}

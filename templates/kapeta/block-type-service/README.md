@@ -1,7 +1,13 @@
 #FILENAME:README.md:create-only
+{{ai-type 'documentation'}}
 # {{lowercase data.metadata.name}}
 
-Kapeta block implemented using Language Target "Java Spring Boot"
+Kapeta block implemented using Language Target "Java Spring Boot".
+
+{{#if data.metadata.description}}
+## Description
+{{data.metadata.description}}
+{{/if}}
 
 See the [kapeta.md](kapeta.md) readme file for more information.
 

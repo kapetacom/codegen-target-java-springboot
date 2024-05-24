@@ -11,9 +11,15 @@ import jakarta.validation.constraints.NotNull;
 
 {{#switch type}}
 {{#case 'datatype'}}
+{{#ai-context}}
+This is the base class for the {{name}} type. It should not be used directly.
+{{/ai-context}}
 {{java-type-dto this}}
 {{/case}}
 {{#case 'enum'}}
+{{#ai-context}}
+Refer to this file whenever you need to use the enum type {{name}}.
+{{/ai-context}}
 {{java-type-dto this}}
 {{/case}}
 {{/switch}}

@@ -1,4 +1,5 @@
 //#FILENAME:src/generated/java/{{packagePath @root.options.basePackage}}/rest/{{java-class-name this}}Controller.java:write-always
+{{ai-type 'api'}}
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
