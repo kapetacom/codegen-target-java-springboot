@@ -25,7 +25,10 @@ import { includes } from '../includes';
 
 export type HandleBarsType = typeof Handlebars;
 
-export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: any): void => {
+export const addTemplateHelpers = (engine: HandleBarsType, contextOptions:any, data: any, context: any): void => {
+    if (!contextOptions) {
+        contextOptions = {};
+    }
     function isEntity(type: TypeLike) {
         if (!type || !context.spec || !context.spec.entities || !context.spec.entities.types) {
             return false;
@@ -217,6 +220,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         const writer = new JavaWriter({
             entities: getParsedEntities(),
             dataTypeWriteMethod: DataTypeWriteMethod.DTO,
+            aiContext: Boolean(contextOptions.AIContext),
         });
 
         try {
@@ -231,6 +235,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         const writer = new JavaWriter({
             entities: getParsedEntities(),
             dataTypeWriteMethod: DataTypeWriteMethod.CONFIG,
+            aiContext: Boolean(contextOptions.AIContext),
         });
 
         try {
@@ -245,6 +250,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         const writer = new JavaWriter({
             controllerWriteMethod: ControllerWriteMethod.REST_CONTROLLER,
             entities: getParsedEntities(),
+            aiContext: Boolean(contextOptions.AIContext),
         });
 
         return Template.SafeString(writer.write([entity]));
@@ -254,6 +260,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         const writer = new JavaWriter({
             controllerWriteMethod: ControllerWriteMethod.INTERFACE,
             entities: getParsedEntities(),
+            aiContext: Boolean(contextOptions.AIContext),
         });
 
         return Template.SafeString(writer.write([entity]));
@@ -263,6 +270,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         const writer = new JavaWriter({
             controllerWriteMethod: ControllerWriteMethod.CLASS,
             entities: getParsedEntities(),
+            aiContext: Boolean(contextOptions.AIContext),
         });
 
         return Template.SafeString(writer.write([entity]));
@@ -272,6 +280,7 @@ export const addTemplateHelpers = (engine: HandleBarsType, data: any, context: a
         const writer = new JavaWriter({
             controllerWriteMethod: ControllerWriteMethod.CLIENT,
             entities: getParsedEntities(),
+            aiContext: Boolean(contextOptions.AIContext),
         });
 
         return Template.SafeString(writer.write([entity]));

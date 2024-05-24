@@ -1,4 +1,5 @@
 //#FILENAME:src/generated/java/{{packagePath @root.options.basePackage}}/clients/{{java-class-name this}}Client.java:write-always
+{{ai-type 'api-client'}}
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
