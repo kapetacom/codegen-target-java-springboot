@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class EmailConfig {
 
     /**
-     *  Sender for e-mails. Note that you should be allowed to send e-mails from this domain and user
+     * Sender for e-mails. Note that you should be allowed to send e-mails from this domain and user
      */
     @NotNull
     private String from;

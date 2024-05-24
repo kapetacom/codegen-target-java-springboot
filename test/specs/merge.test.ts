@@ -68,7 +68,9 @@ describe('merging', () => {
             const result = doMergeContent(FILENAME, original, changed);
             // Hack to fix formatting - the xml parser is not formatting the xml correctly
             // Has no impact on the actual result since it's just whitespace
-            const expected = result.toString().replace(/<\/dependency>\s+<\/dependencies>/m, '</dependency>\n    </dependencies>');
+            const expected = result
+                .toString()
+                .replace(/<\/dependency>\s+<\/dependencies>/m, '</dependency>\n    </dependencies>');
             expect(expected).toEqual(changed);
         });
 
