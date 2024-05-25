@@ -13,10 +13,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import java.io.IOException;
 
-{{#ai-context}}
+{{#ai-comment}}
 This is the configuration for the {{pascalCase data.metadata.name}} publisher.
 Use the bean "{{camelCase data.metadata.name}}PublisherTemplate" of type KapetaPubSubPublisherTemplate<{{class data.spec.payloadType.type}}> to publish messages to the {{pascalCase data.metadata.name}} topic.
-{{/ai-context}}
+{{/ai-comment}}
 @Configuration
 public class {{class data.metadata.name type=true}}PublisherConfiguration {
 

@@ -3,9 +3,9 @@
 package {{packageName @root.options.basePackage}}.dto;
 
 import lombok.*;
-{{#ai-context}}
+{{#ai-comment}}
 Use this file whenever referring to the {{name}} type.
-{{/ai-context}}
+{{/ai-comment}}
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class {{java-class-name this}}DTO{{java-generics this}} extends {{class name type=true}}Base{{java-generics this}} {
