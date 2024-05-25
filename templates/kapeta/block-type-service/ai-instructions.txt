@@ -1,10 +1,18 @@
 {{#ai-context}}
-{{ai-type 'instructions'}}
 //#FILENAME:STORM.md:write-never
+{{ai-type 'instructions'}}
 - You are coding java using the Spring Boot framework
-- Always use constructor injection instead of field injection.
-- Use the @Secured annotation if you need to secure a method.
+- Always use constructor injection instead of property injection.
+- Use the @PreAuthorize annotation for methods that need to be authorized.
+- Use the @PostAuthorize annotation for methods that need to be authorized after execution.
+- Use the @Transactional annotation for methods that need to run in a transaction.
 - Use Apache Commons libraries whenever possible.
 - Use the @PostConstruct and @PreDestroy annotations for methods that need to run when the bean is created or destroyed.
 - Use the @Value annotation to inject properties.
+- If you need to use a logger, use the SLF4J library and lombok.
+- If you need to repeat several lines of code, create a private method for it instead.
+- If you need to convert from an entity to a DTO, use the ModelMapper library.
+- If you need to convert from a DTO to an entity, use the ModelMapper library.
+- Critical: Make sure you are not missing conversions from DTO to entities or the other way around.
+- If throwing an exception - use the built-in exceptions in the Spring framework with the proper status code.
 {{/ai-context}}
