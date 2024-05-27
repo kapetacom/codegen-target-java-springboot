@@ -5,7 +5,7 @@ package {{packageName @root.options.basePackage}}.service;
 import java.util.*;
 {{java-imports}}
 
-{{#ai-context}}
+{{#ai-comment}}
     This is the service interface for the {{java-class-name this}} service.
-{{/ai-context}}
+{{/ai-comment}}
 {{java-controller-if this}}

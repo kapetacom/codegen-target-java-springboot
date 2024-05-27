@@ -8,10 +8,10 @@ package {{packageName options.basePackage}}.clients;
 import com.kapeta.spring.cloudbucket.CloudBucketClientFactory;
 import org.springframework.stereotype.Component;
 
-{{#ai-context}}
+{{#ai-comment}}
 This is the client for the {{pascalCase data.metadata.name}} bucket.
 Use this client to interact with the {{pascalCase data.metadata.name}} bucket.
-{{/ai-context}}
+{{/ai-comment}}
 @Component
 public class {{pascalCase data.metadata.name}}Bucket extends CloudBucketClientFactory.Client {
 

@@ -7,9 +7,9 @@ import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 import {{packageName options.basePackage}}.dto.*;
 
-{{#ai-context}}
+{{#ai-comment}}
 This is the subscriber for the {{data.metadata.name}} consumer.
-{{/ai-context}}
+{{/ai-comment}}
 
 @Slf4j
 @Component
@@ -17,9 +17,9 @@ public class {{class data.metadata.name type=true}}Subscriber implements I{{clas
 
     @Override
     public void onMessage(Message<{{class data.spec.payloadType.type}}> message) {
-        {{#ai-context}}
+        {{#ai-comment}}
         Implement this method to handle messages from the {{data.metadata.name}} consumer.
-        {{/ai-context}}
+        {{/ai-comment}}
         log.warn("Received message from {{string data.metadata.name}} using example handler: {}", message);
     }
 
