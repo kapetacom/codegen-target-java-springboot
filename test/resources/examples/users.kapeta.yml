@@ -106,15 +106,6 @@ spec:
                 primary: true
               name:
                 type: string
-          - type: model
-            name: EntryLine
-            properties:
-              id:
-                type: integer
-                primary: true
-              name:
-                type: string
-                optional: true
         source:
           type: kaplang
           version: 1.14.2
@@ -123,11 +114,6 @@ spec:
                 @Id
                 id: string
                 name: string
-            }
-            type EntryLine {
-                @Id
-                id: integer
-                name?: string
             }
 
     - kind: kapeta/resource-type-smtp-client:0.0.6

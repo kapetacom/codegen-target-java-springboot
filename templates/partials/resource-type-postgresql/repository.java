@@ -1,4 +1,4 @@
-//#FILENAME:src/generated/java/{{packagePath @root.options.basePackage}}/repositories/usersdb/{{class this.name type=true}}Repository.java:write-always
+//#FILENAME:src/generated/java/{{packagePath @root.options.basePackage}}/repositories/{{lowercase this.metadataName}}/{{class this.name type=true}}Repository.java:write-always
 
 /**
  * GENERATED SOURCE - DO NOT EDIT
