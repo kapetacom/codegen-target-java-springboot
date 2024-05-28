@@ -1,4 +1,5 @@
 //#FILENAME:src/generated/java/{{packagePath @root.options.basePackage}}/repositories/{{lowercase this.metadataName}}/{{class this.name type=true}}.java:write-always
+{{ai-type 'model'}}
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
@@ -12,6 +13,11 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
+{{#ai-comment}}
+This is the entity class for the postgres table {{name}}.
+
+To use this use the {{name}}Repository.class
+{{/ai-comment}}
 @Entity
 @Data
 public class {{class this.name type=true}} {

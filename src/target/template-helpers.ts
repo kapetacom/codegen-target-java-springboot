@@ -289,7 +289,9 @@ export const addTemplateHelpers = (engine: HandleBarsType, contextOptions:any, d
     });
 
     engine.registerHelper('kaplang-model-type-declaration', (model: DSLModelProperty) => {
-        const writer = new JavaWriter({});
+        const writer = new JavaWriter({
+            aiContext: Boolean(OPTION_CONTEXT_AI in contextOptions),
+        });
         return Template.SafeString(writer.toModelPropertyCode(model));
     })
 };
