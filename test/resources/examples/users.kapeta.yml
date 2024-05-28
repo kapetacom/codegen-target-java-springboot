@@ -94,6 +94,28 @@ spec:
     - kind: kapeta/resource-type-postgresql:0.0.2
       metadata:
         name: usersdb
+      spec:
+        port:
+          type: postgres
+        models:
+          - type: model
+            name: Entry
+            properties:
+              id:
+                type: string
+                primary: true
+              name:
+                type: string
+        source:
+          type: kaplang
+          version: 1.14.2
+          value: |-
+            type Entry {
+                @Id
+                id: string
+                name: string
+            }
+
     - kind: kapeta/resource-type-smtp-client:0.0.6
       metadata:
         name: smtpclient

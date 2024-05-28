@@ -15,6 +15,7 @@ import {
     DSLEntity,
     DSLEntityType,
     DSLEnum,
+    DSLModelProperty,
     DSLReferenceResolver,
     EntityHelpers,
     JavaWriter,
@@ -286,4 +287,11 @@ export const addTemplateHelpers = (engine: HandleBarsType, contextOptions:any, d
 
         return Template.SafeString(writer.write([entity]));
     });
+
+    engine.registerHelper('kaplang-model-type-declaration', (model: DSLModelProperty) => {
+        const writer = new JavaWriter({
+            aiContext: Boolean(OPTION_CONTEXT_AI in contextOptions),
+        });
+        return Template.SafeString(writer.toModelPropertyCode(model));
+    })
 };
