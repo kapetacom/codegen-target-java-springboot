@@ -1,8 +1,6 @@
-//#FILENAME:src/generated/java/{{packagePath @root.options.basePackage}}/repositories/{{lowercase this.metadataName}}/{{class this.name type=true}}.java:write-always
+//#FILENAME:src/main/java/{{packagePath @root.options.basePackage}}/repositories/{{lowercase this.metadataName}}/{{class this.name type=true}}.java:create-only
 {{ai-type 'model'}}
-/**
- * GENERATED SOURCE - DO NOT EDIT
- */
+
 package {{packageName @root.options.basePackage}}.repositories.usersdb;
 
 import jakarta.persistence.Column;

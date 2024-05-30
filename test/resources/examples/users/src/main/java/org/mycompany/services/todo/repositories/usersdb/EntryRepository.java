@@ -1,6 +1,3 @@
-/**
- * GENERATED SOURCE - DO NOT EDIT
- */
 package org.mycompany.services.todo.repositories.usersdb;
 
 import org.springframework.data.jpa.repository.JpaRepository;

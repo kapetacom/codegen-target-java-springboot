@@ -1,9 +1,6 @@
-//#FILENAME:src/generated/java/{{packagePath @root.options.basePackage}}/repositories/{{lowercase this.metadataName}}/{{class this.name type=true}}Repository.java:write-always
+//#FILENAME:src/main/java/{{packagePath @root.options.basePackage}}/repositories/{{lowercase this.metadataName}}/{{class this.name type=true}}Repository.java:create-only
 {{ai-type 'repository'}}
 
-/**
- * GENERATED SOURCE - DO NOT EDIT
- */
 package {{packageName @root.options.basePackage}}.repositories.usersdb;
 
 import org.springframework.data.jpa.repository.JpaRepository;
