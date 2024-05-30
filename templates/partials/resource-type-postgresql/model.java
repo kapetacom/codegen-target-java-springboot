@@ -1,7 +1,7 @@
 //#FILENAME:src/main/java/{{packagePath @root.options.basePackage}}/repositories/{{lowercase this.metadataName}}/{{class this.name type=true}}.java:create-only
 {{ai-type 'model'}}
 
-package {{packageName @root.options.basePackage}}.repositories.usersdb;
+package {{packageName @root.options.basePackage}}.repositories.{{lowercase this.metadataName}};
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
