@@ -1,6 +1,3 @@
-/**
- * GENERATED SOURCE - DO NOT EDIT
- */
 package org.mycompany.services.todo.repositories.usersdb;
 
 import jakarta.persistence.Column;
