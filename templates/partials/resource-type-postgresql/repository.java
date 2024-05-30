@@ -1,7 +1,7 @@
 //#FILENAME:src/main/java/{{packagePath @root.options.basePackage}}/repositories/{{lowercase this.metadataName}}/{{class this.name type=true}}Repository.java:create-only
 {{ai-type 'repository'}}
 
-package {{packageName @root.options.basePackage}}.repositories.usersdb;
+package {{packageName @root.options.basePackage}}.repositories.{{lowercase this.metadataName}};
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
