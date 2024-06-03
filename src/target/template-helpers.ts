@@ -14,7 +14,7 @@ import {
     DSLDataType,
     DSLEntity,
     DSLEntityType,
-    DSLEnum,
+    DSLEnum, DSLModel,
     DSLModelProperty,
     DSLReferenceResolver,
     EntityHelpers,
@@ -293,5 +293,12 @@ export const addTemplateHelpers = (engine: HandleBarsType, contextOptions:any, d
             aiContext: Boolean(OPTION_CONTEXT_AI in contextOptions),
         });
         return Template.SafeString(writer.toModelPropertyCode(model));
-    })
+    });
+
+    engine.registerHelper('kaplang-model-description', (model: DSLModel) => {
+        const lines = (model.description ?? '')
+            .split('\n')
+            .map(line => '* ' + line);
+        return Template.SafeString(lines.join('\n'));
+    });
 };
