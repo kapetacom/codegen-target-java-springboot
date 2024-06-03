@@ -5,11 +5,14 @@
 
 import { Target } from '@kapeta/codegen-target';
 import type { SourceFile, GeneratedFile } from '@kapeta/codegen-target';
+import type { ValidationResult } from '@kapeta/codegen';
 import prettier from 'prettier';
 import Path from 'path';
 import { mergeDevcontainers } from './target/merge-devcontainers';
 import { addTemplateHelpers } from './target/template-helpers';
 import { mergePom } from './target/merge-pom';
+
+import { spawn } from 'node:child_process';
 
 export default class JavaSpringBootTarget extends Target {
     constructor(options: any) {
@@ -28,6 +31,37 @@ export default class JavaSpringBootTarget extends Target {
         return super.mergeFile(sourceFile, newFile, lastFile);
     }
 
+    validate(targetDir: string, files: any[]): Promise<ValidationResult> {
+        console.log('Validating Java Spring Boot project');
+
+        return new Promise((resolve, reject) => {
+            const chunks: Buffer[] = [];
+            const command = 'mvn';
+            console.log(`Running ${command} in target directory ${targetDir} to validate the project.`);
+
+            const mvn = spawn('mvn', ['verify'], {
+                cwd: targetDir ? targetDir : process.cwd(),
+                shell: true,
+            });
+            mvn.stdout.on('data', (data) => {
+                chunks.push(data);
+            });
+
+            mvn.stderr.on('data', (data) => {
+                chunks.push(data);
+            });
+
+            mvn.on('close', (code) => {
+                if (code !== 0) {
+                    resolve({ valid: false, error: Buffer.concat(chunks).toString() });
+                } else {
+                    resolve({ valid: true, error: '' });
+                }
+            });
+        });
+    }
+
+      
     protected _createTemplateEngine(data: any, context: any) {
         const engine = super._createTemplateEngine(data, context);
 

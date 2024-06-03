@@ -1,5 +1,5 @@
 {{#ai-context}}
-//#FILENAME:src/main/java/{{packagePath @root.options.basePackage}}/service/{{java-class-name this}}Service.ai.service.java:create-only
+//#FILENAME:src/main/java/{{packagePath @root.options.basePackage}}/service/{{java-class-name this}}Service.java:create-only
 {{ai-type 'service'}}
 package {{packageName @root.options.basePackage}}.service;
 
