@@ -4,9 +4,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import java.util.Date;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ * not supported
+ * subEntries: Entry[]
+ */
 @Entity
 @Data
 public class Entry {

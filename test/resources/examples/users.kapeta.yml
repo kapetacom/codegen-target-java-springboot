@@ -110,6 +110,8 @@ spec:
           type: kaplang
           version: 1.14.2
           value: |-
+            // not supported
+            // subEntries: Entry[]
             type Entry {
                 @Id
                 id: string

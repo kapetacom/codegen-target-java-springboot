@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
+import java.util.Date;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -16,6 +17,9 @@ This is the entity class for the postgres table {{name}}.
 
 To use this use the {{name}}Repository.class
 {{/ai-comment}}
+/**
+{{kaplang-model-description this}}
+*/
 @Entity
 @Data
 public class {{class this.name type=true}} {
