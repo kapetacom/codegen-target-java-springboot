@@ -91,7 +91,7 @@
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
             <version>3.1.0</version>
-        </dependency
+        </dependency>
         {{/ai-context}}
         {{#consumes 'kapeta/resource-type-rest-client'}}
         <dependency>
