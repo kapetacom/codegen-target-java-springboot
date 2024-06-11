@@ -2,6 +2,7 @@
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
+{{ai-type 'dto-base'}}
 package {{packageName @root.options.basePackage}}.dto;
 
 import lombok.*;

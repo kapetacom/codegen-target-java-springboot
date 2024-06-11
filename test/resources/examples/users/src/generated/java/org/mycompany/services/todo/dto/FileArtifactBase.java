@@ -1,6 +1,7 @@
 /**
  * GENERATED SOURCE - DO NOT EDIT
  */
+
 package org.mycompany.services.todo.dto;
 
 import jakarta.validation.constraints.NotNull;
