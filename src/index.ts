@@ -14,6 +14,8 @@ import { mergePom } from './target/merge-pom';
 
 import { spawn } from 'node:child_process';
 
+const LANGUAGE = "java";
+
 export default class JavaSpringBootTarget extends Target {
     constructor(options: any) {
         super(options, Path.resolve(__dirname, '../'));
@@ -59,6 +61,10 @@ export default class JavaSpringBootTarget extends Target {
                 }
             });
         });
+    }
+
+    language(): string {
+        return LANGUAGE;
     }
 
       
