@@ -5,6 +5,12 @@ package {{packageName @root.options.basePackage}}.dto;
 import lombok.*;
 {{#ai-comment}}
 Use this file whenever referring to the {{name}} type.
+
+To instantiate this class always use the zero-argument constructor and set the properties using the setter methods.
+For example, to instantiate the {{name}}DTO class, use the following code snippet:
+```java
+var dto = new {{java-class-name this}}DTO();
+```
 {{/ai-comment}}
 @Data
 @EqualsAndHashCode(callSuper = true)
