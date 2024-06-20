@@ -1,0 +1,18 @@
+{{#ai-context}}
+//#FILENAME:jwt-provider-instructions.md:write-never
+{{ai-type 'documentation'}}
+In a login method to produce a signed JWT as response use the following:
+
+```java
+import com.kapeta.spring.security.provider.JWTCreatorService;
+```
+
+To issue tokens based on userId:
+
+```java
+SignedJWT signedJWT = jwtCreatorService.createToken(java.lang.String userId);
+String token = signedJWT.serialize();
+```
+
+{{> kapeta/resource-type-auth-jwt-consumer/ai-instructions.md.hbs }}
+{{/ai-context}}
