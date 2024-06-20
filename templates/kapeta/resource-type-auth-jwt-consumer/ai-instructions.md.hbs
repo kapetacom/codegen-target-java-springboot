@@ -1,0 +1,15 @@
+{{#ai-context}}
+//#FILENAME:jwt-consumer-instructions.md:write-never
+{{ai-type 'documentation'}}
+
+Get the user id from the authentication context:
+
+```java
+import org.springframework.security.core.context.SecurityContextHolder;
+```
+
+```java
+String userId =  SecurityContextHolder.getContext().getAuthentication().getName();
+```
+
+{{/ai-context}}
