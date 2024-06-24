@@ -3,11 +3,10 @@
 {{ai-type 'instructions'}}
 - You are coding java using the Spring Boot framework
 - Always use constructor injection instead of property injection. Add @org.springframework.beans.factory.annotation.Autowired to the constructor.
-- Use the @org.springframework.security.access.prepost.PreAuthorize annotation for methods that need to be authorized.
-- Use the @org.springframework.security.access.prepost.PostAuthorize annotation for methods that need to be authorized after execution.
-- Use the @org.springframework.transaction.annotation.Transactional annotation for create and update methods, but only if there is a database layer
+- Use the @org.springframework.security.access.prepost.PreAuthorize annotation for methods that need to be authorized. Also import this. Use @PreAuthorize("isFullyAuthenticated()") - no role check.
+- Use the @org.springframework.transaction.annotation.Transactional annotation for create and update methods, but only if there is a database layer. Also import this.
 - Use Apache Commons libraries whenever possible.
-- Use the @jakarta.annotation.PostConstruct and @jakarta.annotation.PreDestroy annotations for methods that need to run when the bean is created or destroyed.
+- Use the @jakarta.annotation.PostConstruct and @jakarta.annotation.PreDestroy annotations for methods that need to run when the bean is created or destroyed. Also import these.
 - Use the @Value annotation to inject properties.
 - If you need to use a logger, use the SLF4J library and lombok.
 - If you need to repeat several lines of code, create a private method for it instead.
