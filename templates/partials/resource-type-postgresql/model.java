@@ -20,7 +20,7 @@ To use this use the {{name}}Repository.class
 /**
 {{kaplang-model-description this}}
 */
-@Entity
+@Entity(name = "{{kaplang-model-tablename this.name type=true}}")
 @Data
 public class {{class this.name type=true}} {
 

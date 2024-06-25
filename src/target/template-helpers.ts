@@ -23,6 +23,7 @@ import {
 } from '@kapeta/kaplang-core';
 import { HelperOptions } from 'handlebars';
 import { includes } from '../includes';
+import * as pluralize from 'pluralize';
 
 export type HandleBarsType = typeof Handlebars;
 
@@ -300,5 +301,10 @@ export const addTemplateHelpers = (engine: HandleBarsType, contextOptions:any, d
             .split('\n')
             .map(line => '* ' + line);
         return Template.SafeString(lines.join('\n'));
+    });
+
+    engine.registerHelper('kaplang-model-tablename', function (typeName, options) {
+        const className = classHelper(typeName, options).toString().toLowerCase();
+        return new engine.SafeString(pluralize.plural(className));
     });
 };

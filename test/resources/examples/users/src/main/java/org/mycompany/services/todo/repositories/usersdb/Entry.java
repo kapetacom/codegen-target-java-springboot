@@ -12,7 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
  * not supported
  * subEntries: Entry[]
  */
-@Entity
+@Entity(name = "entries")
 @Data
 public class Entry {
 
