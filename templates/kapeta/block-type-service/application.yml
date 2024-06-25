@@ -15,6 +15,12 @@ spring:
         temp:
           use_jdbc_metadata_defaults: false
 {{/consumes}}
+{{#ai-context}}
+{{#consumes 'kapeta/resource-type-postgresql'}}
+    hibernate:
+      ddl-auto: update
+{{/consumes}}
+{{/ai-context}}
 {{#consumes 'kapeta/resource-type-mongodb'}}
 mongock:
   transaction-strategy: change_unit

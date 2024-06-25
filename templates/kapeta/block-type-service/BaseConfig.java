@@ -4,26 +4,30 @@ package {{packageName options.basePackage}}.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
 {{#ai-context}}
+{{#provides 'kapeta/resource-type-auth-jwt-provider'}}
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-{{/ai-context}}
-{{#consumes 'kapeta/resource-type-postgresql'}}
+{{/provides}}
+{{#provides 'kapeta/resource-type-rest-api'}}
 import org.modelmapper.ModelMapper;
-{{/consumes}}
+{{/provides}}
+{{/ai-context}}
 /**
  * Base configurations
  * */
 @Configuration
 public class BaseConfig  {
     {{#ai-context}}
+    {{#provides 'kapeta/resource-type-auth-jwt-provider'}}
     @Bean
     protected BCryptPasswordEncoder getBCrypptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    {{/ai-context}}
-    {{#consumes 'kapeta/resource-type-postgresql'}}
+    {{/provides}}
+    {{#provides 'kapeta/resource-type-rest-api'}}
     @Bean
     protected ModelMapper getModelMapper() {
         return new ModelMapper();
     }
-    {{/consumes}}
+    {{/provides}}
+    {{/ai-context}}
 }

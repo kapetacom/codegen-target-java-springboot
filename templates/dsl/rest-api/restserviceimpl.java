@@ -3,8 +3,13 @@
 {{ai-type 'service'}}
 package {{packageName @root.options.basePackage}}.service;
 
-import java.util.*;
+import com.kapeta.spring.exceptions.IllegalArgumentException;
+import com.kapeta.spring.exceptions.InvalidStateException;
+import com.kapeta.spring.exceptions.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
 {{java-imports}}
 
 {{java-controller-class this}}

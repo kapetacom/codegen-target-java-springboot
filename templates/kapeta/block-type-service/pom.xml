@@ -1,6 +1,6 @@
 <!--#FILENAME:pom.xml:merge-->
-{{ai-type 'project-file'}}
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- {{ai-type 'project-file'}}-->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -92,10 +92,19 @@
             <artifactId>modelmapper</artifactId>
             <version>3.1.0</version>
         </dependency>
+        {{#consumes 'kapeta/resource-type-postgresql'}}
+          <!-- @Transactional already included -->
+        {{else}}
         <dependency>
             <groupId>com.kapeta</groupId>
             <artifactId>sqldb-postgresql</artifactId>
             <version>(,2.0)</version>
+        </dependency>
+        {{/consumes}}
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.9.0</version>
         </dependency>
         {{/ai-context}}
         {{#consumes 'kapeta/resource-type-rest-client'}}
