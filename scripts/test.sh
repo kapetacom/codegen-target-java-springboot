@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-if ! jest --testMatch '<rootDir>/test/**/*.test.ts'; then
-  RESULT=$?
-  exit $RESULT
-fi
+
+jest --testMatch '<rootDir>/test/**/*.test.ts' || exit $?
+
 cd test/resources/examples/users || exit
 TEMP_DIR=$(mktemp -d)
 if ! mvn clean package -q; then
