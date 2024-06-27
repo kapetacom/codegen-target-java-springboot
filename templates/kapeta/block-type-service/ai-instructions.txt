@@ -1,18 +1,15 @@
 {{#ai-context}}
 //#FILENAME:STORM.md:write-never
 {{ai-type 'instructions'}}
-- You are coding java using the Spring Boot framework
-- Always use constructor injection instead of property injection. Add @org.springframework.beans.factory.annotation.Autowired to the constructor.
+- You are coding java using the Spring Boot framework.
 - Use the @org.springframework.security.access.prepost.PreAuthorize annotation for methods that need to be authorized. Also import this. Use @PreAuthorize("isFullyAuthenticated()") - no role check.
 - Use the @org.springframework.transaction.annotation.Transactional annotation for create and update methods, but only if there is a database layer. Also import this.
 - Use Apache Commons libraries whenever possible.
-- Use the @jakarta.annotation.PostConstruct and @jakarta.annotation.PreDestroy annotations for methods that need to run when the bean is created or destroyed. Also import these.
-- Use the @Value annotation to inject properties.
-- If you need to use a logger, use the SLF4J library and lombok.
+- Use the @Value annotation to inject properties. These must always have a default value.
+- Use the SLF4J library for logging.
 - If you need to repeat several lines of code, create a private method for it instead.
 - If you need to convert from an entity to a DTO, use the ModelMapper library.
 - If you need to convert from a DTO to an entity, use the ModelMapper library.
 - Critical: Make sure you are not missing conversions from DTO to entities or the other way around.
-- If throwing an exception - use the built-in exceptions in the Spring framework with the proper status code.
-- These exceptions can also be used: com.kapeta.spring.exceptions.NotFoundException, com.kapeta.spring.exceptions.InvalidStateException and com.kapeta.spring.exceptions.IllegalArgumentException
+- If throwing an exception use these: com.kapeta.spring.exceptions.NotFoundException, com.kapeta.spring.exceptions.InvalidStateException and com.kapeta.spring.exceptions.IllegalArgumentException.
 {{/ai-context}}

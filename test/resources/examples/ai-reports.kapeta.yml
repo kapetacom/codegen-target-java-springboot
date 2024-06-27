@@ -1,0 +1,159 @@
+kind: kapeta://kapeta/block-type-service:1.3.7
+metadata:
+  title: reporting-service
+  name: kapeta/reporting-service
+  description: Handles report generation
+spec:
+  entities:
+    types: []
+    source:
+      type: kaplang
+      version: 1.17.2
+      value: |-
+        type Report {
+        	id: string
+        	type: string
+        	data: any
+        }
+
+
+        type Customer {
+        	id: string
+        	name: string
+        	email: string
+        	phone: string
+        	address: string
+        	notes: string
+        	status: string
+        }
+
+
+        type Interaction {
+        	id: string
+        	customerId: string
+        	userId: string
+        	type: string
+        	date: date
+        	description: string
+        }
+
+
+        type JwtToken {
+        	token: string
+        }
+
+
+        type User {
+        	id: string
+        	username: string
+        	password: string
+        	email: string
+        	firstName: string
+        	lastName: string
+        	role: string
+        }
+  target:
+    kind: kapeta://kapeta/language-target-java-spring-boot:local
+    options:
+      groupId: ai.kapeta
+      artifactId: smallbusinesscrm
+      basePackage: ai.kapeta.smallbusinesscrm
+  providers:
+    - kind: kapeta://kapeta/resource-type-rest-api:1.6.0
+      metadata:
+        name: reports
+        description: Handles report generation
+      spec:
+        port:
+          type: rest
+        methods: {}
+        source:
+          type: kaplang
+          version: 1.17.2
+          value: |+
+            controller Reports("/reports") {
+
+            	@POST("/")
+            	generateReport(@Body report:Report):Report
+            
+            	@GET("/{id}")
+            	getReport(@Path("id") id:string):Report
+            
+            	@GET("/")
+            	getReports():Report[]
+            
+            	@PUT("/{id}")
+            	updateReport(@Path("id") id:string, @Body report:Report):Report
+            
+            	@DELETE("/{id}")
+            	deleteReport(@Path("id") id:string):void
+            }
+
+  consumers:
+    - kind: kapeta://kapeta/resource-type-rest-client:1.6.0
+      metadata:
+        name: customers
+        description: Gives reporting service access to customer data
+      spec:
+        port:
+          type: rest
+        methods: {}
+        source:
+          type: kaplang
+          version: 1.17.2
+          value: >+
+            controller Customers("/customers") {
+
+            	@POST("/")
+            	createCustomer(@Body customer:Customer):Customer
+            
+            	@GET("/{id}")
+            	getCustomer(@Path("id") id:string):Customer
+            
+            	@GET("/")
+            	getCustomers():Customer[]
+            
+            	@PUT("/{id}")
+            	updateCustomer(@Path("id") id:string, @Body customer:Customer):Customer
+            
+            	@DELETE("/{id}")
+            	deleteCustomer(@Path("id") id:string):void
+            }
+
+    - kind: kapeta://kapeta/resource-type-rest-client:1.6.0
+      metadata:
+        name: interactions
+        description: Gives reporting service access to interaction data
+      spec:
+        port:
+          type: rest
+        methods: {}
+        source:
+          type: kaplang
+          version: 1.17.2
+          value: >+
+            controller Interactions("/interactions") {
+
+            	@POST("/")
+            	createInteraction(@Body interaction:Interaction):Interaction
+            
+            	@GET("/{id}")
+            	getInteraction(@Path("id") id:string):Interaction
+            
+            	@GET("/")
+            	getInteractions():Interaction[]
+            
+            	@PUT("/{id}")
+            	updateInteraction(@Path("id") id:string, @Body interaction:Interaction):Interaction
+            
+            	@DELETE("/{id}")
+            	deleteInteraction(@Path("id") id:string):void
+            }
+
+    - kind: kapeta://kapeta/resource-type-auth-jwt-consumer:0.0.4
+      metadata:
+        name: jwt-consumer
+        description: Handles JWT token validation
+      spec:
+        port:
+          type: http

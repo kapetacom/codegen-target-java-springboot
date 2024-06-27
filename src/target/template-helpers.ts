@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 import Handlebars = require('handlebars');
-import { OPTION_CONTEXT_AI, parseEntities, Template, toTypeName, TypeLike } from '@kapeta/codegen-target';
+import {OPTION_CONTEXT_AI, parseEntities, Template, toTypeName, TypeLike} from '@kapeta/codegen-target';
 import _ from 'lodash';
 import {
     ControllerWriteMethod,
@@ -14,16 +14,20 @@ import {
     DSLDataType,
     DSLEntity,
     DSLEntityType,
-    DSLEnum, DSLModel,
+    DSLEnum,
+    DSLModel,
     DSLModelProperty,
+    DSLParser,
     DSLReferenceResolver,
     EntityHelpers,
     JavaWriter,
+    MODEL_CONFIGURATION,
     ucFirst,
 } from '@kapeta/kaplang-core';
-import { HelperOptions } from 'handlebars';
-import { includes } from '../includes';
+import {HelperOptions} from 'handlebars';
+import {includes} from '../includes';
 import * as pluralize from 'pluralize';
+import {Resource} from "@kapeta/schemas";
 
 export type HandleBarsType = typeof Handlebars;
 
@@ -161,6 +165,35 @@ export const addTemplateHelpers = (engine: HandleBarsType, contextOptions:any, d
         return parsedEntities as DSLData[];
     }
 
+    let possibleModels: ModelResult[] | undefined = undefined;
+    function getPossibleModels(): ModelResult[] {
+        if (!possibleModels) {
+            possibleModels = extractModels(context?.spec?.consumers);
+        }
+        return possibleModels ?? [];
+    }
+
+    function extractModels(consumers: Resource[]): ModelResult[] {
+        return consumers
+            .filter((consumer) => consumer.spec.port?.type == "postgres")
+            .flatMap((consumer) => {
+            const results = DSLParser.parse(consumer.spec.source.value, {
+                ...MODEL_CONFIGURATION,
+                ignoreSemantics: true, // We're expecting valid code - this is not a good place to validate
+            });
+            return { name: consumer.metadata.name, models: results.entities as DSLModel[] };
+        });
+    }
+
+    interface ModelResult {
+        name: string;
+        models: DSLModel[];
+    }
+
+    function jwtCandidate(): boolean {
+        return context.spec?.providers?.find((provider: Resource) => provider.kind.indexOf('kapeta/resource-type-auth-jwt-provider') > -1) != undefined;
+    }
+
     engine.registerHelper('class', classHelper);
 
     engine.registerHelper('packageName', (name) => Template.SafeString(packageNameHelper(name)));
@@ -179,23 +212,40 @@ export const addTemplateHelpers = (engine: HandleBarsType, contextOptions:any, d
             return '';
         }
 
-        return Template.SafeString(
-            referencesEntities
-                .map((entity) => {
-                    const native = DataTypeReader.getNative(entity);
-                    if (native) {
-                        return `import ${native};`;
-                    }
+        const imports: string[] = [];
 
-                    switch (entity.type) {
-                        case DSLEntityType.DATATYPE:
-                            return `import ${basePackage}.dto.${JavaWriter.toClassName(entity.name)}DTO;`;
-                        case DSLEntityType.ENUM:
-                            return `import ${basePackage}.dto.${JavaWriter.toClassName(entity.name)};`;
-                    }
-                })
-                .join('\n')
-        );
+        imports.push(...(referencesEntities
+            .map((entity) => {
+                const native = DataTypeReader.getNative(entity);
+                if (native) {
+                    return `import ${native};`;
+                }
+
+                switch (entity.type) {
+                    case DSLEntityType.DATATYPE:
+                        return `import ${basePackage}.dto.${JavaWriter.toClassName(entity.name)}DTO;`;
+                    case DSLEntityType.ENUM:
+                        return `import ${basePackage}.dto.${JavaWriter.toClassName(entity.name)};`;
+                }
+            })));
+
+        if (Boolean(OPTION_CONTEXT_AI in contextOptions)) {
+            imports.push(...(getPossibleModels().flatMap((possibleModel) => {
+                return possibleModel.models.flatMap((model) => {
+                    return [
+                        `import ${basePackage}.repositories.${possibleModel.name}.${JavaWriter.toClassName(model.name)};`,
+                        `import ${basePackage}.repositories.${possibleModel.name}.${JavaWriter.toClassName(model.name)}Repository;`,
+                    ];
+                });
+            })));
+        }
+
+        if (Boolean(OPTION_CONTEXT_AI in contextOptions) && jwtCandidate()) {
+            imports.push('import com.kapeta.spring.security.provider.JWTCreatorService;',
+                'import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;');
+        }
+
+        return Template.SafeString(imports.join('\n\n'));
     });
 
     engine.registerHelper('java-generics', (entity: DSLDataType) => {
@@ -270,10 +320,23 @@ export const addTemplateHelpers = (engine: HandleBarsType, contextOptions:any, d
     });
 
     engine.registerHelper('java-controller-class', (entity: DSLController) => {
+        let classProperties: string[] | undefined = undefined;
+        if (Boolean(OPTION_CONTEXT_AI in contextOptions)) {
+            classProperties = ['ModelMapper modelMapper'];
+            if (jwtCandidate()) {
+                classProperties.push('JWTCreatorService jwtCreatorService');
+                classProperties.push('BCryptPasswordEncoder passwordEncoder');
+            }
+            getPossibleModels().forEach((possibleModel) => {
+                classProperties!.push(`${JavaWriter.toClassName(possibleModel.name)}Repository ${possibleModel.name}Repository`);
+            });
+        }
+
         const writer = new JavaWriter({
             controllerWriteMethod: ControllerWriteMethod.CLASS,
             entities: getParsedEntities(),
             aiContext: Boolean(OPTION_CONTEXT_AI in contextOptions),
+            classProperties: classProperties,
         });
 
         return Template.SafeString(writer.write([entity]));
