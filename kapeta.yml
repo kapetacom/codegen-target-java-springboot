@@ -8,6 +8,13 @@ spec:
   icon:
     type: url
     value: https://storage.googleapis.com/kapeta-public-cdn/icons/spring.svg
+  icons:
+    - type: url
+      value: https://storage.googleapis.com/kapeta-public-cdn/icons/themed/java-dark.svg
+      theme: light
+    - type: url
+      value: https://storage.googleapis.com/kapeta-public-cdn/icons/themed/java-light.svg
+      theme: dark
   schema:
     type: object
     properties:
