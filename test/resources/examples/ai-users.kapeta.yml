@@ -1,0 +1,92 @@
+kind: kapeta://kapeta/block-type-service:1.3.7
+metadata:
+  title: user-service
+  name: kapeta/crmapp-1-user-service
+  description: Handles user signup, login, and profile management
+spec:
+  entities:
+    types: []
+    source:
+      type: kaplang
+      version: 1.17.2
+      value: |
+        type User {
+        	id: string
+        	name: string
+        	email: string
+        	password: string
+        }
+        type JwtToken {
+        	token: string
+        }
+  target:
+    kind: kapeta://kapeta/language-target-java-spring-boot:local
+    options:
+      groupId: ai.kapeta
+      artifactId: crmapp
+      basePackage: ai.kapeta.crmapp
+  providers:
+    - kind: kapeta://kapeta/resource-type-rest-api:1.6.0
+      metadata:
+        name: users
+        description: Handles user signup, login, and profile management
+      spec:
+        port:
+          type: rest
+        methods: {}
+        source:
+          type: kaplang
+          version: 1.17.2
+          value: |+
+            controller Users("/users") {
+
+            	@POST("/signup")
+            	signup(@Body user:User):User
+            
+            	@POST("/login")
+            	login(@Query username:string, @Query password:string):JwtToken
+            
+            	@GET("/{id}")
+            	getUser(@Path("id") id:string):User
+            
+            	@PUT("/{id}")
+            	updateUser(@Path("id") id:string, @Body user:User):User
+            
+            	@DELETE("/{id}")
+            	deleteUser(@Path("id") id:string):void
+            }
+
+    - kind: kapeta://kapeta/resource-type-auth-jwt-provider:1.0.2
+      metadata:
+        name: jwt-provider
+        description: Handles JWT token generation and validation
+      spec:
+        port:
+          type: http
+  consumers:
+    - kind: kapeta://kapeta/resource-type-postgresql:1.0.1
+      metadata:
+        name: users
+        description: Stores user information and credentials
+      spec:
+        port:
+          type: postgres
+        models: []
+        source:
+          type: kaplang
+          version: 1.17.2
+          value: |
+            type User {
+            	@Id
+            	id: string
+            	name: string
+            	email: string
+            	password: string
+            }
+    - kind: kapeta://kapeta/resource-type-smtp-client:0.0.6
+      metadata:
+        name: smtp-client
+        description: Sends emails for signup and lost password
+      spec:
+        port:
+          type: smtp
