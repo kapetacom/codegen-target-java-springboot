@@ -11,6 +11,7 @@ import com.kapeta.spring.exceptions.InvalidStateException;
 import com.kapeta.spring.exceptions.NotFoundException;
 import com.kapeta.spring.security.provider.JWTCreatorService;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,30 +42,45 @@ public class UsersUsersService implements IUsersUsersService {
         this.usersRepository = usersRepository;
     }
 
+    /**
+     * Register a new user
+     */
     @Override
     public UserDTO signup(UserDTO user) {
         // STORM-AI: Implement this method
         throw new RuntimeException("Not implemented");
     }
 
+    /**
+     * Authenticate a user
+     */
     @Override
     public JwtTokenDTO login(String username, String password) {
         // STORM-AI: Implement this method
         throw new RuntimeException("Not implemented");
     }
 
+    /**
+     * Retrieve a user by ID
+     */
     @Override
     public UserDTO getUser(String id) {
         // STORM-AI: Implement this method
         throw new RuntimeException("Not implemented");
     }
 
+    /**
+     * Update a user by ID
+     */
     @Override
     public UserDTO updateUser(String id, UserDTO user) {
         // STORM-AI: Implement this method
         throw new RuntimeException("Not implemented");
     }
 
+    /**
+     * Delete a user by ID
+     */
     @Override
     public void deleteUser(String id) {
         // STORM-AI: Implement this method
