@@ -40,18 +40,23 @@ spec:
           value: |+
             controller Users("/users") {
 
+            	//Register a new user
             	@POST("/signup")
             	signup(@Body user:User):User
             
+            	//Authenticate a user
             	@POST("/login")
             	login(@Query username:string, @Query password:string):JwtToken
             
+            	//Retrieve a user by ID
             	@GET("/{id}")
             	getUser(@Path("id") id:string):User
             
+            	//Update a user by ID
             	@PUT("/{id}")
             	updateUser(@Path("id") id:string, @Body user:User):User
             
+            	//Delete a user by ID
             	@DELETE("/{id}")
             	deleteUser(@Path("id") id:string):void
             }
