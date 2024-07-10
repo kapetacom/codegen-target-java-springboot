@@ -1,4 +1,4 @@
-//#FILENAME:src/main/java/{{packagePath options.basePackage}}/config/BaseConfig.java:write-always
+//#FILENAME:src/main/java/{{packagePath options.basePackage}}/config/BaseConfig.java:create-only
 package {{packageName options.basePackage}}.config;
 
 import org.springframework.context.annotation.Configuration;
