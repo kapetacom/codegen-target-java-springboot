@@ -18,8 +18,10 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v3
         id: setup-node
+
       - name: Install dependencies
-        run: npm install
+        run: npm install -g jest
+
       - name: Build
         run: npm run build
 
