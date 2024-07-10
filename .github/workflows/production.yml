@@ -20,6 +20,9 @@ jobs:
         id: setup-node
 
       - name: Install dependencies
+        run: npm install
+
+      - name: Install dependencies
         run: npm install -g jest
 
       - name: Build
